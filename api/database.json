@@ -1,0 +1,71 @@
+{
+  "users": [
+    {
+      "name": "Admina Strator",
+      "email": "admina@strator.comx",
+      "iconNumber": 1,
+      "isAdmin": true,
+      "id": 1
+    },
+    {
+      "name": "Notan Admin",
+      "email": "notan@admin.comx",
+      "iconNumber": 1,
+      "isAdmin": false,
+      "id": 2
+    },
+    {
+      "name": "Hewson Schulz",
+      "email": "hewson@bruh.com",
+      "iconNumber": 1,
+      "isAdmin": true,
+      "id": 3
+    }
+  ],
+  "sightings": [
+    {
+      "userId": 1,
+      "time": "2024-01-23T12:34:56",
+      "cryptidId": 1,
+      "locationId": 1,
+      "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit, dis porttitor iaculis sem varius class velit litora, ut blandit magna at phasellus porta.",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "time": "2024-01-24T10:45:30",
+      "cryptidId": 2,
+      "locationId": 2,
+      "description": "Habitasse conubia feugiat eros in per dictum venenatis pulvinar tellus, dignissim viverra enim arcu risus integer duis dapibus nulla, mauris vel posuere fusce ligula mus dis tincidunt.",
+      "id": 2
+    }
+  ],
+  "cryptids": [
+    {
+      "name": "Bigfoot",
+      "description": "Large, hairy, ape-like creature",
+      "image": "!URL",
+      "status": "approved",
+      "id": 1
+    },
+    {
+      "name": "Loch Ness Monster",
+      "description": "Large aquatic creature in Loch Ness",
+      "image": "!URL",
+      "status": "approved",
+      "id": 2
+    }
+  ],
+  "locations": [
+    {
+      "location": "!Forest",
+      "locationData": "!DATA",
+      "id": 1
+    },
+    {
+      "location": "!Lake",
+      "locationData": "!DATA",
+      "id": 2
+    }
+  ]
+}
