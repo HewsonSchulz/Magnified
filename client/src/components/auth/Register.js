@@ -6,14 +6,16 @@ import { createUser, getUserByEmail } from '../../managers/userManager'
 export const Register = ({ setLoggedInUser }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [registrationFailure, setRegistrationFailure] = useState(false)
+  const [emailIsDuplicate, setEmailIsDuplicate] = useState(false)
+  const [emailIsBad, setEmailIsBad] = useState(false)
+  const [nameBlank, setNameBlank] = useState(false)
 
   const navigate = useNavigate()
 
   const registerNewUser = () => {
     const user = {
-      name,
-      email,
+      name: name.trim(),
+      email: email.trim().toLowerCase(),
       iconNumber: 1,
       isAdmin: false,
     }
@@ -35,15 +37,29 @@ export const Register = ({ setLoggedInUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    getUserByEmail(email).then((response) => {
-      if (response.length > 0) {
-        // Duplicate email. No good.
-        setRegistrationFailure(true)
-      } else {
-        // Good email, create user.
-        registerNewUser()
-      }
-    })
+
+    if (!name.trim()) {
+      // name is blank; no good
+      setNameBlank(true)
+    }
+
+    if (!email.trim() || email.trim().includes(' ')) {
+      // email is blank, or email contains spaces; no good
+      setEmailIsBad(true)
+      return
+    }
+
+    if (!!name.trim() && !!email.trim()) {
+      getUserByEmail(email.trim().toLowerCase()).then((response) => {
+        if (response.length > 0) {
+          // email already exists; no good
+          setEmailIsDuplicate(true)
+        } else {
+          // email is good
+          registerNewUser()
+        }
+      })
+    }
   }
 
   return (
@@ -53,28 +69,33 @@ export const Register = ({ setLoggedInUser }) => {
         <FormGroup>
           <Label>Full Name</Label>
           <Input
+            invalid={nameBlank}
             type='text'
             value={name}
             onChange={(e) => {
+              setNameBlank(false)
               setName(e.target.value)
             }}
           />
+          {nameBlank && <FormFeedback>Invalid name</FormFeedback>}
         </FormGroup>
 
         <FormGroup>
           <Label>Email</Label>
           <Input
-            invalid={registrationFailure}
+            invalid={emailIsDuplicate || emailIsBad}
             type='email'
             value={email}
             onChange={(e) => {
-              setRegistrationFailure(false)
+              setEmailIsBad(false)
+              setEmailIsDuplicate(false)
               setEmail(e.target.value)
             }}
           />
-          <FormFeedback>
-            Registration Failure - email already registered
-          </FormFeedback>
+          {emailIsBad && <FormFeedback>Invalid email</FormFeedback>}
+          {emailIsDuplicate && (
+            <FormFeedback>Email already registered</FormFeedback>
+          )}
         </FormGroup>
 
         <Button color='primary' onClick={handleSubmit}>

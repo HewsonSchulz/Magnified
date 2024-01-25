@@ -4,7 +4,7 @@ export const AuthorizedRoute = ({ children, loggedInUser, isPublicOnly }) => {
   const location = useLocation()
 
   if (!isPublicOnly) {
-    // if the route is authorized
+    // if the route requires authorization
     if (!!loggedInUser) {
       // and the user is logged in, allow entry
       return children
@@ -13,7 +13,7 @@ export const AuthorizedRoute = ({ children, loggedInUser, isPublicOnly }) => {
       return <Navigate to='/login' state={{ from: location }} replace />
     }
   } else {
-    // if the route is not authorized
+    // if the route does not require authorization
     if (!loggedInUser) {
       // and the user is not logged in, allow entry
       return children

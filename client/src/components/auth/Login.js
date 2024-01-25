@@ -6,13 +6,13 @@ import './Login.css'
 
 export const Login = ({ setLoggedInUser }) => {
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('hewson@bruh.com') // default email
   const [failedLogin, setFailedLogin] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    getUserByEmail(email).then((foundUsers) => {
+    getUserByEmail(email.trim().toLowerCase()).then((foundUsers) => {
       if (foundUsers.length === 1) {
         const user = foundUsers[0]
         localStorage.setItem(

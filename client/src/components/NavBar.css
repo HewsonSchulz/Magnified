@@ -1,0 +1,39 @@
+/* ??? */
+
+.navbar {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: var(--dark);
+  margin: 0;
+  width: 100%;
+  padding: 0.5rem;
+  position: fixed;
+  top: 0;
+}
+
+.navbar__item {
+  flex-basis: 20%;
+  list-style-type: none;
+  text-align: center;
+  color: var(--offWhite);
+}
+
+.navbar__link {
+  text-decoration: none;
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 1px;
+  color: var(--offWhite);
+}
+
+.navbar__logout {
+  margin-left: auto;
+}
+
+.navbar__link:hover {
+  color: var(--secondary);
+}
+
+#selected {
+  color: var(--secondary);
+  -webkit-text-stroke: 1px;
+}

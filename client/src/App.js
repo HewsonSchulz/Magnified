@@ -21,7 +21,6 @@ export const App = () => {
 
   return (
     <>
-      {/* <NavBar /> */}
       <ApplicationViews
         loggedInUser={loggedInUser}
         setLoggedInUser={setLoggedInUser}
