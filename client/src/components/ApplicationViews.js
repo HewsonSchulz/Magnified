@@ -2,7 +2,7 @@ import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { Login } from './auth/Login'
 import { AuthorizedRoute } from './auth/AuthorizedRoute'
 import { Register } from './auth/Register'
-import { NavBar } from './NavBar'
+import { NavBar } from './nav/NavBar'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -21,8 +21,9 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
         <Route
           index
           element={
+            //TODO: create a home page (with modified navbar)
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <>Hello World!</>
+              <>!HOME PAGE</>
             </AuthorizedRoute>
           }
         />
