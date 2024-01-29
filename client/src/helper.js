@@ -36,3 +36,8 @@ export const truncateText = (text, maxLength = 100) => {
   }
   return text
 }
+
+// checks if given email is valid
+export const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}

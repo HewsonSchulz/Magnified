@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { createUser, getUserByEmail } from '../../managers/userManager'
+import { isValidEmail } from '../../helper'
 
 export const Register = ({ setLoggedInUser }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [emailIsDuplicate, setEmailIsDuplicate] = useState(false)
   const [emailIsBad, setEmailIsBad] = useState(false)
-  const [nameBlank, setNameBlank] = useState(false)
+  const [nameIsBlank, setNameIsBlank] = useState(false)
 
   const navigate = useNavigate()
 
@@ -38,19 +39,21 @@ export const Register = ({ setLoggedInUser }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (!name.trim()) {
+    const [newName, newEmail] = [name.trim(), email.trim()]
+
+    if (!newName) {
       // name is blank; no good
-      setNameBlank(true)
+      setNameIsBlank(true)
     }
 
-    if (!email.trim() || email.trim().includes(' ')) {
-      // email is blank, or email contains spaces; no good
+    if (!isValidEmail(newEmail)) {
+      // email is invalid; no good
       setEmailIsBad(true)
       return
     }
 
-    if (!!name.trim() && !!email.trim()) {
-      getUserByEmail(email.trim().toLowerCase()).then((response) => {
+    if (!!newName && !!newEmail) {
+      getUserByEmail(newEmail.toLowerCase()).then((response) => {
         if (response.length > 0) {
           // email already exists; no good
           setEmailIsDuplicate(true)
@@ -69,15 +72,15 @@ export const Register = ({ setLoggedInUser }) => {
         <FormGroup>
           <Label>Full Name</Label>
           <Input
-            invalid={nameBlank}
+            invalid={nameIsBlank}
             type='text'
             value={name}
             onChange={(e) => {
-              setNameBlank(false)
+              setNameIsBlank(false)
               setName(e.target.value)
             }}
           />
-          {nameBlank && <FormFeedback>Invalid name</FormFeedback>}
+          {nameIsBlank && <FormFeedback>Invalid name</FormFeedback>}
         </FormGroup>
 
         <FormGroup>
