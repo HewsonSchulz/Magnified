@@ -1,0 +1,11 @@
+/* ??? */
+
+.cryptid {
+  margin: 20px 0px;
+}
+
+.cryptid__img {
+  max-width: 90%;
+  max-height: 300px;
+  filter: grayscale(100%);
+}

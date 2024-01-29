@@ -4,6 +4,7 @@ import { AuthorizedRoute } from './auth/AuthorizedRoute'
 import { Register } from './auth/Register'
 import { NavBar } from './nav/NavBar'
 import { SightingsList } from './sightings/SightingsList'
+import { CryptidsList } from './cryptids/CryptidsList'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -48,6 +49,15 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             }
           />
         </Route>
+
+        <Route
+          path='cryptids'
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <CryptidsList />
+            </AuthorizedRoute>
+          }
+        />
       </Route>
 
       <Route
