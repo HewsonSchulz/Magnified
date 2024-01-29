@@ -3,6 +3,7 @@ import { Login } from './auth/Login'
 import { AuthorizedRoute } from './auth/AuthorizedRoute'
 import { Register } from './auth/Register'
 import { NavBar } from './nav/NavBar'
+import { SightingsList } from './sightings/SightingsList'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -27,12 +28,17 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             </AuthorizedRoute>
           }
         />
-        {/* <Route path='bruh' element={
-          <AuthorizedRoute loggedInUser={loggedInUser}>
-            <Bruh loggedInUser={loggedInUser} />
-          </AuthorizedRoute>
-        } /> */}
+
+        <Route
+          path='sightings'
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <SightingsList />
+            </AuthorizedRoute>
+          }
+        />
       </Route>
+
       <Route
         path='*'
         //TODO: create a 404 page

@@ -17,7 +17,11 @@ export const NavBar = () => {
         </Link>
       </li> */}
 
-      {localStorage.getItem('magnified_user') && <Logout />}
+      {localStorage.getItem('magnified_user') && (
+        <li className='navbar__item navbar__logout'>
+          <Logout />
+        </li>
+      )}
     </ul>
   )
 }
