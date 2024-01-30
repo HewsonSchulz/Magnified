@@ -13,3 +13,7 @@ export const createUser = async (user) => {
     (res) => res.json()
   )
 }
+
+export const getUsers = async () => {
+  return await fetch(`${apiUrl}/users`).then((res) => res.json())
+}

@@ -41,3 +41,16 @@ export const truncateText = (text, maxLength = 100) => {
 export const isValidEmail = (email) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
+
+// list of possible filter options
+export const filterOptions = [
+  'Most Recent',
+  'Cryptid',
+  'Author',
+  //? 'Number of Likes',
+]
+
+// sorts given array alphabetically based on given key
+export const sortAlphabetically = (array, key) => {
+  return array.sort((a, b) => a[key].localeCompare(b[key]))
+}

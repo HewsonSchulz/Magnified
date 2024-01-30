@@ -17,3 +17,9 @@ export const getSightingsByCryptid = async (cryptid) => {
     `${apiUrl}/sightings?_expand=user&_expand=cryptid&_expand=location&cryptidId=${cryptid.id}`
   ).then((res) => res.json())
 }
+
+export const getSightingsByUser = async (user) => {
+  return await fetch(
+    `${apiUrl}/sightings?_expand=user&_expand=cryptid&_expand=location&userId=${user.id}`
+  ).then((res) => res.json())
+}
