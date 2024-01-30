@@ -1,10 +1,12 @@
 /* ??? */
 
-.cryptid {
+.cryptid,
+.cryptid-details {
   margin: 20px 0px;
 }
 
-.cryptid__img {
+.cryptid__img,
+.cryptid-details__img {
   max-width: 400px;
   /* width: 80%; */
   height: 300px;

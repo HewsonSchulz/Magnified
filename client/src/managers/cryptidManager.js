@@ -5,3 +5,9 @@ export const getCryptids = async () => {
     res.json()
   )
 }
+
+export const getCryptid = async (id) => {
+  return await fetch(`${apiUrl}/cryptids?_embed=sightings&id=${id}`).then(
+    (res) => res.json()
+  )
+}

@@ -6,6 +6,7 @@ import { NavBar } from './nav/NavBar'
 import { SightingsList } from './sightings/SightingsList'
 import { CryptidsList } from './cryptids/CryptidsList'
 import { SightingDetails } from './sightings/SightingDetails'
+import { CryptidDetails } from './cryptids/CryptidDetails'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -75,14 +76,40 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
           </Route>
         </Route>
 
-        <Route
-          path='cryptids'
-          element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <CryptidsList />
-            </AuthorizedRoute>
-          }
-        />
+        <Route path='cryptids'>
+          <Route
+            index
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <CryptidsList />
+              </AuthorizedRoute>
+            }
+          />
+
+          <Route path='details'>
+            <Route
+              index
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <Navigate
+                    to={'/cryptids'}
+                    state={{ from: location }}
+                    replace
+                  />
+                </AuthorizedRoute>
+              }
+            />
+
+            <Route
+              path=':cryptidId'
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <CryptidDetails />
+                </AuthorizedRoute>
+              }
+            />
+          </Route>
+        </Route>
       </Route>
 
       <Route

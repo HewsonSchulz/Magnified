@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getSighting } from '../../managers/sightingManager'
 import { formatDate } from '../../helper'
 import './Sighting.css'
@@ -27,9 +27,11 @@ export const SightingDetails = () => {
           <li className='sighting-details__author'>
             Author: {sighting.user?.name}
           </li>
-          <li className='sighting-details__cryptid'>
-            Cryptid: {sighting.cryptid?.name}
-          </li>
+          <Link to={`/cryptids/details/${sighting.cryptid?.id}`}>
+            <li className='sighting-details__cryptid'>
+              Cryptid: {sighting.cryptid?.name}
+            </li>
+          </Link>
           <li className='sighting-details__time'>
             Date: {formatDate(sighting.time)}
           </li>
