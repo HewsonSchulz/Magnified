@@ -1,5 +1,6 @@
 /* ??? */
 
-.sighting {
+.sighting,
+.sighting-details {
   margin: 20px 0px;
 }

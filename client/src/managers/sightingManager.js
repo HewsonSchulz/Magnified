@@ -5,3 +5,9 @@ export const getSightings = async () => {
     `${apiUrl}/sightings?_expand=user&_expand=cryptid&_expand=location`
   ).then((res) => res.json())
 }
+
+export const getSighting = async (id) => {
+  return await fetch(
+    `${apiUrl}/sightings?_expand=user&_expand=cryptid&_expand=location&id=${id}`
+  ).then((res) => res.json())
+}

@@ -1,10 +1,11 @@
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { Login } from './auth/Login'
-import { AuthorizedRoute } from './auth/AuthorizedRoute'
 import { Register } from './auth/Register'
+import { AuthorizedRoute } from './auth/AuthorizedRoute'
 import { NavBar } from './nav/NavBar'
 import { SightingsList } from './sightings/SightingsList'
 import { CryptidsList } from './cryptids/CryptidsList'
+import { SightingDetails } from './sightings/SightingDetails'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -48,6 +49,30 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               </AuthorizedRoute>
             }
           />
+
+          <Route path='details'>
+            <Route
+              index
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <Navigate
+                    to={'/sightings'}
+                    state={{ from: location }}
+                    replace
+                  />
+                </AuthorizedRoute>
+              }
+            />
+
+            <Route
+              path=':sightingId'
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <SightingDetails />
+                </AuthorizedRoute>
+              }
+            />
+          </Route>
         </Route>
 
         <Route
@@ -62,7 +87,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
 
       <Route
         path='*'
-        //TODO: create a 404 page
+        //TODO?: create a 404 page
         element={<Navigate to={'/'} state={{ from: location }} replace />}
       />
 

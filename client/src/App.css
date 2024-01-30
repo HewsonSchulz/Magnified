@@ -29,3 +29,19 @@ font-family: 'Lato', sans-serif;
 
   --appBackground: #f2f2f3;
 }
+
+/* prevents all the links in the app from having default underline */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* prevents all the links in the app from turning purple after visiting */
+a:visited {
+  color: inherit;
+}
+
+/* prevents all the inputs in the app from having that blue outline when in focus */
+input:focus {
+  outline: none;
+}
