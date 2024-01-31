@@ -1,4 +1,4 @@
-import { apiUrl } from '../helper'
+import { apiUrl, fetchOptions } from '../helper'
 
 export const getSightings = async () => {
   return await fetch(
@@ -21,5 +21,12 @@ export const getSightingsByCryptid = async (cryptid) => {
 export const getSightingsByUser = async (user) => {
   return await fetch(
     `${apiUrl}/sightings?_expand=user&_expand=cryptid&_expand=location&userId=${user.id}`
+  ).then((res) => res.json())
+}
+
+export const createSighting = async (sighting) => {
+  return await fetch(
+    `${apiUrl}/sightings`,
+    fetchOptions('POST', sighting)
   ).then((res) => res.json())
 }

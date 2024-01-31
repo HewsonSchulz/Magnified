@@ -35,9 +35,10 @@ export const Login = ({ setLoggedInUser }) => {
     <div className='login__container'>
       <div className='login__card'>
         <h3>Login</h3>
-        <FormGroup>
-          <Label>Email</Label>
+        <FormGroup id='login__email'>
+          <Label for='login__email_input'>Email</Label>
           <Input
+            id='login__email_input'
             invalid={failedLogin}
             type='text'
             value={email}

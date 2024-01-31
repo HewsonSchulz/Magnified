@@ -11,3 +11,7 @@ export const getCryptid = async (id) => {
     (res) => res.json()
   )
 }
+
+export const getCryptidById = async (id) => {
+  return await fetch(`${apiUrl}/cryptids/${id}`).then((res) => res.json())
+}

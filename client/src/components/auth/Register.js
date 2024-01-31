@@ -69,9 +69,10 @@ export const Register = ({ setLoggedInUser }) => {
     <div className='login__container'>
       <div className='login__card'>
         <h3>Sign Up</h3>
-        <FormGroup>
-          <Label>Full Name</Label>
+        <FormGroup id='login__name'>
+          <Label for='login__name_input'>Full Name</Label>
           <Input
+            id='login__name_input'
             invalid={nameIsBlank}
             type='text'
             value={name}
@@ -83,9 +84,10 @@ export const Register = ({ setLoggedInUser }) => {
           {nameIsBlank && <FormFeedback>Invalid name</FormFeedback>}
         </FormGroup>
 
-        <FormGroup>
-          <Label>Email</Label>
+        <FormGroup id='login__email'>
+          <Label for='login__email_input'>Email</Label>
           <Input
+            id='login__email_input'
             invalid={emailIsDuplicate || emailIsBad}
             type='email'
             value={email}

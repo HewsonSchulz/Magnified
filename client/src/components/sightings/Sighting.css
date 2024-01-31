@@ -4,3 +4,13 @@
 .sighting-details {
   margin: 20px 0px;
 }
+
+#sighting-form__description_input {
+  width: 800px;
+  min-width: 500px;
+  max-width: 95%;
+  height: 400px;
+  min-height: 200px;
+  max-height: 650px;
+  resize: both;
+}

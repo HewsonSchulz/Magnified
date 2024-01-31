@@ -51,7 +51,7 @@ export const SightingFilterBar = ({
           <>
             Sort By{' '}
             <select
-              className='filter-bar'
+              id='filter-bar__options'
               value={filterOption}
               onChange={(event) => {
                 setFilterOption(event.target.value)
@@ -72,17 +72,17 @@ export const SightingFilterBar = ({
         // cryptid filtering options
         return (
           <select
-            className='filter-bar'
+            id='filter-bar__cryptids'
             value={cryptidOption}
             onChange={(event) => {
               setCryptidOption(event.target.value)
             }}
           >
-            <option key={0} value={0}>
+            <option key={'c-' + 0} value={0}>
               Select a Cryptid...
             </option>
             {cryptids.map((cryptid, i) => (
-              <option key={i + 1} value={cryptid.id}>
+              <option key={'c-' + (i + 1)} value={cryptid.id}>
                 {cryptid.name}
               </option>
             ))}
@@ -92,17 +92,17 @@ export const SightingFilterBar = ({
         // author filtering options
         return (
           <select
-            className='filter-bar'
+            id='filter-bar__authors'
             value={authorOption}
             onChange={(event) => {
               setAuthorOption(event.target.value)
             }}
           >
-            <option key={0} value={0}>
+            <option key={'a-' + 0} value={0}>
               Select an Author...
             </option>
             {authors.map((author, i) => (
-              <option key={i + 1} value={author.id}>
+              <option key={'a-' + (i + 1)} value={author.id}>
                 {author.name}
               </option>
             ))}

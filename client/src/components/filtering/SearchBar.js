@@ -4,7 +4,7 @@ export const SearchBar = ({ searchTerm, setSearchTerm, setIsSearching }) => {
       <input
         type='text'
         placeholder='Search...'
-        className='search-bar__input'
+        id='search-bar__input'
         value={searchTerm}
         onChange={(event) => {
           setSearchTerm(event.target.value)

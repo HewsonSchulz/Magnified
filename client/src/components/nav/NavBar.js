@@ -28,6 +28,16 @@ export const NavBar = ({ loggedInUser }) => {
 
       <li className='navbar__item'>
         <Link
+          to='/sightings/edit/new'
+          className='navbar__link'
+          id={url === '/sightings/edit/new' ? 'selected' : ''}
+        >
+          New Sighting
+        </Link>
+      </li>
+
+      <li className='navbar__item'>
+        <Link
           to='/cryptids'
           className='navbar__link'
           id={url === '/cryptids' ? 'selected' : ''}

@@ -7,6 +7,7 @@ import { SightingsList } from './sightings/SightingsList'
 import { CryptidsList } from './cryptids/CryptidsList'
 import { SightingDetails } from './sightings/SightingDetails'
 import { CryptidDetails } from './cryptids/CryptidDetails'
+import { SightingForm } from './sightings/forms/SightingForm'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -70,6 +71,30 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
                   <SightingDetails />
+                </AuthorizedRoute>
+              }
+            />
+          </Route>
+
+          <Route path='edit'>
+            <Route
+              index
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <Navigate
+                    to={'/sightings'}
+                    state={{ from: location }}
+                    replace
+                  />
+                </AuthorizedRoute>
+              }
+            />
+
+            <Route
+              path=':sightingId'
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <SightingForm loggedInUser={loggedInUser} />
                 </AuthorizedRoute>
               }
             />
