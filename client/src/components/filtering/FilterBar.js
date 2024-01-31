@@ -38,70 +38,71 @@ export const FilterBar = ({
   }, [])
 
   const displayFilterBar = (filterType) => {
-    if (!filterType) {
-      return (
-        <>
-          Sort By{' '}
+    switch (filterType) {
+      default:
+        // initial filtering options
+        return (
+          <>
+            Sort By{' '}
+            <select
+              className='filter-bar'
+              value={filterOption}
+              onChange={(event) => {
+                setFilterOption(event.target.value)
+              }}
+            >
+              {filterOptions.map((option, i) => (
+                <option key={i} value={i}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </>
+        )
+      case 'Cryptid':
+        // cryptid filtering options
+        return (
           <select
             className='filter-bar'
-            value={filterOption}
+            value={cryptidOption}
             onChange={(event) => {
-              setFilterOption(event.target.value)
+              setCryptidOption(event.target.value)
             }}
           >
-            {filterOptions.map((option, i) => (
-              <option key={i} value={i}>
-                {option}
+            <option key={0} value={0}>
+              Select a Cryptid...
+            </option>
+            {cryptids.map((cryptid, i) => (
+              <option key={i + 1} value={cryptid.id}>
+                {cryptid.name}
               </option>
             ))}
           </select>
-        </>
-      )
-    }
-    if (filterType === 'Cryptid') {
-      return (
-        <select
-          className='filter-bar'
-          value={cryptidOption}
-          onChange={(event) => {
-            setCryptidOption(event.target.value)
-          }}
-        >
-          <option key={0} value={0}>
-            Select a Cryptid...
-          </option>
-          {cryptids.map((cryptid, i) => (
-            <option key={i + 1} value={cryptid.id}>
-              {cryptid.name}
+        )
+      case 'Author':
+        // author filtering options
+        return (
+          <select
+            className='filter-bar'
+            value={authorOption}
+            onChange={(event) => {
+              setAuthorOption(event.target.value)
+            }}
+          >
+            <option key={0} value={0}>
+              Select an Author...
             </option>
-          ))}
-        </select>
-      )
-    }
-    if (filterType === 'Author') {
-      return (
-        <select
-          className='filter-bar'
-          value={authorOption}
-          onChange={(event) => {
-            setAuthorOption(event.target.value)
-          }}
-        >
-          <option key={0} value={0}>
-            Select an Author...
-          </option>
-          {authors.map((author, i) => (
-            <option key={i + 1} value={author.id}>
-              {author.name}
-            </option>
-          ))}
-        </select>
-      )
+            {authors.map((author, i) => (
+              <option key={i + 1} value={author.id}>
+                {author.name}
+              </option>
+            ))}
+          </select>
+        )
     }
   }
 
   return <>{displayFilterBar(filterType)}</>
 }
 
-//* date added, cryptid, author
 //TODO: add option to filter by number of likes

@@ -18,7 +18,7 @@ export const SightingsList = () => {
         sightings.sort((a, b) => new Date(b.time) - new Date(a.time))
       )
     })
-  }, []) //* allSightings dependency causes infinite loop
+  }, [])
 
   useEffect(() => {
     //// if (!!userId) {}
