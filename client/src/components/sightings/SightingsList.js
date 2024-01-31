@@ -17,6 +17,14 @@ export const SightingsList = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const { userId } = useParams()
 
+  const resetOptions = () => {
+    setFilterOption('0')
+    setCryptidOption('0')
+    setAuthorOption('0')
+    setSearchTerm('')
+    setIsSearching(false)
+  }
+
   useEffect(() => {
     getSightings().then((sightings) => {
       setAllSightings(
@@ -34,6 +42,8 @@ export const SightingsList = () => {
         )
       )
     }
+
+    resetOptions()
   }, [allSightings, userId])
 
   useEffect(() => {
@@ -143,6 +153,7 @@ export const SightingsList = () => {
   return (
     <>
       <SearchBar
+        searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         setIsSearching={setIsSearching}
       />

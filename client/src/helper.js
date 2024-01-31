@@ -48,7 +48,7 @@ export const getFilterOptions = () => {
     'Most Recent',
     'Cryptid',
     'Author',
-    //? 'Number of Likes'
+    //TODO: 'Number of Likes'
   ].slice()
 }
 

@@ -1,21 +1,40 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Logout } from './Logout'
-import './NavBar.css'
 
-export const NavBar = () => {
+export const NavBar = ({ loggedInUser }) => {
   const url = useLocation().pathname
 
   return (
     <ul className='navbar'>
-      {/* <li className='navbar__item'>
+      <li className='navbar__item'>
         <Link
-          to='/'
+          to='/sightings'
           className='navbar__link'
-          id={url === '/' ? 'selected' : ''}
+          id={url === '/sightings' ? 'selected' : ''}
         >
-          Home
+          All Sightings
         </Link>
-      </li> */}
+      </li>
+
+      <li className='navbar__item'>
+        <Link
+          to={`/sightings/${loggedInUser?.id}`}
+          className='navbar__link'
+          id={url === `/sightings/${loggedInUser?.id}` ? 'selected' : ''}
+        >
+          My Sightings
+        </Link>
+      </li>
+
+      <li className='navbar__item'>
+        <Link
+          to='/cryptids'
+          className='navbar__link'
+          id={url === '/cryptids' ? 'selected' : ''}
+        >
+          Cryptid Dictionary
+        </Link>
+      </li>
 
       {localStorage.getItem('magnified_user') && (
         <li className='navbar__item navbar__logout'>

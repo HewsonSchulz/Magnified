@@ -27,7 +27,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
           element={
             //TODO: create a home page (with modified navbar)
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <>!HOME PAGE</>
+              <Navigate to={'/sightings'} state={{ from: location }} replace />
             </AuthorizedRoute>
           }
         />

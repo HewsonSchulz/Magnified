@@ -9,6 +9,8 @@
   padding: 0.5rem;
   position: fixed;
   top: 0;
+  /* bring to front */
+  z-index: 1000;
 }
 
 .navbar__item {
