@@ -25,7 +25,12 @@ export const CryptidDetails = () => {
 
   useEffect(() => {
     if (!!cryptid) {
-      getSightingsByCryptid(cryptid).then(setSightings)
+      getSightingsByCryptid(cryptid).then((sightings) => {
+        setSightings(
+          // sort by date added
+          sightings.sort((a, b) => new Date(b.time) - new Date(a.time))
+        )
+      })
     }
   }, [cryptid])
 

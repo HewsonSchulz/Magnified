@@ -3,6 +3,8 @@ import { getSightings } from '../../managers/sightingManager'
 import { Sighting } from './Sighting'
 import { useParams } from 'react-router-dom'
 import { SightingFilterBar } from '../filtering/SightingFilterBar'
+import { SearchBar } from '../filtering/SearchBar'
+import { calculateMatchingData } from '../../helper'
 
 export const SightingsList = () => {
   const [allSightings, setAllSightings] = useState([])
@@ -11,11 +13,14 @@ export const SightingsList = () => {
   const [filterOption, setFilterOption] = useState('0')
   const [cryptidOption, setCryptidOption] = useState('0')
   const [authorOption, setAuthorOption] = useState('0')
+  const [isSearching, setIsSearching] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
   const { userId } = useParams()
 
   useEffect(() => {
     getSightings().then((sightings) => {
       setAllSightings(
+        // sort by date added
         sightings.sort((a, b) => new Date(b.time) - new Date(a.time))
       )
     })
@@ -40,32 +45,66 @@ export const SightingsList = () => {
     //TODO: write a message for if the author has not posted any sightings
     //TODO: redirect to home if the author doesn't exist
 
-    if (filterOption === '0') {
-      // filter by most recent
-      setFilteredSightings(currentSightings)
-    }
-    if (filterOption === '1') {
-      // filter by cryptid
-      if (cryptidOption === '0') {
+    // if we are searching
+    if (isSearching) {
+      // filter by search
+      if (searchTerm === '') {
         setFilteredSightings(currentSightings)
       } else {
         setFilteredSightings(
-          [...currentSightings].filter(
-            (sighting) => sighting.cryptid.id === parseInt(cryptidOption)
-          )
+          [...currentSightings].sort((a, b) => {
+            // sort based on total amount of matching data
+            const aScore =
+              calculateMatchingData(a.description.toLowerCase(), searchTerm) +
+              calculateMatchingData(a.user.name.toLowerCase(), searchTerm) +
+              calculateMatchingData(a.cryptid.name.toLowerCase(), searchTerm) +
+              calculateMatchingData(
+                a.location.location.toLowerCase(),
+                searchTerm
+              )
+
+            const bScore =
+              calculateMatchingData(b.description.toLowerCase(), searchTerm) +
+              calculateMatchingData(b.user.name.toLowerCase(), searchTerm) +
+              calculateMatchingData(b.cryptid.name.toLowerCase(), searchTerm) +
+              calculateMatchingData(
+                b.location.location.toLowerCase(),
+                searchTerm
+              )
+
+            return bScore - aScore
+          })
         )
       }
-    }
-    if (filterOption === '2') {
-      // filter by author
-      if (authorOption === '0') {
+    } else {
+      // if we are not searching
+      if (filterOption === '0') {
+        // filter by most recent
         setFilteredSightings(currentSightings)
-      } else {
-        setFilteredSightings(
-          [...currentSightings].filter(
-            (sighting) => sighting.userId === parseInt(authorOption)
+      }
+      if (filterOption === '1') {
+        // filter by cryptid
+        if (cryptidOption === '0') {
+          setFilteredSightings(currentSightings)
+        } else {
+          setFilteredSightings(
+            [...currentSightings].filter(
+              (sighting) => sighting.cryptid.id === parseInt(cryptidOption)
+            )
           )
-        )
+        }
+      }
+      if (filterOption === '2') {
+        // filter by author
+        if (authorOption === '0') {
+          setFilteredSightings(currentSightings)
+        } else {
+          setFilteredSightings(
+            [...currentSightings].filter(
+              (sighting) => sighting.userId === parseInt(authorOption)
+            )
+          )
+        }
       }
     }
   }, [
@@ -73,12 +112,22 @@ export const SightingsList = () => {
     authorOption,
     cryptidOption,
     filterOption,
+    isSearching,
     mySightings,
+    searchTerm,
     userId,
   ])
 
+  useEffect(() => {
+    setIsSearching(false)
+  }, [filterOption, cryptidOption, authorOption])
+
   return (
     <>
+      <SearchBar
+        setSearchTerm={setSearchTerm}
+        setIsSearching={setIsSearching}
+      />
       <SightingFilterBar
         filterOption={filterOption}
         setFilterOption={setFilterOption}

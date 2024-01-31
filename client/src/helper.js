@@ -56,3 +56,19 @@ export const getFilterOptions = () => {
 export const sortAlphabetically = (array, key) => {
   return array.sort((a, b) => a[key].localeCompare(b[key]))
 }
+
+// calculates the amount of matching data
+export const calculateMatchingData = (data, searchTerm) => {
+  if (!data) {
+    return 0
+  }
+  let count = 0
+  let i = data.indexOf(searchTerm)
+
+  while (i !== -1) {
+    count++
+    i = data.indexOf(searchTerm, i + 1)
+  }
+
+  return count
+}
