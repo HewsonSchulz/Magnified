@@ -7,7 +7,9 @@ export const SearchBar = ({ setSearchTerm, setIsSearching }) => {
         className='search-bar__input'
         onChange={(event) => {
           setSearchTerm(event.target.value)
-          setIsSearching(true)
+          if (!!setIsSearching) {
+            setIsSearching(true)
+          }
         }}
       />
     </div>

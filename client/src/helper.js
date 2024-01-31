@@ -59,7 +59,7 @@ export const sortAlphabetically = (array, key) => {
 
 // calculates the amount of matching data
 export const calculateMatchingData = (data, searchTerm) => {
-  if (!data) {
+  if (!searchTerm.trim()) {
     return 0
   }
   let count = 0

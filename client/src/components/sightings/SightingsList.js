@@ -55,21 +55,39 @@ export const SightingsList = () => {
           [...currentSightings].sort((a, b) => {
             // sort based on total amount of matching data
             const aScore =
-              calculateMatchingData(a.description.toLowerCase(), searchTerm) +
-              calculateMatchingData(a.user.name.toLowerCase(), searchTerm) +
-              calculateMatchingData(a.cryptid.name.toLowerCase(), searchTerm) +
+              calculateMatchingData(
+                a.description.toLowerCase(),
+                searchTerm.trim()
+              ) +
+              calculateMatchingData(
+                a.user.name.toLowerCase(),
+                searchTerm.trim()
+              ) +
+              calculateMatchingData(
+                a.cryptid.name.toLowerCase(),
+                searchTerm.trim()
+              ) +
               calculateMatchingData(
                 a.location.location.toLowerCase(),
-                searchTerm
+                searchTerm.trim()
               )
 
             const bScore =
-              calculateMatchingData(b.description.toLowerCase(), searchTerm) +
-              calculateMatchingData(b.user.name.toLowerCase(), searchTerm) +
-              calculateMatchingData(b.cryptid.name.toLowerCase(), searchTerm) +
+              calculateMatchingData(
+                b.description.toLowerCase(),
+                searchTerm.trim()
+              ) +
+              calculateMatchingData(
+                b.user.name.toLowerCase(),
+                searchTerm.trim()
+              ) +
+              calculateMatchingData(
+                b.cryptid.name.toLowerCase(),
+                searchTerm.trim()
+              ) +
               calculateMatchingData(
                 b.location.location.toLowerCase(),
-                searchTerm
+                searchTerm.trim()
               )
 
             return bScore - aScore
