@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { filterOptions, sortAlphabetically } from '../../helper'
+import { getFilterOptions, sortAlphabetically } from '../../helper'
 import { getCryptids } from '../../managers/cryptidManager'
 import { getUsers } from '../../managers/userManager'
 import { getSightingsByUser } from '../../managers/sightingManager'
 
-export const FilterBar = ({
+export const SightingFilterBar = ({
   filterOption,
   setFilterOption,
   cryptidOption,
@@ -12,6 +12,7 @@ export const FilterBar = ({
   authorOption,
   setAuthorOption,
   filterType,
+  userId,
 }) => {
   const [cryptids, setCryptids] = useState([])
   const [authors, setAuthors] = useState([])
@@ -38,6 +39,11 @@ export const FilterBar = ({
   }, [])
 
   const displayFilterBar = (filterType) => {
+    const options = getFilterOptions()
+    if (!!userId) {
+      options.splice(options.indexOf('Author'), 1)
+    }
+
     switch (filterType) {
       default:
         // initial filtering options
@@ -51,8 +57,11 @@ export const FilterBar = ({
                 setFilterOption(event.target.value)
               }}
             >
-              {filterOptions.map((option, i) => (
-                <option key={i} value={i}>
+              {options.map((option) => (
+                <option
+                  key={getFilterOptions().indexOf(option)}
+                  value={getFilterOptions().indexOf(option)}
+                >
                   {option}
                 </option>
               ))}

@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { getSightings } from '../../managers/sightingManager'
 import { Sighting } from './Sighting'
 import { useParams } from 'react-router-dom'
-import { FilterBar } from '../filtering/FilterBar'
+import { SightingFilterBar } from '../filtering/SightingFilterBar'
 
 export const SightingsList = () => {
   const [allSightings, setAllSightings] = useState([])
+  const [mySightings, setMySightings] = useState([])
   const [filteredSightings, setFilteredSightings] = useState([])
   const [filterOption, setFilterOption] = useState('0')
   const [cryptidOption, setCryptidOption] = useState('0')
@@ -21,23 +22,35 @@ export const SightingsList = () => {
   }, [])
 
   useEffect(() => {
-    //// if (!!userId) {}
-    //TODO!: implement functionality for user-specific urls - /sightings/:userId
+    if (!!userId) {
+      setMySightings(
+        [...allSightings].filter(
+          (sighting) => sighting.userId === parseInt(userId)
+        )
+      )
+    }
+  }, [allSightings, userId])
+
+  useEffect(() => {
+    let currentSightings = [...allSightings]
+    if (!!userId) {
+      currentSightings = [...mySightings]
+    }
 
     //TODO: write a message for if the author has not posted any sightings
     //TODO: redirect to home if the author doesn't exist
 
     if (filterOption === '0') {
       // filter by most recent
-      setFilteredSightings(allSightings)
+      setFilteredSightings(currentSightings)
     }
     if (filterOption === '1') {
       // filter by cryptid
       if (cryptidOption === '0') {
-        setFilteredSightings(allSightings)
+        setFilteredSightings(currentSightings)
       } else {
         setFilteredSightings(
-          [...allSightings].filter(
+          [...currentSightings].filter(
             (sighting) => sighting.cryptid.id === parseInt(cryptidOption)
           )
         )
@@ -46,25 +59,33 @@ export const SightingsList = () => {
     if (filterOption === '2') {
       // filter by author
       if (authorOption === '0') {
-        setFilteredSightings(allSightings)
+        setFilteredSightings(currentSightings)
       } else {
         setFilteredSightings(
-          [...allSightings].filter(
+          [...currentSightings].filter(
             (sighting) => sighting.userId === parseInt(authorOption)
           )
         )
       }
     }
-  }, [allSightings, authorOption, cryptidOption, filterOption, userId])
+  }, [
+    allSightings,
+    authorOption,
+    cryptidOption,
+    filterOption,
+    mySightings,
+    userId,
+  ])
 
   return (
     <>
-      <FilterBar
+      <SightingFilterBar
         filterOption={filterOption}
         setFilterOption={setFilterOption}
+        userId={userId}
       />
       {filterOption === '1' && (
-        <FilterBar
+        <SightingFilterBar
           filterOption={filterOption}
           setFilterOption={setFilterOption}
           cryptidOption={cryptidOption}
@@ -73,7 +94,7 @@ export const SightingsList = () => {
         />
       )}
       {filterOption === '2' && (
-        <FilterBar
+        <SightingFilterBar
           filterOption={filterOption}
           setFilterOption={setFilterOption}
           authorOption={authorOption}
