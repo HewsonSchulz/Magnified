@@ -70,7 +70,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               path=':sightingId'
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <SightingDetails />
+                  <SightingDetails loggedInUser={loggedInUser} />
                 </AuthorizedRoute>
               }
             />

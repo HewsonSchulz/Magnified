@@ -3,7 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getCryptids } from '../../../managers/cryptidManager'
 import { sortAlphabetically } from '../../../helper'
 import { Button, FormGroup, Label } from 'reactstrap'
-import { createSighting } from '../../../managers/sightingManager'
+import {
+  createSighting,
+  updateSighting,
+  getSightingById,
+} from '../../../managers/sightingManager'
 import {
   createLocation,
   getLocationByName,
@@ -16,43 +20,84 @@ export const SightingForm = ({ loggedInUser }) => {
   const [descInput, setDescInput] = useState('')
   const [formCompleted, setFormCompleted] = useState(false)
   const { sightingId } = useParams()
-  //TODO: add editing functionality  -  `sightingId` === n, !== "new")
   const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const [newLocation, newDesc] = [locationInput.trim(), descInput.trim()]
-
     if (formCompleted) {
-      getLocationByName(newLocation).then((existingLocation) => {
-        if (!!existingLocation) {
-          // use existing location
-          createSighting({
-            userId: loggedInUser.id,
-            time: new Date().toISOString(),
-            cryptidId: parseInt(cryptidOption),
-            locationId: existingLocation.id,
-            description: newDesc,
-          }).then((newSighting) => {
-            navigate(`/sightings/details/${newSighting.id}`)
-          })
-        } else {
-          // create new location
-          //TODO: add location data
-          createLocation({ location: newLocation }).then((createdLocation) => {
+      const [newLocation, newDesc] = [locationInput.trim(), descInput.trim()]
+
+      if (sightingId === 'new') {
+        // creating a new sighting
+        getLocationByName(newLocation).then((existingLocation) => {
+          if (!!existingLocation) {
+            // use existing location
             createSighting({
               userId: loggedInUser.id,
               time: new Date().toISOString(),
               cryptidId: parseInt(cryptidOption),
-              locationId: createdLocation.id,
+              locationId: existingLocation.id,
               description: newDesc,
             }).then((newSighting) => {
               navigate(`/sightings/details/${newSighting.id}`)
             })
+          } else {
+            // create new location
+            //TODO: add location data
+            createLocation({
+              location: newLocation,
+              //TODO: add location data
+            }).then((createdLocation) => {
+              createSighting({
+                userId: loggedInUser.id,
+                time: new Date().toISOString(),
+                cryptidId: parseInt(cryptidOption),
+                locationId: createdLocation.id,
+                description: newDesc,
+              }).then((newSighting) => {
+                navigate(`/sightings/details/${newSighting.id}`)
+              })
+            })
+          }
+        })
+      } else {
+        // editing an existing sighting
+        getSightingById(parseInt(sightingId)).then((existingSighting) => {
+          getLocationByName(newLocation).then((existingLocation) => {
+            if (!!existingLocation) {
+              // use existing location
+              updateSighting({
+                userId: existingSighting.userId,
+                time: existingSighting.time,
+                cryptidId: parseInt(cryptidOption),
+                locationId: existingLocation.id,
+                description: newDesc,
+                id: parseInt(sightingId),
+              }).then((updatedSighting) => {
+                navigate(`/sightings/details/${updatedSighting.id}`)
+              })
+            } else {
+              // create new location
+              createLocation({
+                location: newLocation,
+                //TODO: add location data
+              }).then((createdLocation) => {
+                updateSighting({
+                  userId: existingSighting.userId,
+                  time: existingSighting.time,
+                  cryptidId: parseInt(cryptidOption),
+                  locationId: createdLocation.id,
+                  description: newDesc,
+                  id: parseInt(sightingId),
+                }).then((updatedSighting) => {
+                  navigate(`/sightings/details/${updatedSighting.id}`)
+                })
+              })
+            }
           })
-        }
-      })
+        })
+      }
     }
   }
 
@@ -69,6 +114,35 @@ export const SightingForm = ({ loggedInUser }) => {
       setFormCompleted(false)
     }
   }, [cryptidOption, descInput, locationInput])
+
+  useEffect(() => {
+    //TODO*: add editing functionality  -  `sightingId` === n, !== "new")
+    if (sightingId === 'new') {
+      // creating a new sighting
+      setCryptidOption('0')
+      setDescInput('')
+      setLocationInput('')
+    } else {
+      // editing an existing sighting
+      getSightingById(parseInt(sightingId)).then((sighting) => {
+        if (!!sighting) {
+          if (sighting.userId !== loggedInUser.id) {
+            // user is not the author
+            //TODO: add admin editing functionality
+            navigate('/sightings/edit/new')
+          } else {
+            // user is the author
+            const { cryptid, description, location } = sighting
+            setCryptidOption(cryptid.id.toString())
+            setDescInput(description)
+            setLocationInput(location.location)
+          }
+        } else {
+          navigate('/sightings/edit/new')
+        }
+      })
+    }
+  }, [loggedInUser, navigate, sightingId])
 
   return (
     <form className='sighting-form'>

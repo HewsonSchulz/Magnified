@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getSighting } from '../../managers/sightingManager'
+import { getSightingById } from '../../managers/sightingManager'
 import { formatDate } from '../../helper'
 import './Sighting.css'
+import { Button } from 'reactstrap'
 
-export const SightingDetails = () => {
+export const SightingDetails = ({ loggedInUser }) => {
   const [sighting, setSighting] = useState({})
   const { sightingId } = useParams()
   const navigate = useNavigate()
   useEffect(() => {
-    getSighting(sightingId).then((data) => {
-      setSighting(data[0])
-    })
+    getSightingById(sightingId).then(setSighting)
   }, [sightingId])
 
   useEffect(() => {
@@ -41,6 +40,17 @@ export const SightingDetails = () => {
           <li className='sighting-details__description'>
             {sighting.description}
           </li>
+          {loggedInUser.id === sighting.userId && (
+            <Button
+              color='warning'
+              onClick={(e) => {
+                e.preventDefault()
+                navigate(`/sightings/edit/${sighting.id}`)
+              }}
+            >
+              Edit
+            </Button>
+          )}
         </>
       )}
     </ul>

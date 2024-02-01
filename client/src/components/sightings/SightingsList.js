@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getSightings } from '../../managers/sightingManager'
 import { Sighting } from './Sighting'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { SightingFilterBar } from '../filtering/SightingFilterBar'
 import { SearchBar } from '../filtering/SearchBar'
 import { calculateMatchingData } from '../../helper'
@@ -16,6 +16,7 @@ export const SightingsList = () => {
   const [isSearching, setIsSearching] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const { userId } = useParams()
+  const navigate = useNavigate()
 
   const resetOptions = () => {
     setFilterOption('0')
@@ -35,16 +36,18 @@ export const SightingsList = () => {
   }, [])
 
   useEffect(() => {
-    if (!!userId) {
+    if (!!parseInt(userId)) {
       setMySightings(
         [...allSightings].filter(
           (sighting) => sighting.userId === parseInt(userId)
         )
       )
+    } else {
+      navigate('/sightings')
     }
 
     resetOptions()
-  }, [allSightings, userId])
+  }, [allSightings, navigate, userId])
 
   useEffect(() => {
     let currentSightings = [...allSightings]

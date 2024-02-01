@@ -6,10 +6,12 @@ export const getSightings = async () => {
   ).then((res) => res.json())
 }
 
-export const getSighting = async (id) => {
-  return await fetch(
+export const getSightingById = async (id) => {
+  const sighting = await fetch(
     `${apiUrl}/sightings?_expand=user&_expand=cryptid&_expand=location&id=${id}`
   ).then((res) => res.json())
+
+  return sighting[0]
 }
 
 export const getSightingsByCryptid = async (cryptid) => {
@@ -28,5 +30,12 @@ export const createSighting = async (sighting) => {
   return await fetch(
     `${apiUrl}/sightings`,
     fetchOptions('POST', sighting)
+  ).then((res) => res.json())
+}
+
+export const updateSighting = async (sighting) => {
+  return await fetch(
+    `${apiUrl}/sightings/${sighting.id}`,
+    fetchOptions('PUT', sighting)
   ).then((res) => res.json())
 }

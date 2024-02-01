@@ -119,32 +119,26 @@
   "locations": [
     {
       "location": "Evergreen, TN",
-      "locationData": "!DATA",
       "id": 1
     },
     {
       "location": "Lakeside, TN",
-      "locationData": "!DATA",
       "id": 2
     },
     {
       "location": "Cavernville, TN",
-      "locationData": "!DATA",
       "id": 3
     },
     {
       "location": "Mountainview, AL",
-      "locationData": "!DATA",
       "id": 4
     },
     {
       "location": "Sandtown, KY",
-      "locationData": "!DATA",
       "id": 5
     },
     {
       "location": "Isle Harbor, TN",
-      "locationData": "!DATA",
       "id": 6
     }
   ]
