@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getSightingById } from '../../managers/sightingManager'
+import { deleteSighting, getSightingById } from '../../managers/sightingManager'
 import { formatDate } from '../../helper'
 import './Sighting.css'
 import { Button } from 'reactstrap'
@@ -9,6 +9,15 @@ export const SightingDetails = ({ loggedInUser }) => {
   const [sighting, setSighting] = useState({})
   const { sightingId } = useParams()
   const navigate = useNavigate()
+
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    if (window.confirm('Are you sure you want to delete this sighting?')) {
+      await deleteSighting(sighting)
+      navigate(`/sightings/${loggedInUser.id}`)
+    }
+  }
+
   useEffect(() => {
     getSightingById(sightingId).then(setSighting)
   }, [sightingId])
@@ -41,15 +50,25 @@ export const SightingDetails = ({ loggedInUser }) => {
             {sighting.description}
           </li>
           {loggedInUser.id === sighting.userId && (
-            <Button
-              color='warning'
-              onClick={(e) => {
-                e.preventDefault()
-                navigate(`/sightings/edit/${sighting.id}`)
-              }}
-            >
-              Edit
-            </Button>
+            <>
+              <Button
+                className='edit-btn'
+                color='warning'
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate(`/sightings/edit/${sighting.id}`)
+                }}
+              >
+                Edit
+              </Button>
+              <Button
+                className='delete-btn'
+                color='danger'
+                onClick={handleDelete}
+              >
+                Delete
+              </Button>
+            </>
           )}
         </>
       )}

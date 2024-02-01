@@ -39,3 +39,10 @@ export const updateSighting = async (sighting) => {
     fetchOptions('PUT', sighting)
   ).then((res) => res.json())
 }
+
+export const deleteSighting = async (sighting) => {
+  return await fetch(
+    `${apiUrl}/sightings/${sighting.id}`,
+    fetchOptions('DELETE')
+  ).then((res) => res.json())
+}

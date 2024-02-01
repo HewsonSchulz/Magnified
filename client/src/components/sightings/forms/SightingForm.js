@@ -116,7 +116,6 @@ export const SightingForm = ({ loggedInUser }) => {
   }, [cryptidOption, descInput, locationInput])
 
   useEffect(() => {
-    //TODO*: add editing functionality  -  `sightingId` === n, !== "new")
     if (sightingId === 'new') {
       // creating a new sighting
       setCryptidOption('0')
@@ -194,11 +193,11 @@ export const SightingForm = ({ loggedInUser }) => {
       </FormGroup>
       {formCompleted ? (
         <Button color='primary' onClick={handleSubmit}>
-          Submit
+          Save
         </Button>
       ) : (
         <Button color='primary' onClick={handleSubmit} disabled>
-          Submit
+          Save
         </Button>
       )}
     </form>

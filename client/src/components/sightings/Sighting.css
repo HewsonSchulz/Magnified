@@ -14,3 +14,8 @@
   max-height: 650px;
   resize: both;
 }
+
+.delete-btn {
+  float: right;
+  margin-right: 20px;
+}
