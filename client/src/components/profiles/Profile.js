@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getUserById, getUsers } from '../../managers/userManager'
+import { Button } from 'reactstrap'
+import './Profile.css'
 
 export const Profile = ({ loggedInUser }) => {
   const [isAuthor, setIsAuthor] = useState(false)
@@ -40,6 +42,19 @@ export const Profile = ({ loggedInUser }) => {
           />
           <li className='profile__name'>{user.name}</li>
           <li className='profile__email'>{user.email}</li>
+          {isAuthor && (
+            <>
+              <Button
+                className='edit-btn'
+                color='warning'
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate(`/profile/edit/${loggedInUser.id}`)
+                }}>
+                Edit
+              </Button>
+            </>
+          )}
         </>
       )}
     </ul>

@@ -9,6 +9,7 @@ import { SightingDetails } from './sightings/SightingDetails'
 import { CryptidDetails } from './cryptids/CryptidDetails'
 import { SightingForm } from './sightings/forms/SightingForm'
 import { Profile } from './profiles/Profile'
+import { ProfileForm } from './profiles/forms/ProfileForm'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -22,8 +23,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             <NavBar loggedInUser={loggedInUser} />
             <Outlet />
           </>
-        }
-      >
+        }>
         <Route
           index
           element={
@@ -159,6 +159,30 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               </AuthorizedRoute>
             }
           />
+
+          <Route path='edit'>
+            <Route
+              index
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <Navigate
+                    to={`/profile/${loggedInUser?.id}`}
+                    state={{ from: location }}
+                    replace
+                  />
+                </AuthorizedRoute>
+              }
+            />
+
+            <Route
+              path=':userId'
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <ProfileForm loggedInUser={loggedInUser} />
+                </AuthorizedRoute>
+              }
+            />
+          </Route>
         </Route>
       </Route>
 

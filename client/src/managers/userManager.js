@@ -17,3 +17,10 @@ export const createUser = async (user) => {
 export const getUsers = async () => {
   return await fetch(`${apiUrl}/users`).then((res) => res.json())
 }
+
+export const updateUser = async (user) => {
+  return await fetch(
+    `${apiUrl}/users/${user.id}`,
+    fetchOptions('PUT', user)
+  ).then((res) => res.json())
+}
