@@ -8,6 +8,7 @@ import { CryptidsList } from './cryptids/CryptidsList'
 import { SightingDetails } from './sightings/SightingDetails'
 import { CryptidDetails } from './cryptids/CryptidDetails'
 import { SightingForm } from './sightings/forms/SightingForm'
+import { Profile } from './profiles/Profile'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -134,6 +135,30 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               }
             />
           </Route>
+        </Route>
+
+        <Route path='profile'>
+          <Route
+            index
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <Navigate
+                  to={`/profile/${loggedInUser?.id}`}
+                  state={{ from: location }}
+                  replace
+                />
+              </AuthorizedRoute>
+            }
+          />
+
+          <Route
+            path=':userId'
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <Profile loggedInUser={loggedInUser} />
+              </AuthorizedRoute>
+            }
+          />
         </Route>
       </Route>
 

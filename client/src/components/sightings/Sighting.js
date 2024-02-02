@@ -9,12 +9,22 @@ export const Sighting = ({ sighting, isDetails }) => {
   return (
     <Link to={`/sightings/details/${sighting.id}`}>
       <div className='sighting'>
-        <li className='sighting__author'>Author: {user.name}</li>
+        <li
+          className='sighting__author'
+          onClick={(e) => {
+            // manual navigation
+            e.preventDefault()
+            e.stopPropagation()
+            navigate(`/profile/${sighting.user.id}`)
+          }}
+        >
+          Author: {user.name}
+        </li>
         {!isDetails && (
           <li
             className='sighting__cryptid'
             onClick={(e) => {
-              // manual navigation because nested Link elements is not allowed
+              // manual navigation
               e.preventDefault()
               e.stopPropagation()
               navigate(`/cryptids/details/${sighting.cryptid.id}`)

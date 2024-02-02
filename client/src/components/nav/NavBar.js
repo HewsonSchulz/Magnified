@@ -46,6 +46,16 @@ export const NavBar = ({ loggedInUser }) => {
         </Link>
       </li>
 
+      <li className='navbar__item'>
+        <Link
+          to={`/profile/${loggedInUser?.id}`}
+          className='navbar__link'
+          id={url === `/profile/${loggedInUser?.id}` ? 'selected' : ''}
+        >
+          Profile
+        </Link>
+      </li>
+
       {localStorage.getItem('magnified_user') && (
         <li className='navbar__item navbar__logout'>
           <Logout />

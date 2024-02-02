@@ -32,9 +32,11 @@ export const SightingDetails = ({ loggedInUser }) => {
     <ul className='sighting-details'>
       {sighting && (
         <>
-          <li className='sighting-details__author'>
-            Author: {sighting.user?.name}
-          </li>
+          <Link to={`/profile/${sighting.user?.id}`}>
+            <li className='sighting-details__author'>
+              Author: {sighting.user?.name}
+            </li>
+          </Link>
           <Link to={`/cryptids/details/${sighting.cryptid?.id}`}>
             <li className='sighting-details__cryptid'>
               Cryptid: {sighting.cryptid?.name}

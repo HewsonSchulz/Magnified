@@ -1,0 +1,48 @@
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { getUserById, getUsers } from '../../managers/userManager'
+
+export const Profile = ({ loggedInUser }) => {
+  const [isAuthor, setIsAuthor] = useState(false)
+  const [user, setUser] = useState(false)
+  const { userId } = useParams()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    getUsers().then((users) => {
+      if (users.length < parseInt(userId)) {
+        // profile does not exist
+        navigate(`/profile/${loggedInUser.id}`)
+      } else {
+        getUserById(parseInt(userId)).then((user) => {
+          setUser(user)
+          if (user.id === loggedInUser.id) {
+            // profile belongs to user
+            setIsAuthor(true)
+          } else {
+            // profile does not belong to user
+            setIsAuthor(false)
+          }
+        })
+      }
+    })
+  }, [userId, loggedInUser, navigate])
+
+  return (
+    <ul className='profile'>
+      {user && (
+        <>
+          <img
+            className='profile__img'
+            //TODO: make permanent icon options
+            src={`/assets/profIcon${user.iconNumber}.png`}
+            alt={'Profile icon'}
+          />
+          <li className='profile__name'>{user.name}</li>
+          <li className='profile__email'>{user.email}</li>
+        </>
+      )}
+    </ul>
+    //TODO: add button to view this user's posted sightings
+  )
+}
