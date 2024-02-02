@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getUserById, getUsers } from '../../managers/userManager'
 import { Button } from 'reactstrap'
 import './Profile.css'
@@ -42,6 +42,13 @@ export const Profile = ({ loggedInUser }) => {
           />
           <li className='profile__name'>{user.name}</li>
           <li className='profile__email'>{user.email}</li>
+          <li>
+            <Link
+              to={`/sightings/${userId}`}
+              className='cryptid-details__sightings-link'>
+              See {isAuthor ? 'your' : "this user's"} posted sightings...
+            </Link>
+          </li>
           {isAuthor && (
             <>
               <Button
@@ -58,6 +65,5 @@ export const Profile = ({ loggedInUser }) => {
         </>
       )}
     </ul>
-    //TODO: add button to view this user's posted sightings
   )
 }

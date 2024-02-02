@@ -9,13 +9,14 @@ import { calculateMatchingData } from '../../helper'
 export const SightingsList = () => {
   const [allSightings, setAllSightings] = useState([])
   const [mySightings, setMySightings] = useState([])
+  const [cryptidSightings, setCryptidSightings] = useState([])
   const [filteredSightings, setFilteredSightings] = useState([])
   const [filterOption, setFilterOption] = useState('0')
   const [cryptidOption, setCryptidOption] = useState('0')
   const [authorOption, setAuthorOption] = useState('0')
   const [isSearching, setIsSearching] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const { userId } = useParams()
+  const { userId, cryptidId } = useParams()
   const navigate = useNavigate()
 
   const resetOptions = () => {
@@ -42,21 +43,31 @@ export const SightingsList = () => {
           (sighting) => sighting.userId === parseInt(userId)
         )
       )
+    } else if (!!parseInt(cryptidId)) {
+      setCryptidSightings(
+        [...allSightings].filter(
+          (sighting) => sighting.cryptidId === parseInt(cryptidId)
+        )
+      )
     } else {
       navigate('/sightings')
     }
 
     resetOptions()
-  }, [allSightings, navigate, userId])
+  }, [allSightings, cryptidId, navigate, userId])
 
   useEffect(() => {
     let currentSightings = [...allSightings]
     if (!!userId) {
       currentSightings = [...mySightings]
+      //TODO: write a message for if the author has no posted sightings
+      //TODO: redirect to home if the author doesn't exist
     }
-
-    //TODO: write a message for if the author has not posted any sightings
-    //TODO: redirect to home if the author doesn't exist
+    if (!!cryptidId) {
+      currentSightings = [...cryptidSightings]
+      //TODO: write a message for if the cryptid has no posted sightings
+      //TODO: redirect to home if the cryptid doesn't exist
+    }
 
     // if we are searching
     if (isSearching) {
@@ -141,7 +152,9 @@ export const SightingsList = () => {
   }, [
     allSightings,
     authorOption,
+    cryptidId,
     cryptidOption,
+    cryptidSightings,
     filterOption,
     isSearching,
     mySightings,
@@ -164,6 +177,7 @@ export const SightingsList = () => {
         filterOption={filterOption}
         setFilterOption={setFilterOption}
         userId={userId}
+        cryptidId={cryptidId}
       />
       {filterOption === '1' && (
         <SightingFilterBar

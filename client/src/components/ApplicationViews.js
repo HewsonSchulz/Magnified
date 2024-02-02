@@ -100,6 +100,30 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               }
             />
           </Route>
+
+          <Route path='cryptid'>
+            <Route
+              index
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <Navigate
+                    to={'/sightings'}
+                    state={{ from: location }}
+                    replace
+                  />
+                </AuthorizedRoute>
+              }
+            />
+
+            <Route
+              path=':cryptidId'
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <SightingsList />
+                </AuthorizedRoute>
+              }
+            />
+          </Route>
         </Route>
 
         <Route path='cryptids'>

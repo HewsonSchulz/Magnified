@@ -13,6 +13,7 @@ export const SightingFilterBar = ({
   setAuthorOption,
   filterType,
   userId,
+  cryptidId,
 }) => {
   const [cryptids, setCryptids] = useState([])
   const [authors, setAuthors] = useState([])
@@ -43,6 +44,9 @@ export const SightingFilterBar = ({
     if (!!userId) {
       options.splice(options.indexOf('Author'), 1)
     }
+    if (!!cryptidId) {
+      options.splice(options.indexOf('Cryptid'), 1)
+    }
 
     switch (filterType) {
       default:
@@ -55,13 +59,11 @@ export const SightingFilterBar = ({
               value={filterOption}
               onChange={(event) => {
                 setFilterOption(event.target.value)
-              }}
-            >
+              }}>
               {options.map((option) => (
                 <option
                   key={getFilterOptions().indexOf(option)}
-                  value={getFilterOptions().indexOf(option)}
-                >
+                  value={getFilterOptions().indexOf(option)}>
                   {option}
                 </option>
               ))}
@@ -76,8 +78,7 @@ export const SightingFilterBar = ({
             value={cryptidOption}
             onChange={(event) => {
               setCryptidOption(event.target.value)
-            }}
-          >
+            }}>
             <option key={'c-' + 0} value={0}>
               Select a Cryptid...
             </option>
@@ -96,8 +97,7 @@ export const SightingFilterBar = ({
             value={authorOption}
             onChange={(event) => {
               setAuthorOption(event.target.value)
-            }}
-          >
+            }}>
             <option key={'a-' + 0} value={0}>
               Select an Author...
             </option>

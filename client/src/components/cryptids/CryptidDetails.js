@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getCryptid } from '../../managers/cryptidManager'
 import './Cryptid.css'
 import { Sighting } from '../sightings/Sighting'
@@ -10,6 +10,20 @@ export const CryptidDetails = () => {
   const [sightings, setSightings] = useState([])
   const { cryptidId } = useParams()
   const navigate = useNavigate()
+
+  const showSightings = () => {
+    if (sightings.length > 2) {
+      return sightings
+        .slice(0, 2)
+        .map((sighting) => (
+          <Sighting key={sighting.id} sighting={sighting} isDetails={true} />
+        ))
+    } else {
+      return sightings.map((sighting) => (
+        <Sighting key={sighting.id} sighting={sighting} isDetails={true} />
+      ))
+    }
+  }
 
   useEffect(() => {
     getCryptid(cryptidId).then((data) => {
@@ -47,16 +61,12 @@ export const CryptidDetails = () => {
           <li className='cryptid-details__description'>
             {cryptid.description}
           </li>
-          {sightings.map((sighting) => {
-            //TODO: add button to view all sightings of this cryptid
-            return (
-              <Sighting
-                key={sighting.id}
-                sighting={sighting}
-                isDetails={true}
-              />
-            )
-          })}
+          {showSightings()}
+          <Link
+            to={`/sightings/cryptid/${cryptidId}`}
+            className='cryptid-details__sightings-link'>
+            See all sightings of this cryptid...
+          </Link>
         </>
       )}
     </ul>
