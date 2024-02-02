@@ -48,6 +48,7 @@ export const CryptidDetails = () => {
             {cryptid.description}
           </li>
           {sightings.map((sighting) => {
+            //TODO: add button to view all sightings of this cryptid
             return (
               <Sighting
                 key={sighting.id}
