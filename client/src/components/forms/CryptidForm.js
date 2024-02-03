@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, FormGroup, Label } from 'reactstrap'
-import { getCryptidById, updateCryptid } from '../../managers/cryptidManager'
+import { createCryptid, getCryptidById, updateCryptid } from '../../managers/cryptidManager'
 
 export const CryptidForm = ({ loggedInUser }) => {
   const [imageUrlInput, setImageUrlInput] = useState('')
@@ -18,38 +18,16 @@ export const CryptidForm = ({ loggedInUser }) => {
       const [newImageUrl, newDesc] = [imageUrlInput.trim(), descInput.trim()]
 
       if (cryptidId === 'new') {
-        /*//TODO: creating a new cryptid proposal
+        //TODO!: creating a new cryptid PROPOSAL
+        /*
         // creating a new cryptid proposal
-        getLocationByName(newLocation).then((existingLocation) => {
-          if (!!existingLocation) {
-            // use existing location
-            createSighting({
-              userId: loggedInUser.id,
-              time: new Date().toISOString(),
-              cryptidId: parseInt(cryptidOption),
-              locationId: existingLocation.id,
-              description: newDesc,
-            }).then((newSighting) => {
-              navigate(`/sightings/details/${newSighting.id}`)
-            })
-          } else {
-            // create new location
-            //TODO: add location data
-            createLocation({
-              location: newLocation,
-              //TODO: add location data
-            }).then((createdLocation) => {
-              createSighting({
-                userId: loggedInUser.id,
-                time: new Date().toISOString(),
-                cryptidId: parseInt(cryptidOption),
-                locationId: createdLocation.id,
-                description: newDesc,
-              }).then((newSighting) => {
-                navigate(`/sightings/details/${newSighting.id}`)
-              })
-            })
-          }
+        createCryptid({
+          name: //!,
+          description: newDesc,
+          image: newImageUrl,
+          status: "pending",
+        }).then((newCryptid) => {
+          //!
         })
         */
       } else {
@@ -73,11 +51,6 @@ export const CryptidForm = ({ loggedInUser }) => {
     }
   }, [cryptidId])
 
-  // useEffect(() => {
-  //   // isValidImageUrl(imageUrlInput).then(setImageUrlIsValid)
-  //   setImageUrlIsValid(isValidImageUrl(imageUrlInput))
-  // }, [imageUrlInput])
-
   useEffect(() => {
     if (!loggedInUser.isAdmin) {
       navigate('/cryptids')
@@ -95,6 +68,7 @@ export const CryptidForm = ({ loggedInUser }) => {
 
   useEffect(() => {
     if (cryptidId === 'new') {
+      // creating a new cryptid
       setDescInput('')
       setImageUrlInput('')
     } else {
@@ -105,6 +79,7 @@ export const CryptidForm = ({ loggedInUser }) => {
           setImageUrlInput(image)
           setDescInput(description)
         } else {
+          // url is invalid
           navigate('/cryptids/edit/new')
         }
       })

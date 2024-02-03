@@ -17,3 +17,7 @@ export const getCryptidById = async (id) => {
 export const updateCryptid = async (cryptid) => {
   return await fetch(`${apiUrl}/cryptids/${cryptid.id}`, fetchOptions('PUT', cryptid)).then((res) => res.json())
 }
+
+export const createCryptid = async (cryptid) => {
+  return await fetch(`${apiUrl}/cryptids`, fetchOptions('POST', cryptid)).then((res) => res.json())
+}

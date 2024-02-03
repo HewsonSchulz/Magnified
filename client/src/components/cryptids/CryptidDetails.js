@@ -4,8 +4,9 @@ import { getCryptid } from '../../managers/cryptidManager'
 import './Cryptid.css'
 import { Sighting } from '../sightings/Sighting'
 import { getSightingsByCryptid } from '../../managers/sightingManager'
+import { Button } from 'reactstrap'
 
-export const CryptidDetails = () => {
+export const CryptidDetails = ({ loggedInUser }) => {
   const [cryptid, setCryptid] = useState({})
   const [sightings, setSightings] = useState([])
   const { cryptidId } = useParams()
@@ -51,6 +52,17 @@ export const CryptidDetails = () => {
           <li className='cryptid-details__cryptid'>{cryptid.name}</li>
           <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
           <li className='cryptid-details__description'>{cryptid.description}</li>
+          {loggedInUser.isAdmin && (
+            <Button
+              className='edit-btn'
+              color='warning'
+              onClick={(e) => {
+                e.preventDefault()
+                navigate(`/cryptids/edit/${cryptidId}`)
+              }}>
+              Edit
+            </Button>
+          )}
           {showSightings()}
           <Link to={`/sightings/cryptid/${cryptidId}`} className='cryptid-details__sightings-link'>
             See all sightings of this cryptid...
@@ -60,6 +72,3 @@ export const CryptidDetails = () => {
     </ul>
   )
 }
-
-//TODO: add an cryptid edit button for admins
-//TODO: creating a new cryptid proposal

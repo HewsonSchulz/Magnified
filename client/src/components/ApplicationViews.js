@@ -139,7 +139,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               path=':cryptidId'
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <CryptidDetails />
+                  <CryptidDetails loggedInUser={loggedInUser} />
                 </AuthorizedRoute>
               }
             />
