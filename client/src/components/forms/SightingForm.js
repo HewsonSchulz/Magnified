@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getCryptids } from '../../../managers/cryptidManager'
-import { sortAlphabetically } from '../../../helper'
+import { getCryptids } from '../../managers/cryptidManager'
+import { sortAlphabetically } from '../../helper'
 import { Button, FormGroup, Label } from 'reactstrap'
 import {
   createSighting,
   updateSighting,
   getSightingById,
-} from '../../../managers/sightingManager'
+} from '../../managers/sightingManager'
 import {
   createLocation,
   getLocationByName,
-} from '../../../managers/locationManager'
+} from '../../managers/locationManager'
 
 export const SightingForm = ({ loggedInUser }) => {
   const [cryptidOption, setCryptidOption] = useState('0')

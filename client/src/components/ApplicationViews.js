@@ -7,9 +7,9 @@ import { SightingsList } from './sightings/SightingsList'
 import { CryptidsList } from './cryptids/CryptidsList'
 import { SightingDetails } from './sightings/SightingDetails'
 import { CryptidDetails } from './cryptids/CryptidDetails'
-import { SightingForm } from './sightings/forms/SightingForm'
+import { SightingForm } from './forms/SightingForm'
 import { Profile } from './profiles/Profile'
-import { ProfileForm } from './profiles/forms/ProfileForm'
+import { ProfileForm } from './forms/ProfileForm'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
