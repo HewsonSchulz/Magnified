@@ -21,10 +21,7 @@ export const App = () => {
 
   return (
     <>
-      <ApplicationViews
-        loggedInUser={loggedInUser}
-        setLoggedInUser={setLoggedInUser}
-      />
+      <ApplicationViews loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
     </>
   )
 }

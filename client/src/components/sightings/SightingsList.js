@@ -38,17 +38,9 @@ export const SightingsList = () => {
 
   useEffect(() => {
     if (!!parseInt(userId)) {
-      setMySightings(
-        [...allSightings].filter(
-          (sighting) => sighting.userId === parseInt(userId)
-        )
-      )
+      setMySightings([...allSightings].filter((sighting) => sighting.userId === parseInt(userId)))
     } else if (!!parseInt(cryptidId)) {
-      setCryptidSightings(
-        [...allSightings].filter(
-          (sighting) => sighting.cryptidId === parseInt(cryptidId)
-        )
-      )
+      setCryptidSightings([...allSightings].filter((sighting) => sighting.cryptidId === parseInt(cryptidId)))
     } else {
       navigate('/sightings')
     }
@@ -79,40 +71,16 @@ export const SightingsList = () => {
           [...currentSightings].sort((a, b) => {
             // sort based on total amount of matching data
             const aScore =
-              calculateMatchingData(
-                a.description.toLowerCase(),
-                searchTerm.trim()
-              ) +
-              calculateMatchingData(
-                a.user.name.toLowerCase(),
-                searchTerm.trim()
-              ) +
-              calculateMatchingData(
-                a.cryptid.name.toLowerCase(),
-                searchTerm.trim()
-              ) +
-              calculateMatchingData(
-                a.location.location.toLowerCase(),
-                searchTerm.trim()
-              )
+              calculateMatchingData(a.description.toLowerCase(), searchTerm.trim()) +
+              calculateMatchingData(a.user.name.toLowerCase(), searchTerm.trim()) +
+              calculateMatchingData(a.cryptid.name.toLowerCase(), searchTerm.trim()) +
+              calculateMatchingData(a.location.location.toLowerCase(), searchTerm.trim())
 
             const bScore =
-              calculateMatchingData(
-                b.description.toLowerCase(),
-                searchTerm.trim()
-              ) +
-              calculateMatchingData(
-                b.user.name.toLowerCase(),
-                searchTerm.trim()
-              ) +
-              calculateMatchingData(
-                b.cryptid.name.toLowerCase(),
-                searchTerm.trim()
-              ) +
-              calculateMatchingData(
-                b.location.location.toLowerCase(),
-                searchTerm.trim()
-              )
+              calculateMatchingData(b.description.toLowerCase(), searchTerm.trim()) +
+              calculateMatchingData(b.user.name.toLowerCase(), searchTerm.trim()) +
+              calculateMatchingData(b.cryptid.name.toLowerCase(), searchTerm.trim()) +
+              calculateMatchingData(b.location.location.toLowerCase(), searchTerm.trim())
 
             return bScore - aScore
           })
@@ -130,9 +98,7 @@ export const SightingsList = () => {
           setFilteredSightings(currentSightings)
         } else {
           setFilteredSightings(
-            [...currentSightings].filter(
-              (sighting) => sighting.cryptid.id === parseInt(cryptidOption)
-            )
+            [...currentSightings].filter((sighting) => sighting.cryptid.id === parseInt(cryptidOption))
           )
         }
       }
@@ -141,11 +107,7 @@ export const SightingsList = () => {
         if (authorOption === '0') {
           setFilteredSightings(currentSightings)
         } else {
-          setFilteredSightings(
-            [...currentSightings].filter(
-              (sighting) => sighting.userId === parseInt(authorOption)
-            )
-          )
+          setFilteredSightings([...currentSightings].filter((sighting) => sighting.userId === parseInt(authorOption)))
         }
       }
     }
@@ -168,11 +130,7 @@ export const SightingsList = () => {
 
   return (
     <>
-      <SearchBar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        setIsSearching={setIsSearching}
-      />
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} setIsSearching={setIsSearching} />
       <SightingFilterBar
         filterOption={filterOption}
         setFilterOption={setFilterOption}

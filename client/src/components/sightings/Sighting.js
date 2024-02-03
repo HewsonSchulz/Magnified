@@ -16,8 +16,7 @@ export const Sighting = ({ sighting, isDetails }) => {
             e.preventDefault()
             e.stopPropagation()
             navigate(`/profile/${sighting.user.id}`)
-          }}
-        >
+          }}>
           Author: {user.name}
         </li>
         {!isDetails && (
@@ -28,16 +27,13 @@ export const Sighting = ({ sighting, isDetails }) => {
               e.preventDefault()
               e.stopPropagation()
               navigate(`/cryptids/details/${sighting.cryptid.id}`)
-            }}
-          >
+            }}>
             Cryptid: {cryptid.name}
           </li>
         )}
         <li className='sighting__time'>Date: {formatDate(time)}</li>
         <li className='sighting__location'>Location: {location.location}</li>
-        <li className='sighting__description'>
-          {truncateText(description, 150)}
-        </li>
+        <li className='sighting__description'>{truncateText(description, 150)}</li>
       </div>
     </Link>
   )

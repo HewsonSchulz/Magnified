@@ -98,9 +98,7 @@ export const Register = ({ setLoggedInUser }) => {
             }}
           />
           {emailIsBad && <FormFeedback>Invalid email</FormFeedback>}
-          {emailIsDuplicate && (
-            <FormFeedback>Email already registered</FormFeedback>
-          )}
+          {emailIsDuplicate && <FormFeedback>Email already registered</FormFeedback>}
         </FormGroup>
 
         <Button color='primary' onClick={handleSubmit}>

@@ -58,11 +58,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               index
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <Navigate
-                    to={'/sightings'}
-                    state={{ from: location }}
-                    replace
-                  />
+                  <Navigate to={'/sightings'} state={{ from: location }} replace />
                 </AuthorizedRoute>
               }
             />
@@ -82,11 +78,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               index
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <Navigate
-                    to={'/sightings'}
-                    state={{ from: location }}
-                    replace
-                  />
+                  <Navigate to={'/sightings'} state={{ from: location }} replace />
                 </AuthorizedRoute>
               }
             />
@@ -106,11 +98,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               index
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <Navigate
-                    to={'/sightings'}
-                    state={{ from: location }}
-                    replace
-                  />
+                  <Navigate to={'/sightings'} state={{ from: location }} replace />
                 </AuthorizedRoute>
               }
             />
@@ -141,11 +129,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               index
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <Navigate
-                    to={'/cryptids'}
-                    state={{ from: location }}
-                    replace
-                  />
+                  <Navigate to={'/cryptids'} state={{ from: location }} replace />
                 </AuthorizedRoute>
               }
             />
@@ -166,11 +150,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             index
             element={
               <AuthorizedRoute loggedInUser={loggedInUser}>
-                <Navigate
-                  to={`/profile/${loggedInUser?.id}`}
-                  state={{ from: location }}
-                  replace
-                />
+                <Navigate to={`/profile/${loggedInUser?.id}`} state={{ from: location }} replace />
               </AuthorizedRoute>
             }
           />
@@ -189,11 +169,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               index
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <Navigate
-                    to={`/profile/${loggedInUser?.id}`}
-                    state={{ from: location }}
-                    replace
-                  />
+                  <Navigate to={`/profile/${loggedInUser?.id}`} state={{ from: location }} replace />
                 </AuthorizedRoute>
               }
             />

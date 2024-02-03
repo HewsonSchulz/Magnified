@@ -15,13 +15,9 @@ export const CryptidDetails = () => {
     if (sightings.length > 2) {
       return sightings
         .slice(0, 2)
-        .map((sighting) => (
-          <Sighting key={sighting.id} sighting={sighting} isDetails={true} />
-        ))
+        .map((sighting) => <Sighting key={sighting.id} sighting={sighting} isDetails={true} />)
     } else {
-      return sightings.map((sighting) => (
-        <Sighting key={sighting.id} sighting={sighting} isDetails={true} />
-      ))
+      return sightings.map((sighting) => <Sighting key={sighting.id} sighting={sighting} isDetails={true} />)
     }
   }
 
@@ -53,18 +49,10 @@ export const CryptidDetails = () => {
       {cryptid && (
         <>
           <li className='cryptid-details__cryptid'>{cryptid.name}</li>
-          <img
-            className='cryptid-details__img'
-            src={cryptid.image}
-            alt={'A picture of ' + cryptid.name}
-          />
-          <li className='cryptid-details__description'>
-            {cryptid.description}
-          </li>
+          <img className='cryptid-details__img' src={cryptid.image} alt={'A picture of ' + cryptid.name} />
+          <li className='cryptid-details__description'>{cryptid.description}</li>
           {showSightings()}
-          <Link
-            to={`/sightings/cryptid/${cryptidId}`}
-            className='cryptid-details__sightings-link'>
+          <Link to={`/sightings/cryptid/${cryptidId}`} className='cryptid-details__sightings-link'>
             See all sightings of this cryptid...
           </Link>
         </>

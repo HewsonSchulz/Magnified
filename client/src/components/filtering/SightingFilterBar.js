@@ -61,9 +61,7 @@ export const SightingFilterBar = ({
                 setFilterOption(event.target.value)
               }}>
               {options.map((option) => (
-                <option
-                  key={getFilterOptions().indexOf(option)}
-                  value={getFilterOptions().indexOf(option)}>
+                <option key={getFilterOptions().indexOf(option)} value={getFilterOptions().indexOf(option)}>
                   {option}
                 </option>
               ))}

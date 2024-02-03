@@ -70,9 +70,7 @@ export const Profile = ({ loggedInUser }) => {
           <li className='profile__name'>{user.name}</li>
           <li className='profile__email'>{user.email}</li>
           <li>
-            <Link
-              to={`/sightings/${userId}`}
-              className='cryptid-details__sightings-link'>
+            <Link to={`/sightings/${userId}`} className='cryptid-details__sightings-link'>
               See {isAuthor ? 'your' : "this user's"} posted sightings...
             </Link>
           </li>

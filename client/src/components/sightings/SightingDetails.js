@@ -33,24 +33,14 @@ export const SightingDetails = ({ loggedInUser }) => {
       {sighting && (
         <>
           <Link to={`/profile/${sighting.user?.id}`}>
-            <li className='sighting-details__author'>
-              Author: {sighting.user?.name}
-            </li>
+            <li className='sighting-details__author'>Author: {sighting.user?.name}</li>
           </Link>
           <Link to={`/cryptids/details/${sighting.cryptid?.id}`}>
-            <li className='sighting-details__cryptid'>
-              Cryptid: {sighting.cryptid?.name}
-            </li>
+            <li className='sighting-details__cryptid'>Cryptid: {sighting.cryptid?.name}</li>
           </Link>
-          <li className='sighting-details__time'>
-            Date: {formatDate(sighting.time)}
-          </li>
-          <li className='sighting-details__location'>
-            Location: {sighting.location?.location}
-          </li>
-          <li className='sighting-details__description'>
-            {sighting.description}
-          </li>
+          <li className='sighting-details__time'>Date: {formatDate(sighting.time)}</li>
+          <li className='sighting-details__location'>Location: {sighting.location?.location}</li>
+          <li className='sighting-details__description'>{sighting.description}</li>
           {loggedInUser.id === sighting.userId && (
             <>
               <Button
@@ -59,15 +49,10 @@ export const SightingDetails = ({ loggedInUser }) => {
                 onClick={(e) => {
                   e.preventDefault()
                   navigate(`/sightings/edit/${sighting.id}`)
-                }}
-              >
+                }}>
                 Edit
               </Button>
-              <Button
-                className='delete-btn'
-                color='danger'
-                onClick={handleDelete}
-              >
+              <Button className='delete-btn' color='danger' onClick={handleDelete}>
                 Delete
               </Button>
             </>

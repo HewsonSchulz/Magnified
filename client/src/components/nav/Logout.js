@@ -11,8 +11,7 @@ export const Logout = () => {
           //TODO?: fix logging out relying on built-in page refresh (there is a flash of 'uncaught' in the console when logging out)
           navigate('/login', { replace: true })
         })
-      }}
-    >
+      }}>
       Logout
     </Link>
   )

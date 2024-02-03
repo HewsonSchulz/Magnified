@@ -24,17 +24,11 @@ export const CryptidsList = () => {
           // sort based on total amount of matching data
           const aScore =
             calculateMatchingData(a.name.toLowerCase(), searchTerm.trim()) +
-            calculateMatchingData(
-              a.description.toLowerCase(),
-              searchTerm.trim()
-            )
+            calculateMatchingData(a.description.toLowerCase(), searchTerm.trim())
 
           const bScore =
             calculateMatchingData(b.name.toLowerCase(), searchTerm.trim()) +
-            calculateMatchingData(
-              b.description.toLowerCase(),
-              searchTerm.trim()
-            )
+            calculateMatchingData(b.description.toLowerCase(), searchTerm.trim())
 
           return bScore - aScore
         })
