@@ -24,3 +24,13 @@ export const updateUser = async (user) => {
     fetchOptions('PUT', user)
   ).then((res) => res.json())
 }
+
+export const updateAdmin = async (user) => {
+  const updatedUser = await getUserById(user.id)
+  updatedUser.isAdmin = !updatedUser.isAdmin
+
+  return await fetch(
+    `${apiUrl}/users/${user.id}`,
+    fetchOptions('PUT', updatedUser)
+  ).then((res) => res.json())
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getUserById, getUsers } from '../../managers/userManager'
+import { getUserById, getUsers, updateAdmin } from '../../managers/userManager'
 import { Button } from 'reactstrap'
 import './Profile.css'
 
@@ -10,6 +10,33 @@ export const Profile = ({ loggedInUser }) => {
   const { userId } = useParams()
   const navigate = useNavigate()
 
+  const renderAdminBtn = () => {
+    if (loggedInUser.isAdmin) {
+      if (!!user && user.isAdmin) {
+        return (
+          <Button
+            className='demote-btn'
+            color='danger'
+            onClick={(e) => {
+              updateAdmin(user).then(setUser)
+            }}>
+            Remove Admin
+          </Button>
+        )
+      } else {
+        return (
+          <Button
+            className='promote-btn'
+            color='success'
+            onClick={(e) => {
+              updateAdmin(user).then(setUser)
+            }}>
+            Promote to Admin
+          </Button>
+        )
+      }
+    }
+  }
   useEffect(() => {
     getUsers().then((users) => {
       if (users.length < parseInt(userId)) {
@@ -49,18 +76,18 @@ export const Profile = ({ loggedInUser }) => {
               See {isAuthor ? 'your' : "this user's"} posted sightings...
             </Link>
           </li>
-          {isAuthor && (
-            <>
-              <Button
-                className='edit-btn'
-                color='warning'
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigate(`/profile/edit/${loggedInUser.id}`)
-                }}>
-                Edit
-              </Button>
-            </>
+          {isAuthor ? (
+            <Button
+              className='edit-btn'
+              color='warning'
+              onClick={(e) => {
+                e.preventDefault()
+                navigate(`/profile/edit/${loggedInUser.id}`)
+              }}>
+              Edit
+            </Button>
+          ) : (
+            renderAdminBtn()
           )}
         </>
       )}
