@@ -10,6 +10,7 @@ import { CryptidDetails } from './cryptids/CryptidDetails'
 import { SightingForm } from './forms/SightingForm'
 import { Profile } from './profiles/Profile'
 import { ProfileForm } from './forms/ProfileForm'
+import { CryptidForm } from './forms/CryptidForm'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -139,6 +140,26 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
                   <CryptidDetails />
+                </AuthorizedRoute>
+              }
+            />
+          </Route>
+
+          <Route path='edit'>
+            <Route
+              index
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <Navigate to={'/cryptids'} state={{ from: location }} replace />
+                </AuthorizedRoute>
+              }
+            />
+
+            <Route
+              path=':cryptidId'
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <CryptidForm loggedInUser={loggedInUser} />
                 </AuthorizedRoute>
               }
             />

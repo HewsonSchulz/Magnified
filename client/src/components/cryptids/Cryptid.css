@@ -13,3 +13,19 @@
   filter: grayscale(100%);
   object-fit: cover;
 }
+
+.cryptid-form input {
+  width: 800px;
+  min-width: 500px;
+  max-width: 95%;
+}
+
+#cryptid-form__description-input {
+  width: 800px;
+  min-width: 500px;
+  max-width: 95%;
+  height: 200px;
+  min-height: 200px;
+  max-height: 650px;
+  resize: both;
+}

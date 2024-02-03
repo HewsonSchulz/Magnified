@@ -49,7 +49,7 @@ export const CryptidDetails = () => {
       {cryptid && (
         <>
           <li className='cryptid-details__cryptid'>{cryptid.name}</li>
-          <img className='cryptid-details__img' src={cryptid.image} alt={'A picture of ' + cryptid.name} />
+          <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
           <li className='cryptid-details__description'>{cryptid.description}</li>
           {showSightings()}
           <Link to={`/sightings/cryptid/${cryptidId}`} className='cryptid-details__sightings-link'>
@@ -60,3 +60,6 @@ export const CryptidDetails = () => {
     </ul>
   )
 }
+
+//TODO: add an cryptid edit button for admins
+//TODO: creating a new cryptid proposal

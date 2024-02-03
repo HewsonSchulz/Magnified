@@ -9,9 +9,7 @@ export const getUserByEmail = async (email) => {
 }
 
 export const createUser = async (user) => {
-  return await fetch(`${apiUrl}/users`, fetchOptions('POST', user)).then(
-    (res) => res.json()
-  )
+  return await fetch(`${apiUrl}/users`, fetchOptions('POST', user)).then((res) => res.json())
 }
 
 export const getUsers = async () => {
@@ -19,18 +17,12 @@ export const getUsers = async () => {
 }
 
 export const updateUser = async (user) => {
-  return await fetch(
-    `${apiUrl}/users/${user.id}`,
-    fetchOptions('PUT', user)
-  ).then((res) => res.json())
+  return await fetch(`${apiUrl}/users/${user.id}`, fetchOptions('PUT', user)).then((res) => res.json())
 }
 
 export const updateAdmin = async (user) => {
   const updatedUser = await getUserById(user.id)
   updatedUser.isAdmin = !updatedUser.isAdmin
 
-  return await fetch(
-    `${apiUrl}/users/${user.id}`,
-    fetchOptions('PUT', updatedUser)
-  ).then((res) => res.json())
+  return await fetch(`${apiUrl}/users/${user.id}`, fetchOptions('PUT', updatedUser)).then((res) => res.json())
 }

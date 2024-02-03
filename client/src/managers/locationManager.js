@@ -5,10 +5,7 @@ export const getLocations = async () => {
 }
 
 export const createLocation = async (location) => {
-  return await fetch(
-    `${apiUrl}/locations`,
-    fetchOptions('POST', location)
-  ).then((res) => res.json())
+  return await fetch(`${apiUrl}/locations`, fetchOptions('POST', location)).then((res) => res.json())
 }
 
 export const getLocationByName = async (locationName) => {

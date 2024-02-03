@@ -66,7 +66,7 @@ export const SightingForm = ({ loggedInUser }) => {
                 cryptidId: parseInt(cryptidOption),
                 locationId: existingLocation.id,
                 description: newDesc,
-                id: parseInt(sightingId),
+                id: existingSighting.id,
               }).then((updatedSighting) => {
                 navigate(`/sightings/details/${updatedSighting.id}`)
               })
@@ -82,7 +82,7 @@ export const SightingForm = ({ loggedInUser }) => {
                   cryptidId: parseInt(cryptidOption),
                   locationId: createdLocation.id,
                   description: newDesc,
-                  id: parseInt(sightingId),
+                  id: existingSighting.id,
                 }).then((updatedSighting) => {
                   navigate(`/sightings/details/${updatedSighting.id}`)
                 })
