@@ -14,7 +14,7 @@ export const SightingDetails = ({ loggedInUser }) => {
     e.preventDefault()
     if (window.confirm('Are you sure you want to delete this sighting?')) {
       await deleteSighting(sighting)
-      navigate(`/sightings/${loggedInUser.id}`)
+      navigate('/sightings')
     }
   }
 
@@ -42,20 +42,20 @@ export const SightingDetails = ({ loggedInUser }) => {
           <li className='sighting-details__location'>Location: {sighting.location?.location}</li>
           <li className='sighting-details__description'>{sighting.description}</li>
           {loggedInUser.id === sighting.userId && (
-            <>
-              <Button
-                className='edit-btn'
-                color='warning'
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigate(`/sightings/edit/${sighting.id}`)
-                }}>
-                Edit
-              </Button>
-              <Button className='delete-btn' color='danger' onClick={handleDelete}>
-                Delete
-              </Button>
-            </>
+            <Button
+              className='edit-btn'
+              color='warning'
+              onClick={(e) => {
+                e.preventDefault()
+                navigate(`/sightings/edit/${sighting.id}`)
+              }}>
+              Edit
+            </Button>
+          )}
+          {(loggedInUser.id === sighting.userId || loggedInUser.isAdmin) && (
+            <Button className='delete-btn' color='danger' onClick={handleDelete}>
+              Delete
+            </Button>
           )}
         </>
       )}
