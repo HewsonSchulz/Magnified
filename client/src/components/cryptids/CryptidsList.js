@@ -42,7 +42,10 @@ export const CryptidsList = () => {
 
       <ul className='cryptids-list'>
         {filteredCryptids.map((cryptid) => {
-          return <Cryptid key={cryptid.id} cryptid={cryptid} />
+          if (cryptid.status === 'approved') {
+            return <Cryptid key={cryptid.id} cryptid={cryptid} />
+          }
+          return <i key={cryptid.id}></i>
         })}
       </ul>
     </>

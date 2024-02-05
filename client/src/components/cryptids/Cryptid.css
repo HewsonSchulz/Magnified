@@ -29,3 +29,7 @@
   max-height: 650px;
   resize: both;
 }
+
+.cryptid-details__img {
+  margin-bottom: 20px;
+}

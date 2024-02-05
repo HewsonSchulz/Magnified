@@ -72,3 +72,11 @@ export const calculateMatchingData = (data, searchTerm) => {
 
   return count
 }
+
+// checks if given object is empty
+export const isEmptyObject = (obj) => {
+  if (JSON.stringify(obj) === '{}') {
+    return true
+  }
+  return false
+}

@@ -3,16 +3,17 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getUserById, getUsers, updateAdmin } from '../../managers/userManager'
 import { Button } from 'reactstrap'
 import './Profile.css'
+import { isEmptyObject } from '../../helper'
 
 export const Profile = ({ loggedInUser }) => {
   const [isAuthor, setIsAuthor] = useState(false)
-  const [user, setUser] = useState(false)
+  const [user, setUser] = useState({})
   const { userId } = useParams()
   const navigate = useNavigate()
 
   const renderAdminBtn = () => {
     if (loggedInUser.isAdmin) {
-      if (!!user && user.isAdmin) {
+      if (!isEmptyObject(user) && user.isAdmin) {
         return (
           <Button
             className='demote-btn'

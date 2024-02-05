@@ -8,6 +8,7 @@ export const CryptidForm = ({ loggedInUser }) => {
   const [descInput, setDescInput] = useState('')
   const [formCompleted, setFormCompleted] = useState(false)
   const [cryptid, setCryptid] = useState({})
+  const [nameInput, setNameInput] = useState('')
   const { cryptidId } = useParams()
   const navigate = useNavigate()
 
@@ -15,21 +16,20 @@ export const CryptidForm = ({ loggedInUser }) => {
     e.preventDefault()
 
     if (formCompleted) {
-      const [newImageUrl, newDesc] = [imageUrlInput.trim(), descInput.trim()]
+      const [newImageUrl, newDesc, newName] = [imageUrlInput.trim(), descInput.trim(), nameInput.trim()]
 
       if (cryptidId === 'new') {
-        //TODO!: creating a new cryptid PROPOSAL
-        /*
         // creating a new cryptid proposal
         createCryptid({
-          name: //!,
+          name: newName,
           description: newDesc,
           image: newImageUrl,
-          status: "pending",
-        }).then((newCryptid) => {
-          //!
+          status: 'pending',
+          userId: loggedInUser.id,
+        }).then(() => {
+          window.alert('Your proposal has been submitted for review.')
+          navigate('/proposals')
         })
-        */
       } else {
         // editing an existing cryptid
         updateCryptid({
@@ -37,10 +37,43 @@ export const CryptidForm = ({ loggedInUser }) => {
           description: newDesc,
           image: newImageUrl,
           status: cryptid.status,
+          userId: cryptid.userId,
           id: cryptid.id,
         }).then((updatedCryptid) => {
           navigate(`/cryptids/details/${updatedCryptid.id}`)
         })
+      }
+    }
+  }
+
+  const renderSaveButtons = () => {
+    if (cryptidId === 'new') {
+      if (formCompleted) {
+        return (
+          <Button color='primary' onClick={handleSubmit}>
+            Submit Proposal
+          </Button>
+        )
+      } else {
+        return (
+          <Button color='primary' disabled>
+            Submit Proposal
+          </Button>
+        )
+      }
+    } else {
+      if (formCompleted) {
+        return (
+          <Button color='primary' onClick={handleSubmit}>
+            Save
+          </Button>
+        )
+      } else {
+        return (
+          <Button color='primary' disabled>
+            Save
+          </Button>
+        )
       }
     }
   }
@@ -58,13 +91,22 @@ export const CryptidForm = ({ loggedInUser }) => {
   }, [loggedInUser, navigate])
 
   useEffect(() => {
-    if (!!descInput.trim()) {
-      //TODO: check for valid url
-      setFormCompleted(true)
+    if (cryptidId === 'new') {
+      // creating a new cryptid proposal
+      if (!!descInput.trim() && !!nameInput.trim()) {
+        setFormCompleted(true)
+      } else {
+        setFormCompleted(false)
+      }
     } else {
-      setFormCompleted(false)
+      // editing an existing cryptid
+      if (!!descInput.trim()) {
+        setFormCompleted(true)
+      } else {
+        setFormCompleted(false)
+      }
     }
-  }, [descInput])
+  }, [cryptidId, descInput, nameInput])
 
   useEffect(() => {
     if (cryptidId === 'new') {
@@ -88,13 +130,27 @@ export const CryptidForm = ({ loggedInUser }) => {
 
   return (
     <ul>
-      {cryptid && (
+      {cryptid && cryptidId !== 'new' && (
         <>
           <li className='cryptid-details__cryptid'>{cryptid.name}</li>
           <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
         </>
       )}
       <form className='cryptid-form'>
+        {cryptidId === 'new' && (
+          <FormGroup id='cryptid-form__name'>
+            <Label for='cryptid-form__name-input'></Label>
+            <input
+              id='cryptid-form__name-input'
+              onChange={(e) => {
+                setNameInput(e.target.value)
+              }}
+              placeholder='Cryptid Name'
+              value={nameInput}
+              required
+            />
+          </FormGroup>
+        )}
         <FormGroup id='cryptid-form__image-url'>
           <Label for='cryptid-form__image-url-input'></Label>
           <input
@@ -119,15 +175,8 @@ export const CryptidForm = ({ loggedInUser }) => {
             required
           />
         </FormGroup>
-        {formCompleted ? (
-          <Button color='primary' onClick={handleSubmit}>
-            Save
-          </Button>
-        ) : (
-          <Button color='primary' onClick={handleSubmit} disabled>
-            Save
-          </Button>
-        )}
+
+        {renderSaveButtons()}
       </form>
     </ul>
   )

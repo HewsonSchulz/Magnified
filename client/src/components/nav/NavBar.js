@@ -42,6 +42,8 @@ export const NavBar = ({ loggedInUser }) => {
         </Link>
       </li>
 
+      {/*//TODO!: add proposals tab, and new proposal button */}
+
       {localStorage.getItem('magnified_user') && (
         <li className='navbar__item navbar__logout'>
           <Logout />
