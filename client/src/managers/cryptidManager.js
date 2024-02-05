@@ -26,3 +26,7 @@ export const updateCryptidStatus = async (cryptid, status) => {
 
   return await fetch(`${apiUrl}/cryptids/${cryptid.id}`, fetchOptions('PUT', updatedCryptid)).then((res) => res.json())
 }
+
+export const deleteCryptid = async (cryptid) => {
+  return await fetch(`${apiUrl}/cryptids/${cryptid.id}`, fetchOptions('DELETE')).then((res) => res.json())
+}

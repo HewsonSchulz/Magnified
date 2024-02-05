@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getCryptidById, updateCryptidStatus } from '../../managers/cryptidManager'
+import { deleteCryptid, getCryptidById, updateCryptidStatus } from '../../managers/cryptidManager'
 import './Cryptid.css'
 import { Sighting } from '../sightings/Sighting'
 import { getSightingsByCryptid } from '../../managers/sightingManager'
@@ -15,6 +15,22 @@ export const CryptidDetails = ({ loggedInUser }) => {
 
   const getAndSetCryptid = () => {
     getCryptidById(cryptidId).then(setCryptid)
+  }
+
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    const associatedSightings = await getSightingsByCryptid(cryptid)
+
+    if (
+      window.confirm(
+        `This cryptid has ${associatedSightings.length} sighting${
+          associatedSightings.length !== 1 ? 's' : ''
+        } associated with it. All of these sightings will be deleted. Are you sure you want to delete this cryptid?`
+      )
+    ) {
+      await deleteCryptid(cryptid)
+      navigate('/cryptids')
+    }
   }
 
   const showSightings = (cryptidId) => {
@@ -38,15 +54,20 @@ export const CryptidDetails = ({ loggedInUser }) => {
     if (loggedInUser.isAdmin) {
       if (cryptid.status === 'approved') {
         return (
-          <Button
-            className='edit-btn'
-            color='warning'
-            onClick={(e) => {
-              e.preventDefault()
-              navigate(`/cryptids/edit/${cryptidId}`)
-            }}>
-            Edit
-          </Button>
+          <>
+            <Button
+              className='edit-btn'
+              color='warning'
+              onClick={(e) => {
+                e.preventDefault()
+                navigate(`/cryptids/edit/${cryptidId}`)
+              }}>
+              Edit
+            </Button>
+            <Button className='delete-btn' color='danger' onClick={handleDelete}>
+              Delete
+            </Button>
+          </>
         )
       }
 
