@@ -11,6 +11,7 @@ import { SightingForm } from './forms/SightingForm'
 import { Profile } from './profiles/Profile'
 import { ProfileForm } from './forms/ProfileForm'
 import { CryptidForm } from './forms/CryptidForm'
+import { CryptidProposalsList } from './cryptids/CryptidProposalsList'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
   const location = useLocation()
@@ -205,6 +206,15 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             />
           </Route>
         </Route>
+
+        <Route
+          path='proposals'
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <CryptidProposalsList loggedInUser={loggedInUser} />
+            </AuthorizedRoute>
+          }
+        />
       </Route>
 
       <Route

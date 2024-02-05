@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, FormGroup, Label } from 'reactstrap'
 import { createCryptid, getCryptidById, updateCryptid } from '../../managers/cryptidManager'
+import { deepClone } from '../../helper'
 
 export const CryptidForm = ({ loggedInUser }) => {
   const [imageUrlInput, setImageUrlInput] = useState('')
@@ -26,6 +27,7 @@ export const CryptidForm = ({ loggedInUser }) => {
           image: newImageUrl,
           status: 'pending',
           userId: loggedInUser.id,
+          time: new Date().toISOString(),
         }).then(() => {
           window.alert('Your proposal has been submitted for review.')
           navigate('/proposals')
@@ -38,6 +40,7 @@ export const CryptidForm = ({ loggedInUser }) => {
           image: newImageUrl,
           status: cryptid.status,
           userId: cryptid.userId,
+          time: cryptid.time,
           id: cryptid.id,
         }).then((updatedCryptid) => {
           navigate(`/cryptids/details/${updatedCryptid.id}`)

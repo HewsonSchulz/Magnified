@@ -34,6 +34,12 @@ export const NavBar = ({ loggedInUser }) => {
       </li>
 
       <li className='navbar__item'>
+        <Link to='/proposals' className='navbar__link' id={url === '/proposals' ? 'selected' : ''}>
+          Proposals
+        </Link>
+      </li>
+
+      <li className='navbar__item'>
         <Link
           to={`/profile/${loggedInUser?.id}`}
           className='navbar__link'
@@ -41,8 +47,6 @@ export const NavBar = ({ loggedInUser }) => {
           Profile
         </Link>
       </li>
-
-      {/*//TODO!: add proposals tab, and new proposal button */}
 
       {localStorage.getItem('magnified_user') && (
         <li className='navbar__item navbar__logout'>
