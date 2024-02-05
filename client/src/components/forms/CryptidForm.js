@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, FormGroup, Label } from 'reactstrap'
 import { createCryptid, getCryptidById, updateCryptid } from '../../managers/cryptidManager'
-import { deepClone } from '../../helper'
 
 export const CryptidForm = ({ loggedInUser }) => {
   const [imageUrlInput, setImageUrlInput] = useState('')
@@ -88,10 +87,10 @@ export const CryptidForm = ({ loggedInUser }) => {
   }, [cryptidId])
 
   useEffect(() => {
-    if (!loggedInUser.isAdmin) {
+    if (!loggedInUser.isAdmin && cryptidId !== 'new') {
       navigate('/cryptids')
     }
-  }, [loggedInUser, navigate])
+  }, [cryptidId, loggedInUser, navigate])
 
   useEffect(() => {
     if (cryptidId === 'new') {

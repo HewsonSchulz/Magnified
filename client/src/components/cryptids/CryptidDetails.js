@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getCryptid } from '../../managers/cryptidManager'
+import { getCryptidById, updateCryptidStatus } from '../../managers/cryptidManager'
 import './Cryptid.css'
 import { Sighting } from '../sightings/Sighting'
 import { getSightingsByCryptid } from '../../managers/sightingManager'
 import { Button } from 'reactstrap'
-import { isEmptyObject } from '../../helper'
+import { isEmptyObject, renderStatus } from '../../helper'
 
 export const CryptidDetails = ({ loggedInUser }) => {
   const [cryptid, setCryptid] = useState({})
   const [sightings, setSightings] = useState([])
   const { cryptidId } = useParams()
   const navigate = useNavigate()
+
+  const getAndSetCryptid = () => {
+    getCryptidById(cryptidId).then(setCryptid)
+  }
 
   const showSightings = (cryptidId) => {
     if (sightings.length > 2) {
@@ -30,11 +34,54 @@ export const CryptidDetails = ({ loggedInUser }) => {
     }
   }
 
+  const renderButtons = () => {
+    if (loggedInUser.isAdmin) {
+      if (cryptid.status === 'approved') {
+        return (
+          <Button
+            className='edit-btn'
+            color='warning'
+            onClick={(e) => {
+              e.preventDefault()
+              navigate(`/cryptids/edit/${cryptidId}`)
+            }}>
+            Edit
+          </Button>
+        )
+      }
+
+      return (
+        <>
+          <Button
+            className='approve-btn'
+            color='success'
+            onClick={(e) => {
+              e.preventDefault()
+              if (window.confirm('Are you sure you want to approve this cryptid proposal?')) {
+                updateCryptidStatus(cryptid, 'approved').then(getAndSetCryptid)
+              }
+            }}>
+            Approve
+          </Button>
+          <Button
+            className='deny-btn'
+            color='danger'
+            onClick={(e) => {
+              e.preventDefault()
+              if (window.confirm('Are you sure you want to deny this cryptid proposal?')) {
+                updateCryptidStatus(cryptid, 'denied').then(() => navigate(`/proposals`))
+              }
+            }}>
+            Deny
+          </Button>
+        </>
+      )
+    }
+  }
+
   useEffect(() => {
-    getCryptid(cryptidId).then((data) => {
-      setCryptid(data[0])
-    })
-  }, [cryptidId])
+    getAndSetCryptid()
+  }, [cryptidId]) //* getAndSetCryptid dependency causes infinite loop
 
   useEffect(() => {
     if (cryptid === undefined) {
@@ -44,7 +91,7 @@ export const CryptidDetails = ({ loggedInUser }) => {
 
   useEffect(() => {
     if (!!cryptid && !isEmptyObject(cryptid)) {
-      if (cryptid.status !== 'approved' && !loggedInUser.isAdmin) {
+      if (cryptid.status !== 'approved' && !loggedInUser.isAdmin && cryptid.userId !== loggedInUser.id) {
         navigate('/cryptids')
       } else {
         getSightingsByCryptid(cryptid).then((sightings) => {
@@ -62,6 +109,7 @@ export const CryptidDetails = ({ loggedInUser }) => {
       {cryptid && (
         <>
           <li className='cryptid-details__cryptid'>{cryptid.name}</li>
+          {cryptid.status !== 'approved' && renderStatus(cryptid.status)}
           {!!cryptid.image ? (
             <img className='cryptid__img' src={cryptid.image} alt={'provided url is invalid'} />
           ) : (
@@ -69,17 +117,9 @@ export const CryptidDetails = ({ loggedInUser }) => {
             //TODO: handle if picture is not provided
           )}
           <li className='cryptid-details__description'>{cryptid.description}</li>
-          {loggedInUser.isAdmin && (
-            <Button
-              className='edit-btn'
-              color='warning'
-              onClick={(e) => {
-                e.preventDefault()
-                navigate(`/cryptids/edit/${cryptidId}`)
-              }}>
-              Edit
-            </Button>
-          )}
+
+          {renderButtons()}
+
           {showSightings(cryptidId)}
         </>
       )}

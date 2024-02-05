@@ -80,3 +80,17 @@ export const isEmptyObject = (obj) => {
   }
   return false
 }
+
+// renders given status
+export const renderStatus = (status) => {
+  switch (status) {
+    default:
+      return <></>
+    case 'pending':
+      return <li className='cryptid__status status-pending'>This cryptid proposal is under review.</li>
+    case 'approved':
+      return <li className='cryptid__status status-approved'>This cryptid proposal was approved!</li>
+    case 'denied':
+      return <li className='cryptid__status status-denied'>This cryptid proposal was denied.</li>
+  }
+}

@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
-import { truncateText } from '../../helper'
+import { renderStatus, truncateText } from '../../helper'
 import './Cryptid.css'
 
-export const Cryptid = ({ cryptid }) => {
+export const Cryptid = ({ cryptid, showStatus }) => {
   return (
     <Link to={`/cryptids/details/${cryptid.id}`}>
       <div className='cryptid'>
         <li className='cryptid__name'>{cryptid.name}</li>
+        {!!showStatus && renderStatus(cryptid.status)}
         {!!cryptid.image ? (
           <img className='cryptid__img' src={cryptid.image} alt={'A picture of ' + cryptid.name} />
         ) : (

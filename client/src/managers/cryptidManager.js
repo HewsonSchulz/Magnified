@@ -4,10 +4,6 @@ export const getCryptids = async () => {
   return await fetch(`${apiUrl}/cryptids?_embed=sightings`).then((res) => res.json())
 }
 
-export const getCryptid = async (id) => {
-  return await fetch(`${apiUrl}/cryptids?_embed=sightings&id=${id}`).then((res) => res.json())
-}
-
 export const getCryptidById = async (id) => {
   const cryptid = await fetch(`${apiUrl}/cryptids?_embed=sightings&id=${id}`).then((res) => res.json())
 
@@ -20,4 +16,13 @@ export const updateCryptid = async (cryptid) => {
 
 export const createCryptid = async (cryptid) => {
   return await fetch(`${apiUrl}/cryptids`, fetchOptions('POST', cryptid)).then((res) => res.json())
+}
+
+export const updateCryptidStatus = async (cryptid, status) => {
+  const updatedCryptid = await getCryptidById(cryptid.id)
+  // manually remove excess data
+  delete updatedCryptid['sightings']
+  updatedCryptid.status = status
+
+  return await fetch(`${apiUrl}/cryptids/${cryptid.id}`, fetchOptions('PUT', updatedCryptid)).then((res) => res.json())
 }

@@ -33,3 +33,20 @@
 .cryptid-details__img {
   margin-bottom: 20px;
 }
+
+.deny-btn {
+  float: right;
+  margin-right: 20px;
+}
+
+.status-pending {
+  color: blue;
+}
+
+.status-approved {
+  color: green;
+}
+
+.status-denied {
+  color: red;
+}
