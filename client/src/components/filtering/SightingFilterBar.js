@@ -80,11 +80,16 @@ export const SightingFilterBar = ({
             <option key={'c-' + 0} value={0}>
               Select a Cryptid...
             </option>
-            {cryptids.map((cryptid, i) => (
-              <option key={'c-' + (i + 1)} value={cryptid.id}>
-                {cryptid.name}
-              </option>
-            ))}
+            {cryptids.map((cryptid, i) => {
+              if (cryptid.status === 'approved') {
+                return (
+                  <option key={'c-' + (i + 1)} value={cryptid.id}>
+                    {cryptid.name}
+                  </option>
+                )
+              }
+              return null
+            })}
           </select>
         )
       case 'Author':

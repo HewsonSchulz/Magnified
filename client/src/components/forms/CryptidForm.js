@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, FormGroup, Label } from 'reactstrap'
 import { createCryptid, getCryptidById, updateCryptid } from '../../managers/cryptidManager'
+import { isEmptyObject } from '../../helper'
 
 export const CryptidForm = ({ loggedInUser }) => {
   const [imageUrlInput, setImageUrlInput] = useState('')
@@ -34,7 +35,7 @@ export const CryptidForm = ({ loggedInUser }) => {
       } else {
         // editing an existing cryptid
         updateCryptid({
-          name: cryptid.name,
+          name: newName,
           description: newDesc,
           image: newImageUrl,
           status: cryptid.status,
@@ -93,6 +94,12 @@ export const CryptidForm = ({ loggedInUser }) => {
   }, [cryptidId, loggedInUser, navigate])
 
   useEffect(() => {
+    if (!!cryptid && !isEmptyObject(cryptid) && cryptid.status !== 'approved') {
+      navigate('/cryptids')
+    }
+  }, [cryptid, navigate])
+
+  useEffect(() => {
     if (cryptidId === 'new') {
       // creating a new cryptid proposal
       if (!!descInput.trim() && !!nameInput.trim()) {
@@ -115,13 +122,15 @@ export const CryptidForm = ({ loggedInUser }) => {
       // creating a new cryptid
       setDescInput('')
       setImageUrlInput('')
+      setNameInput('')
     } else {
       // editing an existing cryptid
       getCryptidById(parseInt(cryptidId)).then((cryptid) => {
         if (!!cryptid) {
-          const { image, description } = cryptid
+          const { image, description, name } = cryptid
           setImageUrlInput(image)
           setDescInput(description)
+          setNameInput(name)
         } else {
           // url is invalid
           navigate('/cryptids/edit/new')
@@ -133,26 +142,21 @@ export const CryptidForm = ({ loggedInUser }) => {
   return (
     <ul>
       {cryptid && cryptidId !== 'new' && (
-        <>
-          <li className='cryptid-details__cryptid'>{cryptid.name}</li>
-          <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
-        </>
+        <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
       )}
       <form className='cryptid-form'>
-        {cryptidId === 'new' && (
-          <FormGroup id='cryptid-form__name'>
-            <Label for='cryptid-form__name-input'></Label>
-            <input
-              id='cryptid-form__name-input'
-              onChange={(e) => {
-                setNameInput(e.target.value)
-              }}
-              placeholder='Cryptid Name'
-              value={nameInput}
-              required
-            />
-          </FormGroup>
-        )}
+        <FormGroup id='cryptid-form__name'>
+          <Label for='cryptid-form__name-input'></Label>
+          <input
+            id='cryptid-form__name-input'
+            onChange={(e) => {
+              setNameInput(e.target.value)
+            }}
+            placeholder='Cryptid Name'
+            value={nameInput}
+            required
+          />
+        </FormGroup>
         <FormGroup id='cryptid-form__image-url'>
           <Label for='cryptid-form__image-url-input'></Label>
           <input

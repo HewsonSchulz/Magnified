@@ -45,7 +45,7 @@ export const CryptidsList = () => {
           if (cryptid.status === 'approved') {
             return <Cryptid key={cryptid.id} cryptid={cryptid} />
           }
-          return <i key={cryptid.id}></i>
+          return null
         })}
       </ul>
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getCryptids } from '../../managers/cryptidManager'
 import { sortAlphabetically } from '../../helper'
 import { Button, FormGroup, Label } from 'reactstrap'
@@ -146,19 +146,23 @@ export const SightingForm = ({ loggedInUser }) => {
           value={cryptidOption}
           onChange={(event) => {
             setCryptidOption(event.target.value)
-          }}
-          //? required
-        >
+          }}>
           <option key={0} value={0}>
             Select a Cryptid...
           </option>
-          {cryptids.map((cryptid, i) => (
-            <option key={i + 1} value={cryptid.id}>
-              {cryptid.name}
-            </option>
-          ))}
+          {cryptids.map((cryptid, i) => {
+            if (cryptid.status === 'approved') {
+              return (
+                <option key={i + 1} value={cryptid.id}>
+                  {cryptid.name}
+                </option>
+              )
+            }
+            return null
+          })}
         </select>
       </FormGroup>
+      <Link to='/cryptids/edit/new'>Don't see your cryptid? Create a new cryptid proposal...</Link>
       <FormGroup id='sighting-form__location'>
         <Label for='sighting-form__location_input'>Location:</Label>
         <input

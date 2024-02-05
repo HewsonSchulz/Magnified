@@ -484,7 +484,7 @@
       "time": "2023-12-30T20:07:25",
       "cryptidId": 2,
       "locationId": 25,
-      "description": "Ut sem nulla pharetra diam sit. Donec adipiscing tristique risus nec feugiat in. Facilisis gravida neque convallis a cras. Enim nec dui nunc mattis enim. Elit pellentesque habitant morbi tristique senectus et netus et malesuada. Placerat orci nulla pellentesque dignissim enim. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Amet nisl purus in mollis nunc sed id semper risus. At urna condimentum mattis pellentesque id nibh tortor. Nulla pellentesque dignissim enim sit amet venenatis. Mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus. Elementum nibh tellus molestie nunc non blandit massa enim. In dictum non consectetur a erat nam at. ",
+      "description": "Ut sem nulla pharetra diam sit. Donec adipiscing tristique risus nec feugiat in. Facilisis gravida neque convallis a cras. Enim nec dui nunc mattis enim. Elit pellentesque habitant morbi tristique senectus et netus et malesuada. Placerat orci nulla pellentesque dignissim enim. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Amet nisl purus in mollis nunc sed id semper risus. At urna condimentum mattis pellentesque id nibh tortor. Nulla pellentesque dignissim enim sit amet venenatis. Mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus. Elementum nibh tellus molestie nunc non blandit massa enim. In dictum non consectetur a erat nam at.",
       "id": 58
     },
     {
@@ -878,6 +878,15 @@
       "userId": 3,
       "time": "2023-04-23T07:29:18",
       "id": 6
+    },
+    {
+      "name": "Wampus Cat",
+      "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit, consequat faucibus luctus et nam quisque, tempor augue mollis cras varius vitae. Potenti risus vulputate curabitur proin hac venenatis cubilia vitae aptent faucibus egestas fermentum porta rhoncus interdum, tortor elementum leo eleifend vel ornare nisi posuere metus ultrices parturient lacus tincidunt id. Nostra fermentum taciti sapien velit mattis dui quis, habitant vivamus sed eu aliquet magna potenti ridiculus, sociis eget neque volutpat diam cubilia. Scelerisque justo accumsan natoque ornare sapien varius ut etiam, porta nunc ante fusce fringilla senectus.",
+      "image": "https://i.ytimg.com/vi/NJAdEjM1zlg/maxresdefault.jpg",
+      "status": "approved",
+      "userId": 2,
+      "time": "2024-02-05T19:57:33.935Z",
+      "id": 7
     }
   ],
   "locations": [

@@ -91,15 +91,22 @@ export const CryptidDetails = ({ loggedInUser }) => {
 
   useEffect(() => {
     if (!!cryptid && !isEmptyObject(cryptid)) {
-      if (cryptid.status !== 'approved' && !loggedInUser.isAdmin && cryptid.userId !== loggedInUser.id) {
-        navigate('/cryptids')
-      } else {
+      if (
+        cryptid.status === 'approved' ||
+        // if approved, all can view
+        (cryptid.status === 'pending' && (loggedInUser.isAdmin || cryptid.userId === loggedInUser.id)) ||
+        // if pending, only owner and admin can view
+        (cryptid.status === 'denied' && cryptid.userId === loggedInUser.id)
+        // if denied, only owner can view
+      ) {
         getSightingsByCryptid(cryptid).then((sightings) => {
           setSightings(
             // sort by date added
             sightings.sort((a, b) => new Date(b.time) - new Date(a.time))
           )
         })
+      } else {
+        navigate('/cryptids')
       }
     }
   }, [cryptid, loggedInUser, navigate])
