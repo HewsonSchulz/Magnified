@@ -53,7 +53,7 @@ export const SightingFilterBar = ({
         // initial filtering options
         return (
           <>
-            Sort By{' '}
+            <div className='filter-bar__sort-by'>Sort By </div>
             <select
               id='filter-bar__options'
               value={filterOption}

@@ -1,0 +1,35 @@
+#filter-bar__options,
+#filter-bar__cryptids,
+#filter-bar__authors {
+  border: none;
+  background: none;
+  margin-top: 1px;
+}
+
+.search-bar input {
+  border: none;
+  background: none;
+  width: 335px;
+}
+
+.filtering-background {
+  width: 370px;
+  height: 52px;
+  position: absolute;
+  z-index: -1;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
+}
+
+.filtering-container {
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+
+.filter-bar {
+  display: flex;
+}
+
+.search-bar,
+.filter-bar {
+  margin-left: 35px;
+}

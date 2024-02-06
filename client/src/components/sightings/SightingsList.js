@@ -71,16 +71,16 @@ export const SightingsList = () => {
           [...currentSightings].sort((a, b) => {
             // sort based on total amount of matching data
             const aScore =
-              calculateMatchingData(a.description.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(a.user.name.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(a.cryptid.name.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(a.location.location.toLowerCase(), searchTerm.trim())
+              calculateMatchingData(a.description.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(a.user.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(a.cryptid.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(a.location.location.toLowerCase(), searchTerm.toLowerCase().trim())
 
             const bScore =
-              calculateMatchingData(b.description.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(b.user.name.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(b.cryptid.name.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(b.location.location.toLowerCase(), searchTerm.trim())
+              calculateMatchingData(b.description.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(b.user.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(b.cryptid.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(b.location.location.toLowerCase(), searchTerm.toLowerCase().trim())
 
             return bScore - aScore
           })
@@ -129,38 +129,44 @@ export const SightingsList = () => {
   }, [filterOption, cryptidOption, authorOption])
 
   return (
-    <>
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} setIsSearching={setIsSearching} />
-      <SightingFilterBar
-        filterOption={filterOption}
-        setFilterOption={setFilterOption}
-        userId={userId}
-        cryptidId={cryptidId}
-      />
-      {filterOption === '1' && (
-        <SightingFilterBar
-          filterOption={filterOption}
-          setFilterOption={setFilterOption}
-          cryptidOption={cryptidOption}
-          setCryptidOption={setCryptidOption}
-          filterType={'Cryptid'}
-        />
-      )}
-      {filterOption === '2' && (
-        <SightingFilterBar
-          filterOption={filterOption}
-          setFilterOption={setFilterOption}
-          authorOption={authorOption}
-          setAuthorOption={setAuthorOption}
-          filterType={'Author'}
-        />
-      )}
+    <div className='sightings-container'>
+      <div className='filtering-container'>
+        <img className='filtering-background' src='/assets/paper2.jpg' alt='filtering background' />
+
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} setIsSearching={setIsSearching} />
+        <div className='filter-bar'>
+          <SightingFilterBar
+            filterOption={filterOption}
+            setFilterOption={setFilterOption}
+            userId={userId}
+            cryptidId={cryptidId}
+          />
+          {filterOption === '1' && (
+            <SightingFilterBar
+              filterOption={filterOption}
+              setFilterOption={setFilterOption}
+              cryptidOption={cryptidOption}
+              setCryptidOption={setCryptidOption}
+              filterType={'Cryptid'}
+            />
+          )}
+          {filterOption === '2' && (
+            <SightingFilterBar
+              filterOption={filterOption}
+              setFilterOption={setFilterOption}
+              authorOption={authorOption}
+              setAuthorOption={setAuthorOption}
+              filterType={'Author'}
+            />
+          )}
+        </div>
+      </div>
 
       <ul className='sightings-list'>
         {filteredSightings.map((sighting) => {
           return <Sighting key={sighting.id} sighting={sighting} />
         })}
       </ul>
-    </>
+    </div>
   )
 }
