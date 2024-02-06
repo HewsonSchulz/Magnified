@@ -1,6 +1,5 @@
 /* ??? */
 
-.sighting,
 .sighting-details {
   margin: 20px 0px;
 }
@@ -20,6 +19,66 @@
   margin-right: 20px;
 }
 
-/* #sighting-form__cryptid {
-  margin-bottom: 0;
-} */
+/* ??? */
+
+.sighting,
+.sighting-newspaper {
+  width: 666px;
+  /* width: 500px; */
+  height: 500px;
+  /* height: 375px; */
+}
+
+.sighting-newspaper {
+  position: absolute;
+  z-index: -1;
+}
+
+.sightings-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.sighting-content {
+  margin-top: 8%;
+  margin-right: 20%;
+  margin-left: 15%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sighting-content__a,
+.sighting-content__b {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sighting__cryptid,
+.sighting__location {
+  margin-top: 5px;
+}
+
+.sighting__description {
+  margin-top: 10%;
+}
+
+.sighting {
+  border: rgba(0, 0, 0, 0) solid 0.1px;
+}
+
+/* ! */
+.sighting {
+  /* border: red solid 1px; */
+}
+.sighting-content {
+  /* border: orange solid 2px; */
+}
+.sighting-content > * {
+  /* border: green solid 1px; */
+}
+.sightings-list {
+  /* border: blue solid 2px; */
+}
