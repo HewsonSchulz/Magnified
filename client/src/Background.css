@@ -8,6 +8,8 @@
   right: 0;
   bottom: 0;
   overflow-y: auto;
+  /*! children inherit this filter (all content) !*/
+  filter: grayscale(80%);
 }
 
 .background-image {
@@ -26,7 +28,6 @@
   background-size: cover;
   pointer-events: none;
   background-image: url('../public/assets/backgrounds/loading2.jpg');
-  filter: grayscale(90%);
 }
 
 .loading {
@@ -41,49 +42,37 @@
 
 .forest1 {
   background-image: url('../public/assets/backgrounds/forest1.jpg');
-  filter: grayscale(90%);
 }
 .forest2 {
   background-image: url('../public/assets/backgrounds/forest2.jpg');
-  filter: grayscale(90%);
 }
 .forest3 {
   background-image: url('../public/assets/backgrounds/forest3.jpg');
-  filter: grayscale(90%);
 }
 .forest4 {
   background-image: url('../public/assets/backgrounds/forest4.jpg');
-  filter: grayscale(90%);
 }
 .forest5 {
   background-image: url('../public/assets/backgrounds/forest5.jpg');
-  filter: grayscale(90%);
 }
 .forest6 {
   background-image: url('../public/assets/backgrounds/forest6.jpg');
-  filter: grayscale(90%);
 }
 .forest7 {
   background-image: url('../public/assets/backgrounds/forest7.jpg');
-  filter: grayscale(90%);
 }
 .forest8 {
   background-image: url('../public/assets/backgrounds/forest8.jpg');
-  filter: grayscale(90%);
 }
 .forest9 {
   background-image: url('../public/assets/backgrounds/forest9.jpg');
-  filter: grayscale(90%);
 }
 .forest10 {
   background-image: url('../public/assets/backgrounds/forest10.jpg');
-  filter: grayscale(90%);
 }
 .forest11 {
   background-image: url('../public/assets/backgrounds/forest11.jpg');
-  filter: grayscale(90%);
 }
 .forest12 {
   background-image: url('../public/assets/backgrounds/forest12.jpg');
-  filter: grayscale(90%);
 }

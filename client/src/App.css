@@ -29,7 +29,7 @@ font-family: 'Lato', sans-serif;
   --appBackground: #222222;
 }
 
-body {
+.content-container {
   margin-top: 60px;
 }
 

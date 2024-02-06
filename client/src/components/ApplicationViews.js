@@ -61,19 +61,23 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
       <Route
         path='/'
         element={
-          <div className={`background ${getBackgroundClass()}`}>
-            <div className={`background-overlay ${loading ? 'loading' : 'not-loading'}`} />
-
-            <img
-              className='background-image'
-              src={`/assets/backgrounds/${getBackgroundClass()}.jpg`}
-              alt='Background'
-              onLoad={() => setLoading(false)}
-            />
-
+          <>
             <NavBar loggedInUser={loggedInUser} url={url} />
-            <Outlet />
-          </div>
+            <div className={`background ${getBackgroundClass()}`}>
+              <div className={`background-overlay ${loading ? 'loading' : 'not-loading'}`} />
+
+              <img
+                className='background-image'
+                src={`/assets/backgrounds/${getBackgroundClass()}.jpg`}
+                alt='Background'
+                onLoad={() => setLoading(false)}
+              />
+
+              <div className='content-container'>
+                <Outlet />
+              </div>
+            </div>
+          </>
         }>
         <Route
           index
