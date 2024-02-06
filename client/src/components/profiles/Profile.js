@@ -65,7 +65,7 @@ export const Profile = ({ loggedInUser }) => {
           <img
             className='profile__img'
             //TODO: make permanent icon options
-            src={`/assets/profIcon${user.iconNumber}.png`}
+            src={`/assets/profIcons/profIcon${user.iconNumber}.png`}
             alt={'Profile icon'}
           />
           <li className='profile__name'>{user.name}</li>

@@ -1,9 +1,7 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Logout } from './Logout'
 
-export const NavBar = ({ loggedInUser }) => {
-  const url = useLocation().pathname
-
+export const NavBar = ({ loggedInUser, url }) => {
   return (
     <ul className='navbar'>
       <li className='navbar__item'>

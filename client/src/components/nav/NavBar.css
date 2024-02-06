@@ -1,4 +1,5 @@
 /* ??? */
+/*! navbar currently does not stay in place when scrolling !*/
 
 .navbar {
   display: flex;

@@ -12,19 +12,68 @@ import { Profile } from './profiles/Profile'
 import { ProfileForm } from './forms/ProfileForm'
 import { CryptidForm } from './forms/CryptidForm'
 import { CryptidProposalsList } from './cryptids/CryptidProposalsList'
+import { useEffect, useState } from 'react'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
+  const [loading, setLoading] = useState(true)
+  const [currentImage, setCurrentImage] = useState(null)
   const location = useLocation()
+  const url = location.pathname
+
+  const getBackgroundClass = () => {
+    //! if (url.startsWith('/sightings/edit')) {
+    //!   return 'forest1'
+    //! }
+    //! if (url.startsWith('/sightings')) {
+    //!   return 'forest2'
+    //! }
+    //! if (url.startsWith('/cryptids/edit')) {
+    //!   return 'forest3'
+    //! }
+    //! if (url.startsWith('/cryptids')) {
+    //!   return 'forest4'
+    //! }
+    //! if (url.startsWith('/proposals')) {
+    //!   return 'forest5'
+    //! }
+    //! if (url.startsWith('/profile')) {
+    //!   return 'forest6'
+    //! }
+    //! if (url.startsWith('/login')) {
+    //!   return 'forest7'
+    //! }
+    //! if (url.startsWith('/register')) {
+    //!   return 'forest8'
+    //! }
+
+    return 'forest9'
+  }
+
+  useEffect(() => {
+    if (getBackgroundClass() !== currentImage) {
+      setLoading(true)
+      setCurrentImage(getBackgroundClass())
+    }
+  }, [currentImage, url])
 
   return (
     <Routes>
       <Route
         path='/'
         element={
-          <>
-            <NavBar loggedInUser={loggedInUser} />
+          <div className={`background ${getBackgroundClass()}`}>
+            <div className={`background-overlay ${loading ? 'loading' : 'not-loading'}`} />
+
+            <img
+              className='background-image'
+              src={`/assets/backgrounds/${getBackgroundClass()}.jpg`}
+              alt='Background'
+              onLoad={() => setLoading(false)}
+            />
+
+            <NavBar loggedInUser={loggedInUser} url={url} />
             <Outlet />
-          </>
+          </div>
         }>
         <Route
           index
