@@ -32,9 +32,27 @@ export const SightingDetails = ({ loggedInUser }) => {
     <>
       {sighting && (
         <div className='sighting-details'>
-          <img className='sighting-details__paper1' src='/assets/paper3a.png' alt='paper background' />
-          <img className='sighting-details__paper2' src='/assets/paper3b.png' alt='paper background' />
-          <img className='sighting-details__paper3' src='/assets/paper3c.png' alt='paper background' />
+          <img className='sighting-details__journal-page' src='/assets/journal-page1.png' alt='journal background' />
+          <img
+            className='sighting-details__journal-page__shadow1'
+            src='/assets/journal-page1.png'
+            alt='journal background'
+          />
+          <img
+            className='sighting-details__journal-page__shadow2'
+            src='/assets/journal-page1.png'
+            alt='journal background'
+          />
+          <img
+            className='sighting-details__journal-page__shadow3'
+            src='/assets/journal-page1.png'
+            alt='journal background'
+          />
+          <img
+            className='sighting-details__journal-page__shadow4'
+            src='/assets/journal-page1.png'
+            alt='journal background'
+          />
 
           <div className='sighting-details__content-a'>
             <Link to={`/profile/${sighting.user?.id}`}>
