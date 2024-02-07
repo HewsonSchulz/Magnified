@@ -67,7 +67,7 @@
 .sighting-details__journal-page__shadow3,
 .sighting-details__journal-page__shadow4 {
   position: fixed;
-  left: 5%;
+  left: 85px;
   width: 1500px;
 }
 .sighting-details__journal-page__shadow1 {
