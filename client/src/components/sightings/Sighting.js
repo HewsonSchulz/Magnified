@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { formatDate, truncateText } from '../../helper'
 import './Sighting.css'
 
-export const Sighting = ({ sighting, isDetails }) => {
+export const Sighting = ({ sighting, isDetails, loggedInUser }) => {
   const { user, time, cryptid, location, description } = sighting
   const navigate = useNavigate()
 
@@ -16,10 +16,9 @@ export const Sighting = ({ sighting, isDetails }) => {
               className='sighting__author'
               onClick={(e) => {
                 // manual navigation
-
                 e.preventDefault()
                 e.stopPropagation()
-                navigate(`/profile/${sighting.user.id}`)
+                navigate(`/profile/${sighting.userId}`)
               }}>
               Author: {user.name}
             </li>
@@ -34,7 +33,7 @@ export const Sighting = ({ sighting, isDetails }) => {
                   // manual navigation
                   e.preventDefault()
                   e.stopPropagation()
-                  navigate(`/cryptids/details/${sighting.cryptid.id}`)
+                  navigate(`/cryptids/details/${sighting.cryptidId}`)
                 }}>
                 {cryptid.name} Sighting
               </li>
@@ -43,6 +42,19 @@ export const Sighting = ({ sighting, isDetails }) => {
           </div>
 
           <li className='sighting__description'>{truncateText(description, 425)}</li>
+          {loggedInUser.id === sighting.userId && (
+            <img
+              className='sighting__author-badge'
+              src='/assets/author-badge.png'
+              alt='author badge'
+              onClick={(e) => {
+                // manual navigation
+                e.preventDefault()
+                e.stopPropagation()
+                navigate(`/profile/${sighting.userId}`)
+              }}
+            />
+          )}
         </div>
       </div>
     </Link>

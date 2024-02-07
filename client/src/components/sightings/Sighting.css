@@ -82,3 +82,10 @@
 .sightings-list {
   /* border: blue solid 2px; */
 }
+
+.sighting__author-badge {
+  position: absolute;
+  width: 50px;
+  margin-top: 19.3%;
+  margin-left: 22%;
+}

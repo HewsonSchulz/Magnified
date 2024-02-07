@@ -38,7 +38,7 @@ export const CryptidDetails = ({ loggedInUser }) => {
       return (
         <>
           {sightings.slice(0, 2).map((sighting) => (
-            <Sighting key={sighting.id} sighting={sighting} isDetails={true} />
+            <Sighting key={sighting.id} sighting={sighting} isDetails={true} loggedInUser={loggedInUser} />
           ))}
           <Link to={`/sightings/cryptid/${cryptidId}`} className='cryptid-details__sightings-link'>
             See all sightings of this cryptid...
@@ -46,7 +46,9 @@ export const CryptidDetails = ({ loggedInUser }) => {
         </>
       )
     } else {
-      return sightings.map((sighting) => <Sighting key={sighting.id} sighting={sighting} isDetails={true} />)
+      return sightings.map((sighting) => (
+        <Sighting key={sighting.id} sighting={sighting} isDetails={true} loggedInUser={loggedInUser} />
+      ))
     }
   }
 

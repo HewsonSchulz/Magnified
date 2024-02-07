@@ -94,7 +94,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             index
             element={
               <AuthorizedRoute loggedInUser={loggedInUser}>
-                <SightingsList />
+                <SightingsList loggedInUser={loggedInUser} />
               </AuthorizedRoute>
             }
           />
@@ -103,7 +103,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             path=':userId'
             element={
               <AuthorizedRoute loggedInUser={loggedInUser}>
-                <SightingsList />
+                <SightingsList loggedInUser={loggedInUser} />
               </AuthorizedRoute>
             }
           />
@@ -162,7 +162,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               path=':cryptidId'
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <SightingsList />
+                  <SightingsList loggedInUser={loggedInUser} />
                 </AuthorizedRoute>
               }
             />

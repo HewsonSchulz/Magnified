@@ -6,7 +6,7 @@ import { SightingFilterBar } from '../filtering/SightingFilterBar'
 import { SearchBar } from '../filtering/SearchBar'
 import { calculateMatchingData } from '../../helper'
 
-export const SightingsList = () => {
+export const SightingsList = ({ loggedInUser }) => {
   const [allSightings, setAllSightings] = useState([])
   const [mySightings, setMySightings] = useState([])
   const [cryptidSightings, setCryptidSightings] = useState([])
@@ -164,7 +164,7 @@ export const SightingsList = () => {
 
       <ul className='sightings-list'>
         {filteredSightings.map((sighting) => {
-          return <Sighting key={sighting.id} sighting={sighting} />
+          return <Sighting key={sighting.id} sighting={sighting} loggedInUser={loggedInUser} />
         })}
       </ul>
     </div>
