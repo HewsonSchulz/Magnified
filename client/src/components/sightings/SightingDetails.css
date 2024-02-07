@@ -46,6 +46,11 @@
 .sighting-details__time {
   text-align: right;
 }
+.sighting-details__author-link:hover,
+.sighting-details__cryptid-link:hover {
+  text-decoration: underline;
+}
+
 #sighting-details__description {
   margin-top: 70px;
   margin-left: 200px;

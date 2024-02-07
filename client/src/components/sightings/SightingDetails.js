@@ -55,15 +55,21 @@ export const SightingDetails = ({ loggedInUser }) => {
           />
 
           <div className='sighting-details__content-a'>
-            <Link to={`/profile/${sighting.user?.id}`}>
-              <li className='sighting-details__author'>Author: {sighting.user?.name}</li>
-            </Link>
+            <li className='sighting-details__author'>
+              Author:{' '}
+              <Link to={`/profile/${sighting.user?.id}`} className='sighting-details__author-link'>
+                {sighting.user?.name}
+              </Link>
+            </li>
             <li className='sighting-details__time'>{formatDate(sighting.time)}</li>
           </div>
           <div className='sighting-details__content-b'>
-            <Link to={`/cryptids/details/${sighting.cryptid?.id}`}>
-              <li className='sighting-details__cryptid'>{sighting.cryptid?.name} Sighting</li>
-            </Link>
+            <li className='sighting-details__cryptid'>
+              <Link to={`/cryptids/details/${sighting.cryptid?.id}`} className='sighting-details__cryptid-link'>
+                {sighting.cryptid?.name}
+              </Link>{' '}
+              Sighting
+            </li>
             <li className='sighting-details__location'>{sighting.location?.location}</li>
           </div>
 
