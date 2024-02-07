@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { deleteSighting, getSightingById } from '../../managers/sightingManager'
 import { formatDate } from '../../helper'
-import './Sighting.css'
 import { Button } from 'reactstrap'
+import './SightingDetails.css'
 
 export const SightingDetails = ({ loggedInUser }) => {
   const [sighting, setSighting] = useState({})
@@ -29,18 +29,29 @@ export const SightingDetails = ({ loggedInUser }) => {
   }, [navigate, sighting])
 
   return (
-    <ul className='sighting-details'>
+    <>
       {sighting && (
-        <>
-          <Link to={`/profile/${sighting.user?.id}`}>
-            <li className='sighting-details__author'>Author: {sighting.user?.name}</li>
-          </Link>
-          <Link to={`/cryptids/details/${sighting.cryptid?.id}`}>
-            <li className='sighting-details__cryptid'>Cryptid: {sighting.cryptid?.name}</li>
-          </Link>
-          <li className='sighting-details__time'>Date: {formatDate(sighting.time)}</li>
-          <li className='sighting-details__location'>Location: {sighting.location?.location}</li>
-          <li className='sighting-details__description'>{sighting.description}</li>
+        <div className='sighting-details'>
+          <img className='sighting-details__paper1' src='/assets/paper3a.png' alt='paper background' />
+          <img className='sighting-details__paper2' src='/assets/paper3b.png' alt='paper background' />
+          <img className='sighting-details__paper3' src='/assets/paper3c.png' alt='paper background' />
+
+          <div className='sighting-details__content-a'>
+            <Link to={`/profile/${sighting.user?.id}`}>
+              <li className='sighting-details__author'>Author: {sighting.user?.name}</li>
+            </Link>
+            <li className='sighting-details__time'>{formatDate(sighting.time)}</li>
+          </div>
+          <div className='sighting-details__content-b'>
+            <Link to={`/cryptids/details/${sighting.cryptid?.id}`}>
+              <li className='sighting-details__cryptid'>{sighting.cryptid?.name} Sighting</li>
+            </Link>
+            <li className='sighting-details__location'>{sighting.location?.location}</li>
+          </div>
+
+          <li className='sighting-details__description' id='sighting-details__description'>
+            {sighting.description}
+          </li>
           {loggedInUser.id === sighting.userId && (
             <Button
               className='edit-btn'
@@ -57,8 +68,8 @@ export const SightingDetails = ({ loggedInUser }) => {
               Delete
             </Button>
           )}
-        </>
+        </div>
       )}
-    </ul>
+    </>
   )
 }
