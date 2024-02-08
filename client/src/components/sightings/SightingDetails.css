@@ -8,7 +8,8 @@
   --text-shadow-color: rgba(255, 255, 255, 0.6);
 }
 
-.sighting-details li {
+.sighting-details li,
+.sighting-details__icons > * {
   list-style: none;
   text-shadow: var(--text-shadow-width) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
     var(--text-shadow-width) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius) var(--text-shadow-color),
@@ -18,13 +19,13 @@
 }
 
 .sighting-details__content-a,
-.sighting-details__content-b {
+.sighting-details__content-b,
+.sighting-details__content-c {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-left: 200px;
   width: 1250px;
-  /* border: red solid 1px; */
 }
 
 .sighting-details__author,
@@ -53,7 +54,6 @@
 
 #sighting-details__description {
   margin-top: 70px;
-  margin-left: 200px;
   width: 600px;
 }
 
@@ -96,4 +96,26 @@
   -webkit-filter: drop-shadow(
     calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
   );
+}
+
+.sighting-details__icons {
+  display: flex;
+  flex-direction: column;
+  font-size: 100px;
+  margin-right: 50px;
+}
+.sighting-details__icons > * {
+  margin-top: 50px;
+}
+
+.sighting-details__edit-icon {
+  color: darkgreen;
+}
+.sighting-details__edit-icon:hover,
+.sighting-details__delete-icon:hover {
+  cursor: pointer;
+  color: rgb(22, 22, 22);
+}
+.sighting-details__delete-icon {
+  color: red;
 }

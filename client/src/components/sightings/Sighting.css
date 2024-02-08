@@ -32,6 +32,7 @@
 .sighting-newspaper {
   position: absolute;
   z-index: -1;
+  filter: drop-shadow(calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
   -webkit-filter: drop-shadow(
     calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color)
   );
@@ -90,5 +91,5 @@
   color: darkgreen;
 }
 .sighting__edit-icon:hover {
-  color: black;
+  color: rgb(22, 22, 22);
 }

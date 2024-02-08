@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { deleteSighting, getSightingById } from '../../managers/sightingManager'
 import { formatDate } from '../../helper'
 import { Button } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faScissors, faFire } from '@fortawesome/free-solid-svg-icons'
 import './SightingDetails.css'
 
 export const SightingDetails = ({ loggedInUser }) => {
@@ -73,25 +75,28 @@ export const SightingDetails = ({ loggedInUser }) => {
             <li className='sighting-details__location'>{sighting.location?.location}</li>
           </div>
 
-          <li className='sighting-details__description' id='sighting-details__description'>
-            {sighting.description}
-          </li>
-          {loggedInUser.id === sighting.userId && (
-            <Button
-              className='edit-btn'
-              color='warning'
-              onClick={(e) => {
-                e.preventDefault()
-                navigate(`/sightings/edit/${sighting.id}`)
-              }}>
-              Edit
-            </Button>
-          )}
-          {(loggedInUser.id === sighting.userId || loggedInUser.isAdmin) && (
-            <Button className='delete-btn' color='danger' onClick={handleDelete}>
-              Delete
-            </Button>
-          )}
+          <div className='sighting-details__content-c'>
+            <li className='sighting-details__description' id='sighting-details__description'>
+              {sighting.description}
+            </li>
+            <div className='sighting-details__icons'>
+              {loggedInUser.id === sighting.userId && (
+                <FontAwesomeIcon
+                  icon={faScissors}
+                  className='sighting-details__edit-icon'
+                  onClick={(e) => {
+                    // manual navigation
+                    e.preventDefault()
+                    e.stopPropagation()
+                    navigate(`/sightings/edit/${sighting.id}`)
+                  }}
+                />
+              )}
+              {(loggedInUser.id === sighting.userId || loggedInUser.isAdmin) && (
+                <FontAwesomeIcon icon={faFire} className='sighting-details__delete-icon' onClick={handleDelete} />
+              )}
+            </div>
+          </div>
         </div>
       )}
     </>
