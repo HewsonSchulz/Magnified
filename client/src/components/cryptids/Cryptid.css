@@ -64,6 +64,17 @@
   font-weight: bold;
 }
 
+.cryptid-proposals__link {
+  width: 100px;
+  filter: brightness(500%);
+  -webkit-filter: brightness(500%) drop-shadow(10px 10px 5px rgb(0, 0, 0, 0.8));
+  margin-left: 45px;
+}
+.cryptid-proposals__link:hover {
+  filter: brightness(700%);
+  -webkit-filter: brightness(700%) drop-shadow(10px 10px 5px rgb(0, 0, 0, 0.8));
+}
+
 .cryptid__img {
   filter: grayscale(100%);
   object-fit: cover;

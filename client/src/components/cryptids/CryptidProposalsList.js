@@ -23,7 +23,9 @@ export const CryptidProposalsList = ({ loggedInUser }) => {
 
   return (
     <>
-      <Link to='/cryptids/edit/new'>Create a new cryptid proposal...</Link>
+      <Link to='/cryptids/edit/new'>
+        <img className='cryptid-proposals__link' src='/assets/camera-icon.png' alt='new proposal button' />
+      </Link>
 
       <ul className='cryptid-proposals-list'>
         {cryptidProposals.map((cryptid) => {
