@@ -23,12 +23,12 @@ export const CryptidsList = () => {
         [...allCryptids].sort((a, b) => {
           // sort based on total amount of matching data
           const aScore =
-            calculateMatchingData(a.name.toLowerCase(), searchTerm.trim()) +
-            calculateMatchingData(a.description.toLowerCase(), searchTerm.trim())
+            calculateMatchingData(a.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+            calculateMatchingData(a.description.toLowerCase(), searchTerm.toLowerCase().trim())
 
           const bScore =
-            calculateMatchingData(b.name.toLowerCase(), searchTerm.trim()) +
-            calculateMatchingData(b.description.toLowerCase(), searchTerm.trim())
+            calculateMatchingData(b.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+            calculateMatchingData(b.description.toLowerCase(), searchTerm.toLowerCase().trim())
 
           return bScore - aScore
         })
@@ -38,7 +38,10 @@ export const CryptidsList = () => {
 
   return (
     <>
-      <SearchBar setSearchTerm={setSearchTerm} />
+      <div className='filtering-container'>
+        <img className='filtering-background-b' src='/assets/paper2b.jpg' alt='filtering background' />
+        <SearchBar setSearchTerm={setSearchTerm} />
+      </div>
 
       <ul className='cryptids-list'>
         {filteredCryptids.map((cryptid) => {

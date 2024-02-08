@@ -1,19 +1,4 @@
-/* ??? */
-
-.cryptid,
-.cryptid-details {
-  margin: 20px 0px;
-}
-
-.cryptid__img,
-.cryptid-details__img {
-  max-width: 400px;
-  /* width: 80%; */
-  height: 300px;
-  filter: grayscale(100%);
-  object-fit: cover;
-}
-
+/* !!! */
 .cryptid-form input {
   width: 800px;
   min-width: 500px;
@@ -28,10 +13,6 @@
   min-height: 200px;
   max-height: 650px;
   resize: both;
-}
-
-.cryptid-details__img {
-  margin-bottom: 20px;
 }
 
 .deny-btn {
@@ -49,4 +30,124 @@
 
 .status-denied {
   color: red;
+}
+
+/* !!! */
+
+.cryptids-list,
+.cryptid-proposals-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.cryptid {
+  margin-bottom: 200px;
+  --shadow-width: 20px;
+  --shadow-radius: 10px;
+  --shadow-color: rgb(0, 0, 0, 0.5);
+}
+.cryptid,
+.cryptid-content {
+  display: flex;
+  align-items: center;
+}
+.cryptid-content-c {
+  width: 320px;
+  display: flex;
+  align-items: baseline;
+}
+
+.cryptid__status {
+  text-align: right;
+  font-weight: bold;
+}
+
+.cryptid__img {
+  filter: grayscale(100%);
+  object-fit: cover;
+}
+.cryptid__img1 {
+  width: 338px;
+  height: 222px;
+  margin-top: 109px;
+  margin-left: 37px;
+  opacity: 90%;
+}
+.cryptid__img2 {
+  width: 379px;
+  height: 278px;
+  margin-top: 55px;
+  margin-left: 48px;
+}
+.cryptid__img3 {
+  width: 387px;
+  height: 275px;
+  margin-top: 30px;
+  margin-left: 34px;
+  opacity: 80%;
+}
+
+.cryptid-photograph,
+.cryptid-photograph__shadow {
+  position: fixed;
+}
+
+.cryptid-photograph1,
+.cryptid-photograph3 {
+  z-index: -1;
+}
+.cryptid-photograph2 {
+  z-index: 1;
+}
+
+.cryptid-photograph1,
+.cryptid-photograph__shadow1 {
+  rotate: -93deg;
+  width: 600px;
+  margin-left: -90px;
+}
+.cryptid-photograph2,
+.cryptid-photograph__shadow2 {
+  z-index: 1;
+  width: 500px;
+}
+.cryptid-photograph3,
+.cryptid-photograph__shadow3 {
+  width: 450px;
+}
+
+.cryptid-photograph__shadow {
+  z-index: -99;
+}
+.cryptid-photograph__shadow1 {
+  -webkit-filter: drop-shadow(
+    calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color)
+  );
+}
+.cryptid-photograph__shadow2,
+.cryptid-photograph__shadow3,
+.cryptid__description-image {
+  -webkit-filter: drop-shadow(var(--shadow-width) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
+}
+
+.cryptid__description-image {
+  width: 300px;
+  margin-left: 70px;
+  position: fixed;
+  z-index: -1;
+}
+.cryptid__name,
+.cryptid__description {
+  width: 220px;
+  margin-left: 105px;
+  /* border: solid blue 1px; */
+}
+.cryptid__name {
+  margin-top: 15px;
+  font-weight: bold;
+}
+.cryptid__description {
+  margin-top: 10px;
 }

@@ -828,7 +828,7 @@
     {
       "name": "Bigfoot",
       "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum lacinia, eleifend nascetur nam vehicula id fringilla et. Justo placerat ac tortor nascetur, natoque ultricies porttitor. Dignissim habitant cubilia tincidunt odio erat iaculis risus himenaeos hendrerit maecenas dictum nam velit, nec venenatis fusce posuere augue tempus eros integer blandit pellentesque ligula.",
-      "image": "https://i.pinimg.com/originals/69/41/49/694149b756ceac1ae94df0e98142e8b1.jpg",
+      "image": "https://www.charlotteobserver.com/latest-news/56zrwt/picture230808569/alternates/LANDSCAPE_1140/bigfoot1.JPG",
       "status": "approved",
       "userId": 3,
       "time": "2023-04-23T07:29:18",
@@ -882,11 +882,20 @@
     {
       "name": "Wampus Cat",
       "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit, consequat faucibus luctus et nam quisque, tempor augue mollis cras varius vitae. Potenti risus vulputate curabitur proin hac venenatis cubilia vitae aptent faucibus egestas fermentum porta rhoncus interdum, tortor elementum leo eleifend vel ornare nisi posuere metus ultrices parturient lacus tincidunt id. Nostra fermentum taciti sapien velit mattis dui quis, habitant vivamus sed eu aliquet magna potenti ridiculus, sociis eget neque volutpat diam cubilia. Scelerisque justo accumsan natoque ornare sapien varius ut etiam, porta nunc ante fusce fringilla senectus.",
-      "image": "https://i.ytimg.com/vi/NJAdEjM1zlg/maxresdefault.jpg",
+      "image": "https://africageographic.com/wp-content/uploads/2016/02/african-wild-cat-in-tree.jpg",
       "status": "approved",
       "userId": 2,
       "time": "2024-02-05T19:57:33.935Z",
       "id": 7
+    },
+    {
+      "name": "Awesomeface",
+      "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum pellentesque tristique facilisi tortor cubilia dapibus bibendum, phasellus hac et quis risus eget nec lacus orci convallis porttitor est ultrices. Mi natoque malesuada diam fames potenti viverra sem velit mattis etiam taciti, facilisis platea massa rhoncus ante mauris vitae posuere augue.",
+      "image": "https://www.pixelstalk.net/wp-content/uploads/2016/06/Awsome-Face-Wallpaper.jpg",
+      "status": "denied",
+      "userId": 2,
+      "time": "2024-02-08T20:20:52.651Z",
+      "id": 8
     }
   ],
   "locations": [

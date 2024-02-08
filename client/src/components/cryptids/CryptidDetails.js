@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { deleteCryptid, getCryptidById, updateCryptidStatus } from '../../managers/cryptidManager'
-import './Cryptid.css'
 import { Sighting } from '../sightings/Sighting'
 import { getSightingsByCryptid } from '../../managers/sightingManager'
 import { Button } from 'reactstrap'
-import { isEmptyObject, renderStatus } from '../../helper'
+import { isEmptyObject } from '../../helper'
+import './CryptidDetails.css'
 
 export const CryptidDetails = ({ loggedInUser }) => {
   const [cryptid, setCryptid] = useState({})
@@ -139,7 +139,7 @@ export const CryptidDetails = ({ loggedInUser }) => {
       {cryptid && (
         <>
           <li className='cryptid-details__cryptid'>{cryptid.name}</li>
-          {cryptid.status !== 'approved' && renderStatus(cryptid.status)}
+          {/*//! {cryptid.status !== 'approved' && renderStatus(cryptid.status)} */}
           {!!cryptid.image ? (
             <img className='cryptid__img' src={cryptid.image} alt={'provided url is invalid'} />
           ) : (

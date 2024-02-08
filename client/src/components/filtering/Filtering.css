@@ -12,12 +12,18 @@
   width: 335px;
 }
 
-.filtering-background {
+.filtering-background,
+.filtering-background-b {
   width: 370px;
-  height: 52px;
   position: absolute;
   z-index: -1;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
+}
+.filtering-background {
+  height: 52px;
+}
+.filtering-background-b {
+  height: 30px;
 }
 
 .filtering-container {

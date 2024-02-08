@@ -17,6 +17,12 @@
 
 /* !!! */
 
+.sighting {
+  --shadow-width: 20px;
+  --shadow-radius: 10px;
+  --shadow-color: rgb(0, 0, 0, 0.5);
+}
+
 .sighting,
 .sighting-newspaper {
   width: 666px;
@@ -26,6 +32,9 @@
 .sighting-newspaper {
   position: absolute;
   z-index: -1;
+  -webkit-filter: drop-shadow(
+    calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color)
+  );
 }
 
 .sightings-list {
@@ -74,7 +83,6 @@
   width: 400px;
   margin-top: 325px;
   margin-left: 15px;
-  /* border: solid red 1px; */
 }
 
 .sighting__edit-icon {
@@ -83,24 +91,4 @@
 }
 .sighting__edit-icon:hover {
   color: black;
-}
-
-/* .sighting__author-badge {
-  width: 50px;
-  margin-top: 9%;
-  margin-left: 85%;
-} */
-
-/* ! */
-.sighting {
-  /* border: red solid 1px; */
-}
-.sighting-content {
-  /* border: orange solid 2px; */
-}
-.sighting-content > * {
-  /* border: green solid 1px; */
-}
-.sightings-list {
-  /* border: blue solid 2px; */
 }
