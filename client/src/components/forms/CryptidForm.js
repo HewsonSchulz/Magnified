@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FormGroup, Label } from 'reactstrap'
 import { createCryptid, getCryptidById, updateCryptid } from '../../managers/cryptidManager'
-import { isEmptyObject } from '../../helper'
+import { getPhotoNum, isEmptyObject } from '../../helper'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareCheck, faSquare } from '@fortawesome/free-solid-svg-icons'
 import './Form.css'
@@ -68,6 +68,51 @@ export const CryptidForm = ({ loggedInUser }) => {
         </>
       )
     }
+  }
+
+  const renderImage = (cryptid) => {
+    if (!!cryptid.image) {
+      //* return <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
+      return (
+        <div className='cryptid-form__image-container'>
+          <img
+            className={`cryptid-photograph cryptid-photograph${getPhotoNum(cryptid.id)}`}
+            src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+            alt='photograph background'
+          />
+          <img
+            className={`cryptid-photograph__shadow cryptid-photograph__shadow${getPhotoNum(cryptid.id)}`}
+            src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+            alt='photograph background shadow'
+          />
+          <img
+            className={`cryptid__img cryptid__img${getPhotoNum(cryptid.id)}`}
+            src={cryptid.image}
+            alt={'A picture of ' + cryptid.name}
+          />
+        </div>
+      )
+    }
+    //* return <img className='cryptid-details__img' src='/assets/photograph3b.jpg' alt={'placeholder'} />
+    return (
+      <div className='cryptid-form__image-container'>
+        <img
+          className={`cryptid-photograph cryptid-photograph${getPhotoNum(cryptid.id)}`}
+          src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+          alt='photograph background'
+        />
+        <img
+          className={`cryptid-photograph__shadow cryptid-photograph__shadow${getPhotoNum(cryptid.id)}`}
+          src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+          alt='photograph background shadow'
+        />
+        <img
+          className={`cryptid__img cryptid__img${getPhotoNum(cryptid.id)}`}
+          src={'/assets/photograph3b.jpg'}
+          alt={'placeholder'}
+        />
+      </div>
+    )
   }
 
   useEffect(() => {
@@ -136,9 +181,6 @@ export const CryptidForm = ({ loggedInUser }) => {
       <img className='form__paper__shadow3' src='/assets/paper3.png' alt='paper shadow' />
       <img className='form__paper__shadow4' src='/assets/paper3.png' alt='paper shadow' />
 
-      {cryptid && cryptidId !== 'new' && (
-        <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
-      )}
       <form className='cryptid-form'>
         <FormGroup id='cryptid-form__name'>
           <Label for='cryptid-form__name-input'></Label>
@@ -179,6 +221,7 @@ export const CryptidForm = ({ loggedInUser }) => {
 
         {renderSaveButtons()}
       </form>
+      {cryptid && cryptidId !== 'new' && renderImage(cryptid)}
     </ul>
   )
 }

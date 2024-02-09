@@ -31,6 +31,8 @@
   --shadow-width: 20px;
   --shadow-radius: 10px;
   --shadow-color: rgb(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
 }
 
 .cryptid-form {
@@ -96,4 +98,9 @@
   -webkit-filter: drop-shadow(
     calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
   );
+}
+
+.cryptid-form__image-container {
+  margin-top: 100px;
+  margin-right: 200px;
 }

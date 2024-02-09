@@ -44,7 +44,6 @@ export const Cryptid = ({ cryptid, showStatus }) => {
                 src={'/assets/photograph3b.jpg'}
                 alt={'placeholder'}
               />
-              //TODO: handle if picture is not provided
             )}
           </div>
           <div className='cryptid-content-b'>
