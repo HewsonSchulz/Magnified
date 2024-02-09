@@ -72,7 +72,6 @@ export const CryptidForm = ({ loggedInUser }) => {
 
   const renderImage = (cryptid) => {
     if (!!cryptid.image) {
-      //* return <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
       return (
         <div className='cryptid-form__image-container'>
           <img
@@ -93,7 +92,6 @@ export const CryptidForm = ({ loggedInUser }) => {
         </div>
       )
     }
-    //* return <img className='cryptid-details__img' src='/assets/photograph3b.jpg' alt={'placeholder'} />
     return (
       <div className='cryptid-form__image-container'>
         <img

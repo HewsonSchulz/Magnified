@@ -26,7 +26,9 @@ export const CryptidDetails = ({ loggedInUser }) => {
       window.confirm(
         `This cryptid has ${associatedSightings.length} sighting${
           associatedSightings.length !== 1 ? 's' : ''
-        } associated with it. All of these sightings will be deleted. Are you sure you want to delete this cryptid?`
+        } associated with it. ${
+          associatedSightings.length !== 1 ? 'All of these sightings' : 'This sighting'
+        } will be deleted. Are you sure you want to delete this cryptid?`
       )
     ) {
       await deleteCryptid(cryptid)

@@ -1,29 +1,31 @@
-/* !!! */
-
-#sighting-form__description_input {
-  width: 800px;
-  min-width: 500px;
-  max-width: 95%;
-  height: 400px;
-  min-height: 200px;
-  max-height: 650px;
-  resize: both;
-}
-
-/* !!! */
-
 .cryptid-form input {
   width: 850px;
   border: none;
   background: rgba(255, 255, 255, 0.3);
 }
 
-#cryptid-form__description-input {
+#cryptid-form__description-input,
+#sighting-form__description_input {
   width: 850px;
-  height: 440px;
   resize: none;
   border: none;
   background: rgba(255, 255, 255, 0.3);
+}
+#cryptid-form__description-input {
+  height: 440px;
+}
+#sighting-form__description_input {
+  height: 425px;
+}
+/*! "Cryptid:" and "Location:" need to be highlighted !*/
+#sighting-form__location_input,
+.sighting-form__cryptid-dropdown {
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  margin-left: 5px;
+}
+#sighting-form__location_input {
+  width: 151px;
 }
 
 .sighting-form-container,
@@ -35,7 +37,8 @@
   justify-content: space-between;
 }
 
-.cryptid-form {
+.cryptid-form,
+.sighting-form {
   padding-top: 60px;
   padding-left: 50px;
 }
