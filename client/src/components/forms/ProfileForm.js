@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, FormGroup, Label } from 'reactstrap'
 import { updateUser } from '../../managers/userManager'
+import './Form.css'
 
 export const ProfileForm = ({ loggedInUser }) => {
   const [nameInput, setNameInput] = useState('')

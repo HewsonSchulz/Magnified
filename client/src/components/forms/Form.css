@@ -1,0 +1,99 @@
+/* !!! */
+
+#sighting-form__description_input {
+  width: 800px;
+  min-width: 500px;
+  max-width: 95%;
+  height: 400px;
+  min-height: 200px;
+  max-height: 650px;
+  resize: both;
+}
+
+/* !!! */
+
+.cryptid-form input {
+  width: 850px;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+#cryptid-form__description-input {
+  width: 850px;
+  height: 440px;
+  resize: none;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.sighting-form-container,
+.cryptid-form-container {
+  --shadow-width: 20px;
+  --shadow-radius: 10px;
+  --shadow-color: rgb(0, 0, 0, 0.5);
+}
+
+.cryptid-form {
+  padding-top: 60px;
+  padding-left: 50px;
+}
+
+.form__submit-icon,
+.form__submit-icon-disabled {
+  color: darkgreen;
+  margin-top: 70px;
+  font-size: 100px;
+}
+.form__submit-icon:hover {
+  color: green;
+  cursor: pointer;
+}
+.form__submit-icon__shadow,
+.form__submit-icon-disabled__shadow {
+  color: rgb(245, 245, 245);
+  position: absolute;
+  z-index: -1;
+  margin-top: 75px;
+  margin-left: 5px;
+  font-size: 90px;
+}
+
+.form__paper {
+  z-index: -999;
+}
+.form__paper__shadow1,
+.form__paper__shadow2,
+.form__paper__shadow3,
+.form__paper__shadow4 {
+  z-index: -9999;
+}
+.form__paper,
+.form__paper__shadow1,
+.form__paper__shadow2,
+.form__paper__shadow3,
+.form__paper__shadow4 {
+  position: fixed;
+  opacity: 60%;
+}
+.form__paper__shadow1 {
+  filter: 0;
+  -webkit-filter: drop-shadow(var(--shadow-width) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
+}
+.form__paper__shadow2 {
+  filter: 0;
+  -webkit-filter: drop-shadow(
+    calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color)
+  );
+}
+.form__paper__shadow3 {
+  filter: 0;
+  -webkit-filter: drop-shadow(
+    var(--shadow-width) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
+  );
+}
+.form__paper__shadow4 {
+  filter: 0;
+  -webkit-filter: drop-shadow(
+    calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
+  );
+}

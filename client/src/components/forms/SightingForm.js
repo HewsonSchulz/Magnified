@@ -5,6 +5,7 @@ import { sortAlphabetically } from '../../helper'
 import { Button, FormGroup, Label } from 'reactstrap'
 import { createSighting, updateSighting, getSightingById } from '../../managers/sightingManager'
 import { createLocation, getLocationByName } from '../../managers/locationManager'
+import './Form.css'
 
 export const SightingForm = ({ loggedInUser }) => {
   const [cryptidOption, setCryptidOption] = useState('0')

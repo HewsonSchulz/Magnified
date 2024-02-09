@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { deleteCryptid, getCryptidById, updateCryptidStatus } from '../../managers/cryptidManager'
 import { Sighting } from '../sightings/Sighting'
 import { getSightingsByCryptid } from '../../managers/sightingManager'
-import { Button } from 'reactstrap'
 import { getPhotoNum, isEmptyObject } from '../../helper'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFire, faScissors, faSquareCheck, faSquareXmark } from '@fortawesome/free-solid-svg-icons'
@@ -32,6 +31,14 @@ export const CryptidDetails = ({ loggedInUser }) => {
     ) {
       await deleteCryptid(cryptid)
       navigate('/cryptids')
+    }
+  }
+
+  const handleProposalDelete = async (e) => {
+    e.preventDefault()
+    if (window.confirm('Are you sure you want to delete this cryptid proposal?')) {
+      await deleteCryptid(cryptid)
+      navigate('/proposals')
     }
   }
 
@@ -73,8 +80,42 @@ export const CryptidDetails = ({ loggedInUser }) => {
             <FontAwesomeIcon icon={faFire} className='sighting-details__delete-icon' onClick={handleDelete} />
           </>
         )
+      } else if (cryptid.status === 'denied') {
+        // if cryptid is a denied proposal
+        return (
+          <FontAwesomeIcon icon={faFire} className='sighting-details__delete-icon' onClick={handleProposalDelete} />
+        )
       }
-      // if cryptid is not in dictionary
+      // if cryptid is a pending proposal
+      if (cryptid.userId === loggedInUser.id) {
+        // if user is the owner of a proposal
+        return (
+          <>
+            <FontAwesomeIcon
+              icon={faSquareCheck}
+              className='cryptid-details__approve-icon'
+              onClick={(e) => {
+                e.preventDefault()
+                if (window.confirm('Are you sure you want to approve this cryptid proposal?')) {
+                  updateCryptidStatus(cryptid, 'approved').then(getAndSetCryptid)
+                }
+              }}
+            />
+            <FontAwesomeIcon
+              icon={faSquareXmark}
+              className='cryptid-details__deny-icon'
+              onClick={(e) => {
+                e.preventDefault()
+                if (window.confirm('Are you sure you want to deny this cryptid proposal?')) {
+                  updateCryptidStatus(cryptid, 'denied').then(() => navigate(`/proposals`))
+                }
+              }}
+            />
+            <FontAwesomeIcon icon={faFire} className='sighting-details__delete-icon' onClick={handleProposalDelete} />
+          </>
+        )
+      }
+
       return (
         <>
           <FontAwesomeIcon
@@ -99,6 +140,14 @@ export const CryptidDetails = ({ loggedInUser }) => {
           />
         </>
       )
+    } else {
+      // if user is not an admin
+      if (cryptid.userId === loggedInUser.id && cryptid.status !== 'approved') {
+        // if user is the owner of a proposal
+        return (
+          <FontAwesomeIcon icon={faFire} className='sighting-details__delete-icon' onClick={handleProposalDelete} />
+        )
+      }
     }
   }
 
