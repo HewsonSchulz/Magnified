@@ -20,18 +20,6 @@
   margin-right: 20px;
 }
 
-.status-pending {
-  color: blue;
-}
-
-.status-approved {
-  color: green;
-}
-
-.status-denied {
-  color: red;
-}
-
 /* !!! */
 
 .cryptids-list,
@@ -133,6 +121,7 @@
   z-index: -99;
 }
 .cryptid-photograph__shadow1 {
+  filter: drop-shadow(calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
   -webkit-filter: drop-shadow(
     calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color)
   );
@@ -140,6 +129,7 @@
 .cryptid-photograph__shadow2,
 .cryptid-photograph__shadow3,
 .cryptid__description-image {
+  filter: drop-shadow(var(--shadow-width) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
   -webkit-filter: drop-shadow(var(--shadow-width) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
 }
 
@@ -161,4 +151,16 @@
 }
 .cryptid__description {
   margin-top: 10px;
+}
+
+.status-pending {
+  color: blue;
+}
+
+.status-approved {
+  color: green;
+}
+
+.status-denied {
+  color: red;
 }

@@ -1,16 +1,108 @@
-/* ??? */
-
 .cryptid-details {
-  margin: 20px 0px;
+  --shadow-width: 20px;
+  --shadow-radius: 10px;
+  --shadow-color: rgb(0, 0, 0, 0.5);
+  --text-shadow-width: 0px;
+  --text-shadow-radius: 25px;
+  --text-shadow-color: rgba(255, 255, 255, 0.6);
 }
 
-.cryptid-details__img {
-  max-width: 400px;
-  /* width: 80%; */
-  height: 300px;
-  filter: grayscale(100%);
-  object-fit: cover;
+.cryptid-details__image-container {
+  margin-left: 210px;
+  padding-top: 100px;
+}
+
+#cryptid-details__img1 {
+  width: 451px;
+  height: 297px;
+  margin-top: 65px;
+  margin-left: 20px;
+}
+#cryptid-details-photograph1,
+#cryptid-details-photograph__shadow1 {
+  width: 800px;
+  margin-top: -80px;
+  margin-left: -150px;
+}
+#cryptid-details__img2 {
+  width: 455px;
+  height: 335px;
+  margin-top: 67px;
+  margin-left: 8px;
+}
+#cryptid-details-photograph2,
+#cryptid-details-photograph__shadow2 {
+  width: 600px;
+  margin-left: -50px;
+}
+#cryptid-details__img3 {
+  width: 516px;
+  height: 367px;
+  margin-top: 39px;
+  margin-left: -9px;
+}
+#cryptid-details-photograph3,
+#cryptid-details-photograph__shadow3 {
+  width: 600px;
+  margin-left: -55px;
+}
+
+.cryptid-details__content {
+  display: flex;
+  width: 1450px;
+  justify-content: space-between;
+  align-items: center;
+  /* border: solid red 1px; */
+}
+.cryptid-details__content-b {
+  margin-top: 100px;
+  width: 610px;
+  /* border: solid green 1px; */
+}
+.cryptid-details__cryptid {
+  margin-bottom: 50px;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cryptid-details li {
+  list-style: none;
+  text-shadow: var(--text-shadow-width) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    var(--text-shadow-width) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius)
+      var(--text-shadow-color);
+}
+
+#cryptid-details__icons {
+  position: fixed;
+  right: 220px;
+}
+
+.cryptid-details__status {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-/* ??? */
+.cryptid-details__status-pending {
+  color: blue;
+}
+
+.cryptid-details__status-denied {
+  color: red;
+}
+
+.cryptid-details__approve-icon:hover,
+.cryptid-details__deny-icon:hover {
+  cursor: pointer;
+  color: rgb(22, 22, 22);
+}
+.cryptid-details__approve-icon {
+  color: darkgreen;
+}
+.cryptid-details__deny-icon {
+  color: red;
+}

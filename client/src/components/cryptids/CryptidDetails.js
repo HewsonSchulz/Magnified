@@ -4,7 +4,9 @@ import { deleteCryptid, getCryptidById, updateCryptidStatus } from '../../manage
 import { Sighting } from '../sightings/Sighting'
 import { getSightingsByCryptid } from '../../managers/sightingManager'
 import { Button } from 'reactstrap'
-import { isEmptyObject } from '../../helper'
+import { getPhotoNum, isEmptyObject } from '../../helper'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFire, faScissors, faSquareCheck, faSquareXmark } from '@fortawesome/free-solid-svg-icons'
 import './CryptidDetails.css'
 
 export const CryptidDetails = ({ loggedInUser }) => {
@@ -52,51 +54,49 @@ export const CryptidDetails = ({ loggedInUser }) => {
     }
   }
 
-  const renderButtons = () => {
+  const renderIcons = () => {
     if (loggedInUser.isAdmin) {
+      // if user is an admin
       if (cryptid.status === 'approved') {
+        // if cryptid is in dictionary
         return (
           <>
-            <Button
-              className='edit-btn'
-              color='warning'
+            <FontAwesomeIcon
+              icon={faScissors}
+              className='sighting-details__edit-icon'
               onClick={(e) => {
                 e.preventDefault()
                 navigate(`/cryptids/edit/${cryptidId}`)
-              }}>
-              Edit
-            </Button>
-            <Button className='delete-btn' color='danger' onClick={handleDelete}>
-              Delete
-            </Button>
+              }}
+            />
+
+            <FontAwesomeIcon icon={faFire} className='sighting-details__delete-icon' onClick={handleDelete} />
           </>
         )
       }
-
+      // if cryptid is not in dictionary
       return (
         <>
-          <Button
-            className='approve-btn'
-            color='success'
+          <FontAwesomeIcon
+            icon={faSquareCheck}
+            className='cryptid-details__approve-icon'
             onClick={(e) => {
               e.preventDefault()
               if (window.confirm('Are you sure you want to approve this cryptid proposal?')) {
                 updateCryptidStatus(cryptid, 'approved').then(getAndSetCryptid)
               }
-            }}>
-            Approve
-          </Button>
-          <Button
-            className='deny-btn'
-            color='danger'
+            }}
+          />
+          <FontAwesomeIcon
+            icon={faSquareXmark}
+            className='cryptid-details__deny-icon'
             onClick={(e) => {
               e.preventDefault()
               if (window.confirm('Are you sure you want to deny this cryptid proposal?')) {
                 updateCryptidStatus(cryptid, 'denied').then(() => navigate(`/proposals`))
               }
-            }}>
-            Deny
-          </Button>
+            }}
+          />
         </>
       )
     }
@@ -136,22 +136,89 @@ export const CryptidDetails = ({ loggedInUser }) => {
 
   return (
     <ul className='cryptid-details'>
+      <img className='sighting-details__journal-page' src='/assets/journal-page1.png' alt='journal background' />
+      <img
+        className='sighting-details__journal-page__shadow1'
+        src='/assets/journal-page1.png'
+        alt='journal background'
+      />
+      <img
+        className='sighting-details__journal-page__shadow2'
+        src='/assets/journal-page1.png'
+        alt='journal background'
+      />
+      <img
+        className='sighting-details__journal-page__shadow3'
+        src='/assets/journal-page1.png'
+        alt='journal background'
+      />
+      <img
+        className='sighting-details__journal-page__shadow4'
+        src='/assets/journal-page1.png'
+        alt='journal background'
+      />
       {cryptid && (
-        <>
-          <li className='cryptid-details__cryptid'>{cryptid.name}</li>
-          {/*//! {cryptid.status !== 'approved' && renderStatus(cryptid.status)} */}
-          {!!cryptid.image ? (
-            <img className='cryptid__img' src={cryptid.image} alt={'provided url is invalid'} />
-          ) : (
-            <img className='cryptid__img' src={'/assets/placeholder.jpg'} alt={'placeholder'} />
-            //TODO: handle if picture is not provided
-          )}
-          <li className='cryptid-details__description'>{cryptid.description}</li>
+        <div className='cryptid-details__content'>
+          <div className='cryptid-details__content-a'>
+            <li className='cryptid-details__image-container'>
+              <img
+                className={`cryptid-photograph cryptid-photograph${getPhotoNum(cryptid.id)}`}
+                id={`cryptid-details-photograph${getPhotoNum(cryptid.id)}`}
+                src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+                alt='photograph background'
+              />
+              <img
+                className={`cryptid-photograph__shadow cryptid-photograph__shadow${getPhotoNum(cryptid.id)}`}
+                id={`cryptid-details-photograph__shadow${getPhotoNum(cryptid.id)}`}
+                src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+                alt='photograph background shadow'
+              />
+              {!!cryptid.image ? (
+                <img
+                  className={`cryptid__img cryptid__img${getPhotoNum(cryptid.id)}`}
+                  id={`cryptid-details__img${getPhotoNum(cryptid.id)}`}
+                  src={cryptid.image}
+                  alt={'provided url is invalid'}
+                />
+              ) : (
+                <img
+                  className={`cryptid__img cryptid__img${getPhotoNum(cryptid.id)}`}
+                  id={`cryptid-details__img${getPhotoNum(cryptid.id)}`}
+                  src={'/assets/photograph3b.jpg'}
+                  alt={'placeholder'}
+                />
+              )}
+            </li>
+          </div>
 
-          {renderButtons()}
+          <div className='cryptid-details__content-b'>
+            <div className='cryptid-details__content-c'>
+              {cryptid.status === 'denied' && (
+                <li className='cryptid-details__status cryptid-details__status-denied'>
+                  This cryptid proposal was denied.
+                </li>
+              )}
+              {cryptid.status === 'pending' && !loggedInUser.isAdmin && (
+                <li className='cryptid-details__status cryptid-details__status-pending'>
+                  This cryptid proposal is under review.
+                </li>
+              )}
+              {cryptid.status === 'pending' && loggedInUser.isAdmin && (
+                <li className='cryptid-details__status cryptid-details__status-pending'>
+                  This cryptid proposal is in need of review.
+                </li>
+              )}
+              <li className='cryptid-details__cryptid'>{cryptid.name}</li>
+              <li className='cryptid-details__description'>{cryptid.description}</li>
+            </div>
 
-          {showSightings(cryptidId)}
-        </>
+            <div id='cryptid-details__icons' className='sighting-details__icons'>
+              {renderIcons()}
+            </div>
+          </div>
+
+          {/* {showSightings(cryptidId)} */}
+        </div>
       )}
     </ul>
   )

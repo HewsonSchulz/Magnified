@@ -8,8 +8,7 @@
   --text-shadow-color: rgba(255, 255, 255, 0.6);
 }
 
-.sighting-details li,
-.sighting-details__icons > * {
+.sighting-details li {
   list-style: none;
   text-shadow: var(--text-shadow-width) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
     var(--text-shadow-width) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius) var(--text-shadow-color),
@@ -58,13 +57,13 @@
 }
 
 .sighting-details__journal-page {
-  z-index: -1;
+  z-index: -999;
 }
 .sighting-details__journal-page__shadow1,
 .sighting-details__journal-page__shadow2,
 .sighting-details__journal-page__shadow3,
 .sighting-details__journal-page__shadow4 {
-  z-index: -999;
+  z-index: -9999;
 }
 .sighting-details__journal-page,
 .sighting-details__journal-page__shadow1,

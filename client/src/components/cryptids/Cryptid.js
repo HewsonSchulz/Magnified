@@ -41,7 +41,7 @@ export const Cryptid = ({ cryptid, showStatus }) => {
             ) : (
               <img
                 className={`cryptid__img cryptid__img${getPhotoNum(cryptid.id)}`}
-                src={'/assets/placeholder.jpg'}
+                src={'/assets/photograph3b.jpg'}
                 alt={'placeholder'}
               />
               //TODO: handle if picture is not provided
