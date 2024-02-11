@@ -27,7 +27,7 @@
   display: block;
   background-size: cover;
   pointer-events: none;
-  background-image: url('../public/assets/backgrounds/loading2.jpg');
+  background-image: url('../public/assets/backgrounds/loading3.png');
 }
 
 .loading {
