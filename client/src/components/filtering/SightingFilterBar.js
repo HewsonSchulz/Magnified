@@ -53,7 +53,7 @@ export const SightingFilterBar = ({
         // initial filtering options
         return (
           <>
-            Sort By{' '}
+            <div className='filter-bar__sort-by'>Sort By </div>
             <select
               id='filter-bar__options'
               value={filterOption}
@@ -116,5 +116,3 @@ export const SightingFilterBar = ({
 
   return <>{displayFilterBar(filterType)}</>
 }
-
-//TODO: add option to filter by number of likes

@@ -1,3 +1,5 @@
+import './Filtering.css'
+
 export const SearchBar = ({ searchTerm, setSearchTerm, setIsSearching }) => {
   return (
     <div className='search-bar'>

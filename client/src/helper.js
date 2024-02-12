@@ -44,12 +44,7 @@ export const isValidEmail = (email) => {
 
 // list of possible filter options
 export const getFilterOptions = () => {
-  return [
-    'Most Recent',
-    'Cryptid',
-    'Author',
-    //TODO: 'Number of Likes'
-  ].slice()
+  return ['Most Recent', 'Cryptid', 'Author'].slice()
 }
 
 // sorts given array alphabetically based on given key
@@ -81,16 +76,17 @@ export const isEmptyObject = (obj) => {
   return false
 }
 
-// renders given status
-export const renderStatus = (status) => {
-  switch (status) {
-    default:
-      return <></>
-    case 'pending':
-      return <li className='cryptid__status status-pending'>This cryptid proposal is under review.</li>
-    case 'approved':
-      return <li className='cryptid__status status-approved'>This cryptid proposal was approved!</li>
-    case 'denied':
-      return <li className='cryptid__status status-denied'>This cryptid proposal was denied.</li>
+// returns corresponding photograph number
+export const getPhotoNum = (n) => {
+  if (n % 5 === 0) {
+    return 3
+  } else if (n % 3 === 0) {
+    return 2
   }
+  return 1
+}
+
+// creates deep clone of given object
+export const deepClone = (obj) => {
+  return JSON.parse(JSON.stringify(obj))
 }

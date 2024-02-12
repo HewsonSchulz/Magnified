@@ -15,19 +15,45 @@ export const CryptidProposalsList = ({ loggedInUser }) => {
 
   useEffect(() => {
     if (loggedInUser.isAdmin) {
-      setCryptidProposals(allCryptids.filter((cryptid) => cryptid.status === 'pending'))
+      setCryptidProposals(
+        allCryptids
+          .filter((cryptid) => cryptid.status === 'pending' || cryptid.userId === loggedInUser.id)
+          .sort((a, b) => {
+            if (a.status === 'pending' && b.status !== 'pending') {
+              return -1
+            } else if (a.status !== 'pending' && b.status === 'pending') {
+              return 1
+            } else {
+              return 0
+            }
+          })
+      )
     } else {
-      setCryptidProposals(allCryptids.filter((cryptid) => cryptid.userId === loggedInUser.id))
+      setCryptidProposals(
+        allCryptids
+          .filter((cryptid) => cryptid.userId === loggedInUser.id)
+          .sort((a, b) => {
+            if (a.status === 'pending' && b.status !== 'pending') {
+              return -1
+            } else if (a.status !== 'pending' && b.status === 'pending') {
+              return 1
+            } else {
+              return 0
+            }
+          })
+      )
     }
   }, [allCryptids, loggedInUser])
 
   return (
     <>
-      <Link to='/cryptids/edit/new'>Create a new cryptid proposal...</Link>
+      <Link to='/cryptids/edit/new'>
+        <img className='cryptid-proposals__link' src='/assets/camera-icon.png' alt='new proposal button' />
+      </Link>
 
       <ul className='cryptid-proposals-list'>
         {cryptidProposals.map((cryptid) => {
-          return <Cryptid key={cryptid.id} cryptid={cryptid} showStatus={!loggedInUser.isAdmin} />
+          return <Cryptid key={cryptid.id} cryptid={cryptid} showStatus={true} />
         })}
       </ul>
     </>

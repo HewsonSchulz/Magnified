@@ -5,8 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { SightingFilterBar } from '../filtering/SightingFilterBar'
 import { SearchBar } from '../filtering/SearchBar'
 import { calculateMatchingData } from '../../helper'
+import { getUsers } from '../../managers/userManager'
+import { getCryptidById, getCryptids } from '../../managers/cryptidManager'
 
-export const SightingsList = () => {
+export const SightingsList = ({ loggedInUser }) => {
   const [allSightings, setAllSightings] = useState([])
   const [mySightings, setMySightings] = useState([])
   const [cryptidSightings, setCryptidSightings] = useState([])
@@ -38,27 +40,46 @@ export const SightingsList = () => {
 
   useEffect(() => {
     if (!!parseInt(userId)) {
+      getUsers().then((users) => {
+        if (users.length < parseInt(userId)) {
+          // user does not exist
+          navigate(`/sightings/${loggedInUser.id}`)
+        }
+      })
+
       setMySightings([...allSightings].filter((sighting) => sighting.userId === parseInt(userId)))
     } else if (!!parseInt(cryptidId)) {
+      getCryptids().then((cryptids) => {
+        if (cryptids.length < parseInt(cryptidId)) {
+          // cryptid does not exist
+          navigate('/sightings')
+        } else {
+          getCryptidById(parseInt(cryptidId)).then((cryptid) => {
+            if (cryptid.status !== 'approved') {
+              // cryptid is an unapproved proposal
+              navigate('/sightings')
+            }
+          })
+        }
+      })
+
       setCryptidSightings([...allSightings].filter((sighting) => sighting.cryptidId === parseInt(cryptidId)))
     } else {
       navigate('/sightings')
     }
 
     resetOptions()
-  }, [allSightings, cryptidId, navigate, userId])
+  }, [allSightings, cryptidId, loggedInUser, navigate, userId])
 
   useEffect(() => {
     let currentSightings = [...allSightings]
     if (!!userId) {
       currentSightings = [...mySightings]
       //TODO: write a message for if the author has no posted sightings
-      //TODO: redirect to home if the author doesn't exist
     }
     if (!!cryptidId) {
       currentSightings = [...cryptidSightings]
       //TODO: write a message for if the cryptid has no posted sightings
-      //TODO: redirect to home if the cryptid doesn't exist
     }
 
     // if we are searching
@@ -71,16 +92,16 @@ export const SightingsList = () => {
           [...currentSightings].sort((a, b) => {
             // sort based on total amount of matching data
             const aScore =
-              calculateMatchingData(a.description.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(a.user.name.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(a.cryptid.name.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(a.location.location.toLowerCase(), searchTerm.trim())
+              calculateMatchingData(a.description.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(a.user.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(a.cryptid.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(a.location.location.toLowerCase(), searchTerm.toLowerCase().trim())
 
             const bScore =
-              calculateMatchingData(b.description.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(b.user.name.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(b.cryptid.name.toLowerCase(), searchTerm.trim()) +
-              calculateMatchingData(b.location.location.toLowerCase(), searchTerm.trim())
+              calculateMatchingData(b.description.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(b.user.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(b.cryptid.name.toLowerCase(), searchTerm.toLowerCase().trim()) +
+              calculateMatchingData(b.location.location.toLowerCase(), searchTerm.toLowerCase().trim())
 
             return bScore - aScore
           })
@@ -129,38 +150,44 @@ export const SightingsList = () => {
   }, [filterOption, cryptidOption, authorOption])
 
   return (
-    <>
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} setIsSearching={setIsSearching} />
-      <SightingFilterBar
-        filterOption={filterOption}
-        setFilterOption={setFilterOption}
-        userId={userId}
-        cryptidId={cryptidId}
-      />
-      {filterOption === '1' && (
-        <SightingFilterBar
-          filterOption={filterOption}
-          setFilterOption={setFilterOption}
-          cryptidOption={cryptidOption}
-          setCryptidOption={setCryptidOption}
-          filterType={'Cryptid'}
-        />
-      )}
-      {filterOption === '2' && (
-        <SightingFilterBar
-          filterOption={filterOption}
-          setFilterOption={setFilterOption}
-          authorOption={authorOption}
-          setAuthorOption={setAuthorOption}
-          filterType={'Author'}
-        />
-      )}
+    <div className='sightings-container'>
+      <div className='filtering-container'>
+        <img className='filtering-background' src='/assets/paper2.jpg' alt='filtering background' />
+
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} setIsSearching={setIsSearching} />
+        <div className='filter-bar'>
+          <SightingFilterBar
+            filterOption={filterOption}
+            setFilterOption={setFilterOption}
+            userId={userId}
+            cryptidId={cryptidId}
+          />
+          {filterOption === '1' && (
+            <SightingFilterBar
+              filterOption={filterOption}
+              setFilterOption={setFilterOption}
+              cryptidOption={cryptidOption}
+              setCryptidOption={setCryptidOption}
+              filterType={'Cryptid'}
+            />
+          )}
+          {filterOption === '2' && (
+            <SightingFilterBar
+              filterOption={filterOption}
+              setFilterOption={setFilterOption}
+              authorOption={authorOption}
+              setAuthorOption={setAuthorOption}
+              filterType={'Author'}
+            />
+          )}
+        </div>
+      </div>
 
       <ul className='sightings-list'>
         {filteredSightings.map((sighting) => {
-          return <Sighting key={sighting.id} sighting={sighting} />
+          return <Sighting key={sighting.id} sighting={sighting} loggedInUser={loggedInUser} />
         })}
       </ul>
-    </>
+    </div>
   )
 }

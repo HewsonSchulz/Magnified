@@ -26,11 +26,11 @@ font-family: 'Lato', sans-serif;
   --darker: #252525;
   --outline: #c3c0c0;
 
-  --appBackground: #f2f2f3;
+  --appBackground: #222222;
 }
 
-body {
-  margin-top: 60px;
+.content-container {
+  margin-top: 75px;
 }
 
 /* prevents all the links in the app from having default underline */

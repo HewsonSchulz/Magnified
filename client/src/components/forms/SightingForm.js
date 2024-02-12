@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getCryptids } from '../../managers/cryptidManager'
 import { sortAlphabetically } from '../../helper'
-import { Button, FormGroup, Label } from 'reactstrap'
+import { FormGroup, Label } from 'reactstrap'
 import { createSighting, updateSighting, getSightingById } from '../../managers/sightingManager'
 import { createLocation, getLocationByName } from '../../managers/locationManager'
+import './Form.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquare, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
 
 export const SightingForm = ({ loggedInUser }) => {
   const [cryptidOption, setCryptidOption] = useState('0')
@@ -37,10 +40,8 @@ export const SightingForm = ({ loggedInUser }) => {
             })
           } else {
             // create new location
-            //TODO: add location data
             createLocation({
               location: newLocation,
-              //TODO: add location data
             }).then((createdLocation) => {
               createSighting({
                 userId: loggedInUser.id,
@@ -74,7 +75,6 @@ export const SightingForm = ({ loggedInUser }) => {
               // create new location
               createLocation({
                 location: newLocation,
-                //TODO: add location data
               }).then((createdLocation) => {
                 updateSighting({
                   userId: existingSighting.userId,
@@ -91,6 +91,24 @@ export const SightingForm = ({ loggedInUser }) => {
           })
         })
       }
+    }
+  }
+
+  const renderSaveButtons = () => {
+    if (formCompleted) {
+      return (
+        <>
+          <FontAwesomeIcon icon={faSquare} className='form__submit-icon__shadow' />
+          <FontAwesomeIcon icon={faSquareCheck} className='form__submit-icon' onClick={handleSubmit} />
+        </>
+      )
+    } else {
+      return (
+        <>
+          <FontAwesomeIcon icon={faSquare} className='form__submit-icon-disabled__shadow' />
+          <FontAwesomeIcon icon={faSquareCheck} className='form__submit-icon-disabled' />
+        </>
+      )
     }
   }
 
@@ -120,7 +138,6 @@ export const SightingForm = ({ loggedInUser }) => {
         if (!!sighting) {
           if (sighting.userId !== loggedInUser.id) {
             // user is not the author
-            //TODO: add admin editing functionality
             navigate('/sightings/edit/new')
           } else {
             // user is the author
@@ -137,66 +154,80 @@ export const SightingForm = ({ loggedInUser }) => {
   }, [loggedInUser, navigate, sightingId])
 
   return (
-    <form className='sighting-form'>
-      <FormGroup id='sighting-form__cryptid'>
-        <Label for='sighting-form__cryptid_dropdown'>Cryptid:</Label>
-        <select
-          id='sighting-form__cryptid_dropdown'
-          className='sighting-form__cryptid-dropdown'
-          value={cryptidOption}
-          onChange={(event) => {
-            setCryptidOption(event.target.value)
-          }}>
-          <option key={0} value={0}>
-            Select a Cryptid...
-          </option>
-          {cryptids.map((cryptid, i) => {
-            if (cryptid.status === 'approved') {
-              return (
-                <option key={i + 1} value={cryptid.id}>
-                  {cryptid.name}
-                </option>
-              )
-            }
-            return null
-          })}
-        </select>
-      </FormGroup>
-      <Link to='/cryptids/edit/new'>Don't see your cryptid? Create a new cryptid proposal...</Link>
-      <FormGroup id='sighting-form__location'>
-        <Label for='sighting-form__location_input'>Location:</Label>
-        <input
-          id='sighting-form__location_input'
-          className='sighting-form__location-input'
-          placeholder='Nashville, TN'
-          value={locationInput}
-          onChange={(e) => {
-            setLocationInput(e.target.value)
-          }}
-          required
-        />
-      </FormGroup>
-      <FormGroup id='sighting-form__description'>
-        <Label for='sighting-form__description_input'></Label>
-        <textarea
-          id='sighting-form__description_input'
-          onChange={(e) => {
-            setDescInput(e.target.value)
-          }}
-          placeholder='Description...'
-          value={descInput}
-          required
-        />
-      </FormGroup>
-      {formCompleted ? (
-        <Button color='primary' onClick={handleSubmit}>
-          Save
-        </Button>
-      ) : (
-        <Button color='primary' onClick={handleSubmit} disabled>
-          Save
-        </Button>
-      )}
-    </form>
+    <ul className='sighting-form-container'>
+      <img className='form__paper' src='/assets/paper3.png' alt='paper background' />
+      <img className='form__paper__shadow1' src='/assets/paper3.png' alt='paper shadow' />
+      <img className='form__paper__shadow2' src='/assets/paper3.png' alt='paper shadow' />
+      <img className='form__paper__shadow3' src='/assets/paper3.png' alt='paper shadow' />
+      <img className='form__paper__shadow4' src='/assets/paper3.png' alt='paper shadow' />
+
+      <form className='sighting-form'>
+        <div className='sighting-form__content-a'>
+          <FormGroup id='sighting-form__cryptid'>
+            <Label id='sighting-form__cryptid-dropdown-label' for='sighting-form__cryptid_dropdown'>
+              Cryptid:
+            </Label>
+            <select
+              id='sighting-form__cryptid_dropdown'
+              className='sighting-form__cryptid-dropdown'
+              value={cryptidOption}
+              onChange={(event) => {
+                setCryptidOption(event.target.value)
+              }}>
+              <option key={0} value={0}>
+                Select a Cryptid...
+              </option>
+              {cryptids.map((cryptid, i) => {
+                if (cryptid.status === 'approved') {
+                  return (
+                    <option key={i + 1} value={cryptid.id}>
+                      {cryptid.name}
+                    </option>
+                  )
+                }
+                return null
+              })}
+            </select>
+          </FormGroup>
+          {sightingId === 'new' && (
+            <div className='sighting-form__new-cryptid'>
+              Don't see your cryptid? Click{' '}
+              <Link className='sighting-form__new-cryptid-link' to='/cryptids/edit/new'>
+                here
+              </Link>{' '}
+              to create a new one.
+            </div>
+          )}
+        </div>
+        <FormGroup id='sighting-form__location'>
+          <Label id='sighting-form__location-input-label' for='sighting-form__location_input'>
+            Location:
+          </Label>
+          <input
+            id='sighting-form__location_input'
+            className='sighting-form__location-input'
+            placeholder='Nashville, TN'
+            value={locationInput}
+            onChange={(e) => {
+              setLocationInput(e.target.value)
+            }}
+            required
+          />
+        </FormGroup>
+        <FormGroup id='sighting-form__description'>
+          <Label for='sighting-form__description_input'></Label>
+          <textarea
+            id='sighting-form__description_input'
+            onChange={(e) => {
+              setDescInput(e.target.value)
+            }}
+            placeholder='Description...'
+            value={descInput}
+            required
+          />
+        </FormGroup>
+        {renderSaveButtons()}
+      </form>
+    </ul>
   )
 }

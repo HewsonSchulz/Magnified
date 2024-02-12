@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Button, FormGroup, Label } from 'reactstrap'
+import { FormGroup, Label } from 'reactstrap'
 import { createCryptid, getCryptidById, updateCryptid } from '../../managers/cryptidManager'
-import { isEmptyObject } from '../../helper'
+import { getPhotoNum, isEmptyObject } from '../../helper'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquareCheck, faSquare } from '@fortawesome/free-solid-svg-icons'
+import './Form.css'
 
 export const CryptidForm = ({ loggedInUser }) => {
   const [imageUrlInput, setImageUrlInput] = useState('')
@@ -50,35 +53,64 @@ export const CryptidForm = ({ loggedInUser }) => {
   }
 
   const renderSaveButtons = () => {
-    if (cryptidId === 'new') {
-      if (formCompleted) {
-        return (
-          <Button color='primary' onClick={handleSubmit}>
-            Submit Proposal
-          </Button>
-        )
-      } else {
-        return (
-          <Button color='primary' disabled>
-            Submit Proposal
-          </Button>
-        )
-      }
+    if (formCompleted) {
+      return (
+        <>
+          <FontAwesomeIcon icon={faSquare} className='form__submit-icon__shadow' />
+          <FontAwesomeIcon icon={faSquareCheck} className='form__submit-icon' onClick={handleSubmit} />
+        </>
+      )
     } else {
-      if (formCompleted) {
-        return (
-          <Button color='primary' onClick={handleSubmit}>
-            Save
-          </Button>
-        )
-      } else {
-        return (
-          <Button color='primary' disabled>
-            Save
-          </Button>
-        )
-      }
+      return (
+        <>
+          <FontAwesomeIcon icon={faSquare} className='form__submit-icon-disabled__shadow' />
+          <FontAwesomeIcon icon={faSquareCheck} className='form__submit-icon-disabled' />
+        </>
+      )
     }
+  }
+
+  const renderImage = (cryptid) => {
+    if (!!cryptid.image) {
+      return (
+        <div className='cryptid-form__image-container'>
+          <img
+            className={`cryptid-photograph cryptid-photograph${getPhotoNum(cryptid.id)}`}
+            src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+            alt='photograph background'
+          />
+          <img
+            className={`cryptid-photograph__shadow cryptid-photograph__shadow${getPhotoNum(cryptid.id)}`}
+            src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+            alt='photograph background shadow'
+          />
+          <img
+            className={`cryptid__img cryptid__img${getPhotoNum(cryptid.id)}`}
+            src={cryptid.image}
+            alt={'A picture of ' + cryptid.name}
+          />
+        </div>
+      )
+    }
+    return (
+      <div className='cryptid-form__image-container'>
+        <img
+          className={`cryptid-photograph cryptid-photograph${getPhotoNum(cryptid.id)}`}
+          src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+          alt='photograph background'
+        />
+        <img
+          className={`cryptid-photograph__shadow cryptid-photograph__shadow${getPhotoNum(cryptid.id)}`}
+          src={`/assets/photograph${getPhotoNum(cryptid.id)}.png`}
+          alt='photograph background shadow'
+        />
+        <img
+          className={`cryptid__img cryptid__img${getPhotoNum(cryptid.id)}`}
+          src={'/assets/photograph3b.jpg'}
+          alt={'placeholder'}
+        />
+      </div>
+    )
   }
 
   useEffect(() => {
@@ -140,10 +172,13 @@ export const CryptidForm = ({ loggedInUser }) => {
   }, [cryptidId, navigate])
 
   return (
-    <ul>
-      {cryptid && cryptidId !== 'new' && (
-        <img className='cryptid-details__img' src={cryptid.image} alt={'provided url is invalid'} />
-      )}
+    <ul className='cryptid-form-container'>
+      <img className='form__paper' src='/assets/paper3.png' alt='paper background' />
+      <img className='form__paper__shadow1' src='/assets/paper3.png' alt='paper shadow' />
+      <img className='form__paper__shadow2' src='/assets/paper3.png' alt='paper shadow' />
+      <img className='form__paper__shadow3' src='/assets/paper3.png' alt='paper shadow' />
+      <img className='form__paper__shadow4' src='/assets/paper3.png' alt='paper shadow' />
+
       <form className='cryptid-form'>
         <FormGroup id='cryptid-form__name'>
           <Label for='cryptid-form__name-input'></Label>
@@ -184,6 +219,7 @@ export const CryptidForm = ({ loggedInUser }) => {
 
         {renderSaveButtons()}
       </form>
+      {cryptid && cryptidId !== 'new' && renderImage(cryptid)}
     </ul>
   )
 }

@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Button, FormGroup, Label } from 'reactstrap'
+import { FormGroup, Label } from 'reactstrap'
 import { updateUser } from '../../managers/userManager'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowsSpin, faSquare, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
+import { deepClone } from '../../helper'
+import '../profiles/Profile.css'
 
-export const ProfileForm = ({ loggedInUser }) => {
+export const ProfileForm = ({ loggedInUser, setLoggedInUser }) => {
   const [nameInput, setNameInput] = useState('')
   const [formCompleted, setFormCompleted] = useState(false)
   const { userId } = useParams()
@@ -14,11 +18,20 @@ export const ProfileForm = ({ loggedInUser }) => {
 
     if (formCompleted) {
       const updatedUser = loggedInUser
-      //TODO: add icon selection
       updatedUser.name = nameInput.trim()
 
       updateUser(updatedUser).then(navigate(`/profile/${loggedInUser.id}`))
     }
+  }
+
+  const updateIcon = () => {
+    const newUser = deepClone(loggedInUser)
+    if (newUser.iconNumber >= 7) {
+      newUser.iconNumber = 1
+    } else {
+      newUser.iconNumber += 1
+    }
+    updateUser(newUser).then(setLoggedInUser)
   }
 
   useEffect(() => {
@@ -43,32 +56,37 @@ export const ProfileForm = ({ loggedInUser }) => {
     <form className='profile-edit'>
       <img
         className='profile__img'
-        //TODO: make permanent icon options
-        src={`/assets/profIcon${loggedInUser.iconNumber}.png`}
+        src={`/assets/profIcons/profIcon${loggedInUser.iconNumber}.png`}
         alt={'Profile icon'}
       />
+      <FontAwesomeIcon icon={faArrowsSpin} className='profile-form__change-icon' onClick={updateIcon} />
+      <FontAwesomeIcon icon={faSquare} className='profile-form__change-icon__shadow' />
       <FormGroup id='profile-edit__name'>
         <Label for='profile-edit__name-input'></Label>
-        <input
-          id='profile-edit__name-input'
-          onChange={(e) => {
-            setNameInput(e.target.value)
-          }}
-          placeholder='John Doe'
-          value={nameInput}
-          required
-        />
+        <div className='profile-form__content-a'>
+          <input
+            id='profile-edit__name-input'
+            onChange={(e) => {
+              setNameInput(e.target.value)
+            }}
+            placeholder='John Doe'
+            value={nameInput}
+            required
+          />
+          {formCompleted ? (
+            <>
+              <FontAwesomeIcon icon={faSquare} className='profile-form__submit-icon__shadow' />
+              <FontAwesomeIcon icon={faSquareCheck} className='profile-form__submit-icon' onClick={handleSubmit} />
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon icon={faSquare} className='profile-form__submit-icon__shadow-disabled' />
+              <FontAwesomeIcon icon={faSquareCheck} className='profile-form__submit-icon-disabled' />
+            </>
+          )}
+        </div>
       </FormGroup>
       <div className='profile-edit__email'>{loggedInUser.email}</div>
-      {formCompleted ? (
-        <Button color='primary' onClick={handleSubmit}>
-          Save
-        </Button>
-      ) : (
-        <Button color='primary' onClick={handleSubmit} disabled>
-          Save
-        </Button>
-      )}
     </form>
   )
 }

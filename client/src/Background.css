@@ -1,0 +1,84 @@
+.background {
+  position: fixed;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  /*! children inherit this filter (all content) !*/
+  filter: grayscale(80%);
+}
+
+.background-image {
+  display: none;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--appBackground);
+  z-index: 999;
+  display: block;
+  background-size: cover;
+  pointer-events: none;
+  background-image: url('../public/assets/backgrounds/loading3.png');
+}
+
+.loading {
+  opacity: 100;
+  transition: none;
+}
+
+.not-loading {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.forest1 {
+  background-image: url('../public/assets/backgrounds/forest1.jpg');
+}
+.forest2 {
+  background-image: url('../public/assets/backgrounds/forest2.jpg');
+}
+.forest3 {
+  background-image: url('../public/assets/backgrounds/forest3.jpg');
+}
+.forest4 {
+  background-image: url('../public/assets/backgrounds/forest4.jpg');
+}
+.forest5 {
+  background-image: url('../public/assets/backgrounds/forest5.jpg');
+}
+.forest6 {
+  background-image: url('../public/assets/backgrounds/forest6.jpg');
+}
+.forest7 {
+  background-image: url('../public/assets/backgrounds/forest7.jpg');
+}
+.forest8 {
+  background-image: url('../public/assets/backgrounds/forest8.jpg');
+}
+.forest9 {
+  background-image: url('../public/assets/backgrounds/forest9.jpg');
+}
+.forest10 {
+  background-image: url('../public/assets/backgrounds/forest10.jpg');
+}
+.forest11 {
+  background-image: url('../public/assets/backgrounds/forest11.jpg');
+}
+.forest12 {
+  background-image: url('../public/assets/backgrounds/forest12.jpg');
+}
+.placeholder-background {
+  background-image: url('../public/assets/backgrounds/placeholder-background.jpg');
+}
+.wood1 {
+  background-image: url('../public/assets/backgrounds/wood1.jpg');
+}

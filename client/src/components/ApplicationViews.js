@@ -12,9 +12,49 @@ import { Profile } from './profiles/Profile'
 import { ProfileForm } from './forms/ProfileForm'
 import { CryptidForm } from './forms/CryptidForm'
 import { CryptidProposalsList } from './cryptids/CryptidProposalsList'
+import { useEffect, useState } from 'react'
 
 export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
+  const [loading, setLoading] = useState(true)
+  const [currentImage, setCurrentImage] = useState(null)
   const location = useLocation()
+  const url = location.pathname
+
+  const getBackgroundClass = () => {
+    //! if (url.startsWith('/sightings/edit')) {
+    //!   return 'forest1'
+    //! }
+    //! if (url.startsWith('/sightings')) {
+    //!   return 'forest2'
+    //! }
+    //! if (url.startsWith('/cryptids/edit')) {
+    //!   return 'forest3'
+    //! }
+    //! if (url.startsWith('/cryptids')) {
+    //!   return 'forest4'
+    //! }
+    //! if (url.startsWith('/proposals')) {
+    //!   return 'forest5'
+    //! }
+    //! if (url.startsWith('/profile')) {
+    //!   return 'forest6'
+    //! }
+    //! if (url.startsWith('/login')) {
+    //!   return 'forest7'
+    //! }
+    //! if (url.startsWith('/register')) {
+    //!   return 'forest8'
+    //! }
+
+    return 'wood1'
+  }
+
+  useEffect(() => {
+    if (getBackgroundClass() !== currentImage) {
+      setLoading(true)
+      setCurrentImage(getBackgroundClass())
+    }
+  }, [currentImage, url])
 
   return (
     <Routes>
@@ -22,14 +62,27 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
         path='/'
         element={
           <>
-            <NavBar loggedInUser={loggedInUser} />
-            <Outlet />
+            <NavBar loggedInUser={loggedInUser} url={url} />
+            <div className={`background ${getBackgroundClass()}`}>
+              <div className={`background-overlay ${loading ? 'loading' : 'not-loading'}`} />
+
+              <img
+                className='background-image'
+                src={`/assets/backgrounds/${getBackgroundClass()}.jpg`}
+                alt='Background'
+                onLoad={() => setLoading(false)}
+              />
+
+              <div className='content-container'>
+                <Outlet />
+              </div>
+            </div>
           </>
         }>
         <Route
           index
           element={
-            //TODO: create a home page (with modified navbar)
+            //TODO?: create a home page
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <Navigate to={'/sightings'} state={{ from: location }} replace />
             </AuthorizedRoute>
@@ -41,7 +94,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             index
             element={
               <AuthorizedRoute loggedInUser={loggedInUser}>
-                <SightingsList />
+                <SightingsList loggedInUser={loggedInUser} />
               </AuthorizedRoute>
             }
           />
@@ -50,7 +103,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
             path=':userId'
             element={
               <AuthorizedRoute loggedInUser={loggedInUser}>
-                <SightingsList />
+                <SightingsList loggedInUser={loggedInUser} />
               </AuthorizedRoute>
             }
           />
@@ -109,7 +162,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               path=':cryptidId'
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <SightingsList />
+                  <SightingsList loggedInUser={loggedInUser} />
                 </AuthorizedRoute>
               }
             />
@@ -200,7 +253,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               path=':userId'
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <ProfileForm loggedInUser={loggedInUser} />
+                  <ProfileForm loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                 </AuthorizedRoute>
               }
             />

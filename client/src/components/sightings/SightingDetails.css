@@ -1,0 +1,122 @@
+.sighting-details {
+  font-size: 20px;
+  --shadow-width: 20px;
+  --shadow-radius: 10px;
+  --shadow-color: rgb(0, 0, 0, 0.5);
+  --text-shadow-width: 0px;
+  --text-shadow-radius: 25px;
+  --text-shadow-color: rgba(255, 255, 255, 0.6);
+}
+
+.sighting-details li {
+  list-style: none;
+  text-shadow: var(--text-shadow-width) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    var(--text-shadow-width) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius)
+      var(--text-shadow-color);
+}
+
+.sighting-details__content-a,
+.sighting-details__content-b,
+.sighting-details__content-c {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 200px;
+  width: 1250px;
+}
+
+.sighting-details__author,
+.sighting-details__cryptid,
+.sighting-details__location,
+.sighting-details__time {
+  width: 400px;
+  font-size: 30px;
+}
+.sighting-details__author,
+.sighting-details__time {
+  margin-top: 100px;
+}
+.sighting-details__cryptid,
+.sighting-details__location {
+  margin-top: 20px;
+}
+.sighting-details__location,
+.sighting-details__time {
+  text-align: right;
+}
+.sighting-details__author-link:hover,
+.sighting-details__cryptid-link:hover {
+  text-decoration: underline;
+}
+
+#sighting-details__description {
+  margin-top: 70px;
+  width: 600px;
+}
+
+.sighting-details__journal-page {
+  z-index: -999;
+}
+.sighting-details__journal-page__shadow1,
+.sighting-details__journal-page__shadow2,
+.sighting-details__journal-page__shadow3,
+.sighting-details__journal-page__shadow4 {
+  z-index: -9999;
+}
+.sighting-details__journal-page,
+.sighting-details__journal-page__shadow1,
+.sighting-details__journal-page__shadow2,
+.sighting-details__journal-page__shadow3,
+.sighting-details__journal-page__shadow4 {
+  position: fixed;
+  left: 85px;
+  width: 1500px;
+}
+.sighting-details__journal-page__shadow1 {
+  filter: drop-shadow(var(--shadow-width) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
+  -webkit-filter: drop-shadow(var(--shadow-width) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
+}
+.sighting-details__journal-page__shadow2 {
+  filter: drop-shadow(calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
+  -webkit-filter: drop-shadow(
+    calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color)
+  );
+}
+.sighting-details__journal-page__shadow3 {
+  filter: drop-shadow(var(--shadow-width) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color));
+  -webkit-filter: drop-shadow(
+    var(--shadow-width) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
+  );
+}
+.sighting-details__journal-page__shadow4 {
+  filter: drop-shadow(
+    calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
+  );
+  -webkit-filter: drop-shadow(
+    calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
+  );
+}
+
+.sighting-details__icons {
+  display: flex;
+  flex-direction: column;
+  font-size: 100px;
+  margin-right: 50px;
+}
+.sighting-details__icons > * {
+  margin-top: 50px;
+}
+
+.sighting-details__edit-icon {
+  color: darkgreen;
+}
+.sighting-details__edit-icon:hover,
+.sighting-details__delete-icon:hover {
+  cursor: pointer;
+  color: rgb(22, 22, 22);
+}
+.sighting-details__delete-icon {
+  color: red;
+}

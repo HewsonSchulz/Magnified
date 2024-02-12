@@ -1,25 +1,76 @@
-/* ??? */
+.sighting {
+  --shadow-width: 20px;
+  --shadow-radius: 10px;
+  --shadow-color: rgb(0, 0, 0, 0.5);
+}
 
 .sighting,
-.sighting-details {
-  margin: 20px 0px;
+.sighting-newspaper {
+  width: 666px;
+  height: 500px;
 }
 
-#sighting-form__description_input {
-  width: 800px;
-  min-width: 500px;
-  max-width: 95%;
-  height: 400px;
-  min-height: 200px;
-  max-height: 650px;
-  resize: both;
+.sighting-newspaper {
+  position: absolute;
+  z-index: -1;
+  filter: drop-shadow(calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
+  -webkit-filter: drop-shadow(
+    calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color)
+  );
 }
 
-.delete-btn {
+.sightings-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.sighting-content {
+  margin-top: 8%;
+  margin-right: 20%;
+  margin-left: 16%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sighting-content__a,
+.sighting-content__b {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sighting__cryptid,
+.sighting__location {
+  margin-top: 5px;
+}
+
+.sighting__description {
+  margin-top: 10%;
+}
+
+.sighting {
+  border: rgba(0, 0, 0, 0) solid 0.1px;
+}
+
+.sighting__author-link:hover,
+.sighting__cryptid-link:hover {
+  text-decoration: underline;
+}
+
+.sighting__icons {
+  position: fixed;
+  font-size: 35px;
+  width: 400px;
+  margin-top: 325px;
+  margin-left: 15px;
+}
+
+.sighting__edit-icon {
   float: right;
-  margin-right: 20px;
+  color: darkgreen;
 }
-
-/* #sighting-form__cryptid {
-  margin-bottom: 0;
-} */
+.sighting__edit-icon:hover {
+  color: rgb(22, 22, 22);
+}
