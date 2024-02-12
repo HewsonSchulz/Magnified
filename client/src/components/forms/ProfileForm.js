@@ -18,7 +18,6 @@ export const ProfileForm = ({ loggedInUser, setLoggedInUser }) => {
 
     if (formCompleted) {
       const updatedUser = loggedInUser
-      //TODO!: add icon selection
       updatedUser.name = nameInput.trim()
 
       updateUser(updatedUser).then(navigate(`/profile/${loggedInUser.id}`))
@@ -57,7 +56,6 @@ export const ProfileForm = ({ loggedInUser, setLoggedInUser }) => {
     <form className='profile-edit'>
       <img
         className='profile__img'
-        //TODO!: make permanent icon options
         src={`/assets/profIcons/profIcon${loggedInUser.iconNumber}.png`}
         alt={'Profile icon'}
       />

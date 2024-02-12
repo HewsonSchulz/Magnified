@@ -82,7 +82,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
         <Route
           index
           element={
-            //TODO: create a home page (with modified navbar)
+            //TODO?: create a home page
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <Navigate to={'/sightings'} state={{ from: location }} replace />
             </AuthorizedRoute>

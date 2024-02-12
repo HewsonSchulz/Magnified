@@ -64,12 +64,7 @@ export const Profile = ({ loggedInUser }) => {
     <ul className='profile'>
       {user && (
         <>
-          <img
-            className='profile__img'
-            //TODO!: make permanent icon options
-            src={`/assets/profIcons/profIcon${user.iconNumber}.png`}
-            alt={'Profile icon'}
-          />
+          <img className='profile__img' src={`/assets/profIcons/profIcon${user.iconNumber}.png`} alt={'Profile icon'} />
           <div className='profile__content-a'>
             <li className='profile__name'>{user.name}</li>
             {isAuthor && (

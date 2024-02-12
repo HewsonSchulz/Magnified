@@ -40,10 +40,8 @@ export const SightingForm = ({ loggedInUser }) => {
             })
           } else {
             // create new location
-            //TODO: add location data
             createLocation({
               location: newLocation,
-              //TODO: add location data
             }).then((createdLocation) => {
               createSighting({
                 userId: loggedInUser.id,
@@ -77,7 +75,6 @@ export const SightingForm = ({ loggedInUser }) => {
               // create new location
               createLocation({
                 location: newLocation,
-                //TODO: add location data
               }).then((createdLocation) => {
                 updateSighting({
                   userId: existingSighting.userId,
