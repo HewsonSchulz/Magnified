@@ -17,7 +17,7 @@
 #sighting-form__description_input {
   height: 425px;
 }
-/*! "Cryptid:" and "Location:" need to be highlighted !*/
+
 #sighting-form__location_input,
 .sighting-form__cryptid-dropdown {
   border: none;
@@ -33,14 +33,35 @@
   --shadow-width: 20px;
   --shadow-radius: 10px;
   --shadow-color: rgb(0, 0, 0, 0.5);
+  --text-shadow-width: 0px;
+  --text-shadow-radius: 15px;
+  --text-shadow-color: rgba(255, 255, 255, 0.8);
   display: flex;
   justify-content: space-between;
 }
-
 .cryptid-form,
 .sighting-form {
   padding-top: 60px;
   padding-left: 50px;
+}
+
+.sighting-form__content-a {
+  display: flex;
+  justify-content: space-between;
+}
+
+#sighting-form__cryptid-dropdown-label,
+#sighting-form__location-input-label,
+.sighting-form__new-cryptid {
+  text-shadow: var(--text-shadow-width) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    var(--text-shadow-width) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius)
+      var(--text-shadow-color);
+}
+
+.sighting-form__new-cryptid-link:hover {
+  text-decoration: underline;
 }
 
 .form__submit-icon,

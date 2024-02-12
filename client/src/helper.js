@@ -90,3 +90,8 @@ export const getPhotoNum = (n) => {
   }
   return 1
 }
+
+// creates deep clone of given object
+export const deepClone = (obj) => {
+  return JSON.parse(JSON.stringify(obj))
+}

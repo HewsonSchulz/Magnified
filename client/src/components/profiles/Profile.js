@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getUserById, getUsers, updateAdmin } from '../../managers/userManager'
 import { Button } from 'reactstrap'
-import './Profile.css'
 import { isEmptyObject } from '../../helper'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquare, faSquarePen } from '@fortawesome/free-solid-svg-icons'
+import './Profile.css'
 
 export const Profile = ({ loggedInUser }) => {
   const [isAuthor, setIsAuthor] = useState(false)
@@ -16,7 +18,7 @@ export const Profile = ({ loggedInUser }) => {
       if (!isEmptyObject(user) && user.isAdmin) {
         return (
           <Button
-            className='demote-btn'
+            id='demote-btn'
             color='danger'
             onClick={(e) => {
               updateAdmin(user).then(setUser)
@@ -27,7 +29,7 @@ export const Profile = ({ loggedInUser }) => {
       } else {
         return (
           <Button
-            className='promote-btn'
+            id='promote-btn'
             color='success'
             onClick={(e) => {
               updateAdmin(user).then(setUser)
@@ -64,30 +66,29 @@ export const Profile = ({ loggedInUser }) => {
         <>
           <img
             className='profile__img'
-            //TODO: make permanent icon options
+            //TODO!: make permanent icon options
             src={`/assets/profIcons/profIcon${user.iconNumber}.png`}
             alt={'Profile icon'}
           />
-          <li className='profile__name'>{user.name}</li>
+          <div className='profile__content-a'>
+            <li className='profile__name'>{user.name}</li>
+            {isAuthor && (
+              <div>
+                <FontAwesomeIcon icon={faSquare} className='profile__edit-icon__shadow' />
+                <FontAwesomeIcon
+                  icon={faSquarePen}
+                  className='profile__edit-icon'
+                  onClick={(e) => {
+                    e.preventDefault()
+                    navigate(`/profile/edit/${loggedInUser.id}`)
+                  }}
+                />
+              </div>
+            )}
+          </div>
           <li className='profile__email'>{user.email}</li>
-          <li>
-            <Link to={`/sightings/${userId}`} className='cryptid-details__sightings-link'>
-              See {isAuthor ? 'your' : "this user's"} posted sightings...
-            </Link>
-          </li>
-          {isAuthor ? (
-            <Button
-              className='edit-btn'
-              color='warning'
-              onClick={(e) => {
-                e.preventDefault()
-                navigate(`/profile/edit/${loggedInUser.id}`)
-              }}>
-              Edit
-            </Button>
-          ) : (
-            renderAdminBtn()
-          )}
+
+          {!isAuthor && renderAdminBtn()}
         </>
       )}
     </ul>

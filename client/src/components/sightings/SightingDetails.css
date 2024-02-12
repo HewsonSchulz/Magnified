@@ -75,23 +75,25 @@
   width: 1500px;
 }
 .sighting-details__journal-page__shadow1 {
-  filter: 0;
+  filter: drop-shadow(var(--shadow-width) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
   -webkit-filter: drop-shadow(var(--shadow-width) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
 }
 .sighting-details__journal-page__shadow2 {
-  filter: 0;
+  filter: drop-shadow(calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color));
   -webkit-filter: drop-shadow(
     calc(var(--shadow-width) * -1) var(--shadow-width) var(--shadow-radius) var(--shadow-color)
   );
 }
 .sighting-details__journal-page__shadow3 {
-  filter: 0;
+  filter: drop-shadow(var(--shadow-width) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color));
   -webkit-filter: drop-shadow(
     var(--shadow-width) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
   );
 }
 .sighting-details__journal-page__shadow4 {
-  filter: 0;
+  filter: drop-shadow(
+    calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
+  );
   -webkit-filter: drop-shadow(
     calc(var(--shadow-width) * -1) calc(var(--shadow-width) * -1) var(--shadow-radius) var(--shadow-color)
   );

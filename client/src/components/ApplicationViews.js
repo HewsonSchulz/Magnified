@@ -253,7 +253,7 @@ export const ApplicationViews = ({ loggedInUser, setLoggedInUser }) => {
               path=':userId'
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <ProfileForm loggedInUser={loggedInUser} />
+                  <ProfileForm loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
                 </AuthorizedRoute>
               }
             />
