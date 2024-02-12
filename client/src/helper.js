@@ -44,12 +44,7 @@ export const isValidEmail = (email) => {
 
 // list of possible filter options
 export const getFilterOptions = () => {
-  return [
-    'Most Recent',
-    'Cryptid',
-    'Author',
-    //TODO?: 'Number of Likes'
-  ].slice()
+  return ['Most Recent', 'Cryptid', 'Author'].slice()
 }
 
 // sorts given array alphabetically based on given key

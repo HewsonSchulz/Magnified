@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { SightingFilterBar } from '../filtering/SightingFilterBar'
 import { SearchBar } from '../filtering/SearchBar'
 import { calculateMatchingData } from '../../helper'
+import { getUsers } from '../../managers/userManager'
+import { getCryptidById, getCryptids } from '../../managers/cryptidManager'
 
 export const SightingsList = ({ loggedInUser }) => {
   const [allSightings, setAllSightings] = useState([])
@@ -38,27 +40,46 @@ export const SightingsList = ({ loggedInUser }) => {
 
   useEffect(() => {
     if (!!parseInt(userId)) {
+      getUsers().then((users) => {
+        if (users.length < parseInt(userId)) {
+          // user does not exist
+          navigate(`/sightings/${loggedInUser.id}`)
+        }
+      })
+
       setMySightings([...allSightings].filter((sighting) => sighting.userId === parseInt(userId)))
     } else if (!!parseInt(cryptidId)) {
+      getCryptids().then((cryptids) => {
+        if (cryptids.length < parseInt(cryptidId)) {
+          // cryptid does not exist
+          navigate('/sightings')
+        } else {
+          getCryptidById(parseInt(cryptidId)).then((cryptid) => {
+            if (cryptid.status !== 'approved') {
+              // cryptid is an unapproved proposal
+              navigate('/sightings')
+            }
+          })
+        }
+      })
+
       setCryptidSightings([...allSightings].filter((sighting) => sighting.cryptidId === parseInt(cryptidId)))
     } else {
       navigate('/sightings')
     }
 
     resetOptions()
-  }, [allSightings, cryptidId, navigate, userId])
+  }, [allSightings, cryptidId, loggedInUser, navigate, userId])
 
   useEffect(() => {
     let currentSightings = [...allSightings]
     if (!!userId) {
       currentSightings = [...mySightings]
       //TODO: write a message for if the author has no posted sightings
-      //TODO: redirect to home if the author doesn't exist
     }
     if (!!cryptidId) {
       currentSightings = [...cryptidSightings]
       //TODO: write a message for if the cryptid has no posted sightings
-      //TODO: redirect to home if the cryptid doesn't exist
     }
 
     // if we are searching

@@ -116,5 +116,3 @@ export const SightingFilterBar = ({
 
   return <>{displayFilterBar(filterType)}</>
 }
-
-//TODO?: add option to filter by number of likes
