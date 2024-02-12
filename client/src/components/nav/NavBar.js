@@ -4,6 +4,13 @@ import { Logout } from './Logout'
 export const NavBar = ({ loggedInUser, url }) => {
   return (
     <ul className='navbar'>
+      <li className='navbar__images'>
+        <img className='navbar-img1' src='/assets/navbar1.png' alt='navigation bar' />
+        <img className='navbar-img2' src='/assets/navbar1.png' alt='navigation bar' />
+        <img className='navbar-img3' src='/assets/navbar1.png' alt='navigation bar' />
+        <img className='navbar-img4' src='/assets/navbar1.png' alt='navigation bar' />
+      </li>
+
       <li className='navbar__item'>
         <Link to='/sightings' className='navbar__link' id={url === '/sightings' ? 'selected' : ''}>
           All Sightings

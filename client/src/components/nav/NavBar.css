@@ -1,15 +1,16 @@
 /* ??? */
-/*! navbar currently does not stay in place when scrolling !*/
 
 .navbar {
   display: flex;
-  background-color: var(--dark);
   width: 100%;
-  padding: 0.5rem;
   position: fixed;
   top: 0;
-  /* bring to front */
-  z-index: 1000;
+  padding: 0;
+  z-index: 100;
+
+  --text-shadow-width: 0px;
+  --text-shadow-radius: 5px;
+  --text-shadow-color: rgba(255, 255, 255, 0.5);
 }
 
 .navbar__item {
@@ -17,6 +18,7 @@
   list-style-type: none;
   text-align: center;
   color: var(--offWhite);
+  z-index: 100;
 }
 
 .navbar__link {
@@ -33,10 +35,32 @@
 }
 
 .navbar__link:hover {
-  color: var(--secondary);
+  color: var(--offWhite);
+  text-shadow: var(--text-shadow-width) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    var(--text-shadow-width) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius)
+      var(--text-shadow-color);
 }
 
 #selected {
-  color: var(--secondary);
-  /* -webkit-text-stroke: 1px; */
+  color: var(--offWhite);
+  text-shadow: var(--text-shadow-width) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    var(--text-shadow-width) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) var(--text-shadow-width) var(--text-shadow-radius) var(--text-shadow-color),
+    calc(var(--text-shadow-width) * -1) calc(var(--text-shadow-width) * -1) var(--text-shadow-radius)
+      var(--text-shadow-color);
+}
+
+.navbar__images {
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+  display: flex;
+}
+.navbar-img1,
+.navbar-img2,
+.navbar-img3,
+.navbar-img4 {
+  width: 25%;
 }
