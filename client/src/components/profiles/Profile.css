@@ -17,6 +17,7 @@
 .profile__img {
   width: 300px;
   margin-bottom: 20px;
+  user-select: none;
 }
 
 .profile > *,
