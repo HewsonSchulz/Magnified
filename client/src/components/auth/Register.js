@@ -106,7 +106,10 @@ export const Register = ({ setLoggedInUser }) => {
         </Button>
       </div>
       <p className='login__register-link'>
-        Already signed up? Log in <Link to='/login'>here</Link>
+        Already signed up? Log in{' '}
+        <Link to='/login' id='auth-link'>
+          here
+        </Link>
       </p>
     </div>
   )

@@ -24,3 +24,11 @@
 .login__register-link {
   margin-top: 50px;
 }
+
+#auth-link {
+  color: #0c6ffd;
+}
+
+#auth-link:hover {
+  text-decoration: underline;
+}
