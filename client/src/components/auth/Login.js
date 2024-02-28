@@ -6,7 +6,7 @@ import './Login.css'
 
 export const Login = ({ setLoggedInUser }) => {
   const navigate = useNavigate()
-  const [email, setEmail] = useState('') //// default email "hewson@bruh.com"
+  const [email, setEmail] = useState('hewson@bruh.com') // default email
   const [failedLogin, setFailedLogin] = useState(false)
 
   const handleSubmit = (e) => {
