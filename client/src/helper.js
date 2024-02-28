@@ -1,5 +1,6 @@
 // URL of the hosted API
-export const apiUrl = 'http://localhost:8088'
+//// export const apiUrl = 'http://localhost:8088'
+export const apiUrl = 'http://localhost:8000'
 
 // generates options for fetch calls
 export const fetchOptions = (method, body) => {
