@@ -2,7 +2,7 @@ import json
 from http.server import HTTPServer
 from request_handler import HandleRequests, status
 from views import get_user, get_all_users, create_user, update_user
-from .helper import has_unsupported_params
+from helper import has_unsupported_params
 
 
 class JSONServer(HandleRequests):
