@@ -1,12 +1,13 @@
 import sqlite3
 import json
+from .views_helper import dict_factory
 
 database = './api/magnified.sqlite3'
 
 
 def get_user(pk):
     with sqlite3.connect(database) as conn:
-        conn.row_factory = sqlite3.Row
+        conn.row_factory = dict_factory
         db_cursor = conn.cursor()
 
         db_cursor.execute(
@@ -25,12 +26,12 @@ def get_user(pk):
 
         query_results = db_cursor.fetchone()
 
-    return json.dumps(dict(query_results)) if query_results else None
+    return json.dumps(query_results) if query_results else None
 
 
 def get_all_users():
     with sqlite3.connect(database) as conn:
-        conn.row_factory = sqlite3.Row
+        conn.row_factory = dict_factory
         db_cursor = conn.cursor()
 
         db_cursor.execute(
@@ -49,14 +50,14 @@ def get_all_users():
         users = []
 
         for row in query_results:
-            users.append(dict(row))
+            users.append(row)
 
     return json.dumps(users) if query_results else None
 
 
 def create_user(user):
     with sqlite3.connect(database) as conn:
-        conn.row_factory = sqlite3.Row
+        conn.row_factory = dict_factory
         db_cursor = conn.cursor()
 
         db_cursor.execute(
@@ -70,6 +71,31 @@ def create_user(user):
 
         if db_cursor.rowcount > 0:
             user['id'] = db_cursor.lastrowid
-            return user
+            return json.dumps(user)
+
+    return None
+
+
+def update_user(pk, user):
+    with sqlite3.connect(database) as conn:
+        conn.row_factory = dict_factory
+        db_cursor = conn.cursor()
+
+        db_cursor.execute(
+            '''
+            UPDATE Users
+                SET
+                    name = ?,
+                    email = ?,
+                    iconNumber = ?,
+                    isAdmin = ?
+            WHERE id = ?
+            ''',
+            (user['name'], user['email'], user['iconNumber'], user['isAdmin'], pk),
+        )
+
+        if db_cursor.rowcount > 0:
+            user['id'] = pk
+            return json.dumps(user)
 
     return None

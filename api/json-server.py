@@ -1,7 +1,7 @@
 import json
 from http.server import HTTPServer
 from request_handler import HandleRequests, status
-from views import get_user, get_all_users, create_user
+from views import get_user, get_all_users, create_user, update_user
 
 
 class JSONServer(HandleRequests):
@@ -16,13 +16,12 @@ class JSONServer(HandleRequests):
         if url['requested_resource'] == 'users':
             if url['pk'] != 0:
                 response_body = get_user(url['pk'])
-                return (
-                    self.response(response_body, status.HTTP_200_SUCCESS.value)
-                    if response_body
-                    else self.response(
+                if response_body:
+                    return self.response(response_body, status.HTTP_200_SUCCESS.value)
+                else:
+                    return self.response(
                         '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
                     )
-                )
 
             response_body = get_all_users()
             return self.response(response_body, status.HTTP_200_SUCCESS.value)
@@ -59,16 +58,38 @@ class JSONServer(HandleRequests):
             request_body = json.loads(request_body)
             new_user = create_user(request_body)
             if new_user:
-                return self.response(
-                    json.dumps(new_user), status.HTTP_201_SUCCESS_CREATED.value
-                )
+                return self.response(new_user, status.HTTP_201_SUCCESS_CREATED.value)
             else:
                 return self.response('', status.HTTP_500_SERVER_ERROR.value)
 
         else:
             return self.response(
-                '', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
+                '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
             )
+
+    def do_PUT(self):
+        '''handle PUT requests from a client'''
+
+        url = self.parse_url(self.path)
+        pk = url['pk']
+
+        if url['requested_resource'] == 'users':
+            content_len = int(self.headers.get('content-length', 0))
+            request_body = self.rfile.read(content_len)
+            request_body = json.loads(request_body)
+            if pk != 0:
+                updated_user = update_user(pk, request_body)
+                if updated_user:
+                    return self.response(updated_user, status.HTTP_200_SUCCESS.value)
+                else:
+                    return self.response(
+                        '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
+                    )
+
+        return self.response(
+            '{}',
+            status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value,
+        )
 
 
 def main():
