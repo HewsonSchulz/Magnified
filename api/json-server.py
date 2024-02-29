@@ -4,47 +4,65 @@ from request_handler import HandleRequests, status
 from views import get_user, get_all_users, create_user, update_user
 
 
+def has_unsupported_params(url, supported_params=[]):
+    return (
+        len([param for param in url['query_params'] if param not in supported_params])
+        > 0
+    )
+
+
 class JSONServer(HandleRequests):
     '''server class to handle incoming HTTP requests'''
 
     def do_GET(self):
         '''handle GET requests'''
 
-        response_body = ''
         url = self.parse_url(self.path)
 
         if url['requested_resource'] == 'users':
+            if has_unsupported_params(url, ['email']):
+                return self.response(
+                    '', status.HTTP_400_CLIENT_ERROR_BAD_REQUEST_DATA.value
+                )
+
+            email = url['query_params'].get('email', [None])[0]
+
             if url['pk'] != 0:
-                response_body = get_user(url['pk'])
-                if response_body:
-                    return self.response(response_body, status.HTTP_200_SUCCESS.value)
+                fetched_user = get_user(url['pk'])
+                if fetched_user:
+                    return self.response(fetched_user, status.HTTP_200_SUCCESS.value)
                 else:
                     return self.response(
                         '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
                     )
 
-            response_body = get_all_users()
-            return self.response(response_body, status.HTTP_200_SUCCESS.value)
+            fetched_users = get_all_users(email)
+            if fetched_users:
+                return self.response(fetched_users, status.HTTP_200_SUCCESS.value)
+            else:
+                return self.response(
+                    '[]', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
+                )
 
         elif url['requested_resource'] == 'sightings':
             # TODO
             return self.response(
-                '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
+                '[]', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
             )
         elif url['requested_resource'] == 'cryptids':
             # TODO
             return self.response(
-                '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
+                '[]', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
             )
         elif url['requested_resource'] == 'locations':
             # TODO
             return self.response(
-                '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
+                '[]', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
             )
 
         else:
             return self.response(
-                '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
+                '[]', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
             )
 
     def do_POST(self):
