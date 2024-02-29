@@ -6,6 +6,8 @@ database = './api/magnified.sqlite3'
 
 
 def get_user(pk):
+    '''returns requested user object'''
+
     with sqlite3.connect(database) as conn:
         conn.row_factory = dict_factory
         db_cursor = conn.cursor()
@@ -30,12 +32,15 @@ def get_user(pk):
 
 
 def get_all_users(email):
+    '''returns requested list of users'''
+
     with sqlite3.connect(database) as conn:
         conn.row_factory = dict_factory
         db_cursor = conn.cursor()
 
         users = []
         if not email:
+            # email is not specified; get all users
             db_cursor.execute(
                 '''
                 SELECT
@@ -52,6 +57,7 @@ def get_all_users(email):
             for row in query_results:
                 users.append(row)
         else:
+            # email is specified; get matching user
             db_cursor.execute(
                 '''
                 SELECT
@@ -73,6 +79,8 @@ def get_all_users(email):
 
 
 def create_user(user):
+    '''returns created user object'''
+
     with sqlite3.connect(database) as conn:
         conn.row_factory = dict_factory
         db_cursor = conn.cursor()
@@ -94,6 +102,8 @@ def create_user(user):
 
 
 def update_user(pk, user):
+    '''returns updated user object'''
+
     with sqlite3.connect(database) as conn:
         conn.row_factory = dict_factory
         db_cursor = conn.cursor()
