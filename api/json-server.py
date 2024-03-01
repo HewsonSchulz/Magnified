@@ -16,7 +16,7 @@ class JSONServer(HandleRequests):
         # users:
         if url['requested_resource'] == 'users':
             if has_unsupported_params(url, ['email']):
-                # request contains bad specifications
+                # request contains bad data
                 return self.response(
                     '', status.HTTP_400_CLIENT_ERROR_BAD_REQUEST_DATA.value
                 )
@@ -72,24 +72,38 @@ class JSONServer(HandleRequests):
 
         url = self.parse_url(self.path)
 
-        # users:
-        if url['requested_resource'] == 'users':
-            content_len = int(self.headers.get('content-length', 0))
-            request_body = self.rfile.read(content_len)
-            request_body = json.loads(request_body)
-            new_user = create_user(request_body)
-            if new_user:
-                # user creation was successful
-                return self.response(new_user, status.HTTP_201_SUCCESS_CREATED.value)
-            else:
-                # user creation was unsuccessful
-                return self.response('', status.HTTP_500_SERVER_ERROR.value)
+        if url['pk'] == 0:
+            # users:
+            if url['requested_resource'] == 'users':
+                content_len = int(self.headers.get('content-length', 0))
+                request_body = self.rfile.read(content_len)
+                request_body = json.loads(request_body)
 
+                try:
+                    new_user = create_user(request_body)
+                except KeyError:
+                    # request contains bad data
+                    return self.response(
+                        '', status.HTTP_400_CLIENT_ERROR_BAD_REQUEST_DATA.value
+                    )
+
+                if new_user:
+                    # user creation was successful
+                    return self.response(
+                        new_user, status.HTTP_201_SUCCESS_CREATED.value
+                    )
+                else:
+                    # user creation was unsuccessful
+                    return self.response('', status.HTTP_500_SERVER_ERROR.value)
+
+            else:
+                # invalid request
+                return self.response(
+                    '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
+                )
         else:
             # invalid request
-            return self.response(
-                '{}', status.HTTP_404_CLIENT_ERROR_RESOURCE_NOT_FOUND.value
-            )
+            return self.response('', status.HTTP_405_METHOD_NOT_ALLOWED.value)
 
     def do_PUT(self):
         '''handle PUT requests from a client'''
