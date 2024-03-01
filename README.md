@@ -27,7 +27,7 @@ To run this project locally, follow these steps:
      ```
      npx json-server database.json -p 8088
      ```
-     _NOTE: The default port is set to `8088`. Should you decide to change this number, you will also need to change the `apiUrl` variable within the `helper.js` file to match your new port number._
+     ###### _NOTE: The default port is set to `8088`. Should you decide to change this number, you will also need to change the `apiUrl` variable within the `helper.js` file to match your new port number._
 
 2. **Start the Application**:
 
