@@ -1,6 +1,7 @@
 import json
 from http.server import HTTPServer
 from request_handler import HandleRequests, status
+from json.decoder import JSONDecodeError
 from views import get_user, get_all_users, create_user, update_user
 from helper import has_unsupported_params
 
@@ -18,7 +19,8 @@ class JSONServer(HandleRequests):
             if has_unsupported_params(url, ['email']):
                 # request contains bad data
                 return self.response(
-                    '', status.HTTP_400_CLIENT_ERROR_BAD_REQUEST_DATA.value
+                    'Unsupported parameter specifications.',
+                    status.HTTP_400_CLIENT_ERROR_BAD_REQUEST_DATA.value,
                 )
 
             email = url['query_params'].get('email', [None])[0]
@@ -75,16 +77,16 @@ class JSONServer(HandleRequests):
         if url['pk'] == 0:
             # users:
             if url['requested_resource'] == 'users':
-                content_len = int(self.headers.get('content-length', 0))
-                request_body = self.rfile.read(content_len)
-                request_body = json.loads(request_body)
-
                 try:
+                    content_len = int(self.headers.get('content-length', 0))
+                    request_body = self.rfile.read(content_len)
+                    request_body = json.loads(request_body)
                     new_user = create_user(request_body)
-                except KeyError:
-                    # request contains bad data
+                except (JSONDecodeError, KeyError):
+                    # request contains missing data
                     return self.response(
-                        '', status.HTTP_400_CLIENT_ERROR_BAD_REQUEST_DATA.value
+                        'Your request is missing necessary user information.',
+                        status.HTTP_400_CLIENT_ERROR_BAD_REQUEST_DATA.value,
                     )
 
                 if new_user:
@@ -94,7 +96,9 @@ class JSONServer(HandleRequests):
                     )
                 else:
                     # user creation was unsuccessful
-                    return self.response('', status.HTTP_500_SERVER_ERROR.value)
+                    return self.response(
+                        'Failed to create user.', status.HTTP_500_SERVER_ERROR.value
+                    )
 
             else:
                 # invalid request
@@ -103,7 +107,10 @@ class JSONServer(HandleRequests):
                 )
         else:
             # invalid request
-            return self.response('', status.HTTP_405_METHOD_NOT_ALLOWED.value)
+            return self.response(
+                'Cannot POST to a specific row. Did you mean PUT?',
+                status.HTTP_405_METHOD_NOT_ALLOWED.value,
+            )
 
     def do_PUT(self):
         '''handle PUT requests from a client'''
