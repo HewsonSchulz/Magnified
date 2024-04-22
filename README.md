@@ -10,7 +10,7 @@ Magnified is a front-end capstone project developed by [Hewson Schulz](https://g
 
 2. If you haven't already, you'll also need to install the project dependencies. In the project directory, run:
 
-   ```
+   ```zsh
    npm install
    ```
 
@@ -24,7 +24,7 @@ To run this project locally, follow these steps:
 
    - Navigate to the `api` directory of the project in your terminal.
    - Run the following command to start the JSON Server, which will simulate a backend server:
-     ```
+     ```zsh
      npx json-server database.json -p 8088
      ```
      ###### NOTE: The default port is set to `8088`. Should you decide to change this number, you will also need to change the `apiUrl` variable within the `helper.js` file to match your new port number.
@@ -33,7 +33,7 @@ To run this project locally, follow these steps:
 
    - In a seperate terminal window, navigate to the `client` directory of the project.
    - Run the following command to start the application:
-     ```
+     ```zsh
      npm start
      ```
 
